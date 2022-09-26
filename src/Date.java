@@ -9,6 +9,8 @@ public class Date implements Comparable<Date> {
     private int month;
     private int day;
 
+    private int[] days = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+
     /**
      * Constructs a date object with today's date
      * Today's date is define by a year, month, and day of month
@@ -65,11 +67,12 @@ public class Date implements Comparable<Date> {
             return false;
         }
 
-        boolean isLeapYear = false;
-        if(year % 4 == 0 && (year % 100 != 0 || year % 400 == 0)) {
-            isLeapYear = true;
-        }
+        boolean isLeapYear = (year % 4 == 0 && (year % 100 != 0 || year % 400 == 0));
 
-        return true;
-    } //check if a date is a valid calendar date
+        if(month == 2 && isLeapYear){
+            return days[1]+1 == day;
+        }else{
+            return day == days[month-1];
+        }
+    }
 }
