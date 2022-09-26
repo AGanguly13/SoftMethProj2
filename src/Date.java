@@ -15,9 +15,9 @@ public class Date implements Comparable<Date> {
      */
     public Date() {
         Calendar today = Calendar.getInstance();
-        this.year = today.get(Calendar.YEAR);
-        this.month = today.get(Calendar.MONTH);
-        this.day = today.get(Calendar.DAY_OF_MONTH);
+        year = today.get(Calendar.YEAR);
+        month = today.get(Calendar.MONTH);
+        day = today.get(Calendar.DAY_OF_MONTH);
     }
 
     /**
@@ -26,9 +26,9 @@ public class Date implements Comparable<Date> {
      */
     public Date(String date) {
         String[] split_date = date.split("/");
-        this.month = Integer.parseInt(split_date[0]);
-        this.day = Integer.parseInt(split_date[1]);
-        this.year = Integer.parseInt(split_date[2]);
+        month = Integer.parseInt(split_date[0]);
+        day = Integer.parseInt(split_date[1]);
+        year = Integer.parseInt(split_date[2]);
     }
 
     /**
@@ -39,16 +39,37 @@ public class Date implements Comparable<Date> {
      */
     @Override
     public int compareTo(Date date) {
-        if(this.year > date.year) return 1;
-        else if(this.year < date.year) return -1;
-        else if(this.month > date.month) return 1;
-        else if(this.month < date.month) return -1;
-        else if(this.day > date.day) return 1;
-        else if(this.day < date.day) return -1;
+
+        if(this.year > date.year)
+            return 1;
+        else if(this.year < date.year)
+            return -1;
+        else if(this.month > date.month)
+            return 1;
+        else if(this.month < date.month)
+            return -1;
+        else if(this.day > date.day)
+            return 1;
+        else if(this.day < date.day)
+            return -1;
 
         return 0;
     }
+
+    /**
+     * Determines if the date object is valid
+     * @return true is valid, false otherwise
+     */
     public boolean isValid() {
-        return false;
+        if(month < 1 || month > 12){
+            return false;
+        }
+
+        boolean isLeapYear = false;
+        if(year % 4 == 0 && (year % 100 != 0 || year % 400 == 0)) {
+            isLeapYear = true;
+        }
+
+        return true;
     } //check if a date is a valid calendar date
 }
