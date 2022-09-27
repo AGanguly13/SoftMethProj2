@@ -1,9 +1,8 @@
-import java.util.Calendar;
-
 /**
- * Defines the day, month, and year for the date object
- * @author Kennan
+ * Defines the date object as day, month, and year
+ * @author Kennan Guan
  */
+import java.util.Calendar;
 public class Date implements Comparable<Date> {
     private int year;
     private int month;
