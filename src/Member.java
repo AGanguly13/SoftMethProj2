@@ -10,7 +10,26 @@ public class Member implements Comparable<Member> {
     private Date expire;
     private Location location;
 
-    public int getLongerName (String name1, String name2) {
+    /**
+     * Constructs a member object based on information parsed and split from the command line
+     * @param newMember is the string from the command line detailing the member information
+     */
+    public Member (String newMember) {
+        String[] splitMember = newMember.split(" ");
+        fname = splitMember[0];
+        lname = splitMember[1];
+        dob = Date(splitMember[2]);
+        expire = Date(splitMember[3]);
+        location = Location(splitMember[4]);
+    }
+
+    /**
+     * Helper method for compareTo method that compares the lengths of either first or last names
+     * @param name1 is either the first or last name of this object
+     * @param name2 is either the first or last name of the object being compared
+     * @return the integer length of the longest name out of the two being compared
+     */
+    private int getLongerName (String name1, String name2) {
         if (name2.length() > name1.length()) {
             return name2.length();
         }
@@ -67,19 +86,19 @@ public class Member implements Comparable<Member> {
         // variable that will be assigned the longer last or first name
         int maxLength = getLongerName(this.lname, member.lname);
         char[] thisLastName = this.lname.toCharArray();
-        char[] memberLastName = member.lname.toCharArray();
+        char[] memLastName = member.lname.toCharArray();
         for (int x = 0; x < maxLength; x++) {
-            if (thisLastName[x] != memberLastName[x]) {
-                return thisLastName[x] - memberLastName[x];
+            if (Character.toLowerCase(thisLastName[x]) != Character.toLowerCase(memLastName[x])) {
+                return thisLastName[x] - memLastName[x];
             }
         }
 
         maxLength = getLongerName(this.fname, member.fname);
         char[] thisFirstName = this.fname.toCharArray();
-        char[] memberFirstName = member.fname.toCharArray();
+        char[] memFirstName = member.fname.toCharArray();
         for (int y = 0; y < maxLength; y++) {
-            if (thisFirstName[y] != memberFirstName[y]) {
-                return thisFirstName[y] - memberFirstName[y];
+            if (Character.toLowerCase(thisFirstName[y]) != Character.toLowerCase(memFirstName[y])) {
+                return thisFirstName[y] - memFirstName[y];
             }
         }
         return 0;
