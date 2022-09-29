@@ -4,15 +4,23 @@
  * @author Kennan Guan
  */
 public enum Time {
-    PILATES(9,30),
-    SPINNING(14,00),
-    CARDIO(14,00);
+    PILATES("9:30", "Jennifer"),
+    SPINNING("14:00", "Denise"),
+    CARDIO("14:00", "Kim");
 
-    private final int hour;
-    private final int minutes;
+    private final String time;
+    private final String instructor;
 
-    Time(int hour, int minutes){
-        this.hour = hour;
-        this.minutes = minutes;
+    Time(String time, String instructor){
+        this.time = time;
+        this.instructor = instructor;
+    }
+
+    public String getTime(){
+        return time;
+    }
+
+    public String getInstructor(){
+        return instructor;
     }
 }
