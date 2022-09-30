@@ -24,6 +24,46 @@ public class Member implements Comparable<Member> {
     }
 
     /**
+     * Getter method for Member first name
+     * @return a String representing the first name of the Member
+     */
+    public String getFname() {
+        return this.fname;
+    }
+
+    /**
+     * Getter method for Member last name
+     * @return a String representing the last name of the Member
+     */
+    public String getLname() {
+        return this.lname;
+    }
+
+    /**
+     * Getter method for Member date of birth
+     * @return a Date object representing the member's date of birth
+     */
+    public Date getDob(){
+        return this.dob;
+    }
+
+    /**
+     * Getter method for Member's gym membership expiration date
+     * @return a Date object representing the member's date of membership expiration
+     */
+    public Date getExpire(){
+        return this.dob;
+    }
+
+    /**
+     * Getter method for Member's gym location
+     * @return a Location object representing the member's gym location
+     */
+    public Location getLocation() {
+        return this.location;
+    }
+
+    /**
      * Helper method for compareTo method that compares the lengths of either first or last names
      * @param name1 is either the first or last name of this object
      * @param name2 is either the first or last name of the object being compared
