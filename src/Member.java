@@ -1,6 +1,6 @@
 /**
- * Defines a member object to be a part of a gym
- * Implements compareTo(), toString(), and equals() methods for comparing and representing members
+ * Defines a member object to be a part of a gym.
+ * Implements compareTo(), toString(), and equals() methods for comparing and representing members.
  * @author Adwait Ganguly
  */
 public class Member implements Comparable<Member> {
@@ -11,8 +11,8 @@ public class Member implements Comparable<Member> {
     private Location location;
 
     /**
-     * Constructs a member object based on information parsed and split from the command line
-     * @param newMember is the string from the command line detailing the member information
+     * Constructs a member object based on String parsed from the command line and then split.
+     * @param newMember is the string from the command line detailing the member information.
      */
     public Member (String newMember) {
         String[] splitMember = newMember.split(" ");
@@ -24,50 +24,51 @@ public class Member implements Comparable<Member> {
     }
 
     /**
-     * Getter method for Member first name
-     * @return a String representing the first name of the Member
+     * Getter method for Member first name.
+     * @return a String representing the first name of the Member.
      */
     public String getFname() {
         return this.fname;
     }
 
     /**
-     * Getter method for Member last name
-     * @return a String representing the last name of the Member
+     * Getter method for Member last name.
+     * @return a String representing the last name of the Member.
      */
     public String getLname() {
         return this.lname;
     }
 
     /**
-     * Getter method for Member date of birth
-     * @return a Date object representing the member's date of birth
+     * Getter method for Member date of birth.
+     * @return a Date object representing the member's date of birth.
      */
     public Date getDob(){
         return this.dob;
     }
 
     /**
-     * Getter method for Member's gym membership expiration date
-     * @return a Date object representing the member's date of membership expiration
+     * Getter method for Member's gym membership expiration date.
+     * @return a Date object representing the member's date of membership expiration.
      */
     public Date getExpire(){
         return this.dob;
     }
 
     /**
-     * Getter method for Member's gym location
-     * @return a Location object representing the member's gym location
+     * Getter method for Member's gym location.
+     * @return a Location object representing the member's gym location.
      */
     public Location getLocation() {
         return this.location;
     }
 
     /**
-     * Helper method for compareTo method that compares the lengths of either first or last names
-     * @param name1 is either the first or last name of this object
-     * @param name2 is either the first or last name of the object being compared
-     * @return the integer length of the longest name out of the two being compared
+     * Helper method for the compareTo method that compares the lengths of either the first or last
+     * names of a member.
+     * @param name1 is either the first or last name of this member object.
+     * @param name2 is either the first or last name of the member object being compared.
+     * @return the integer length of the longest name out of the two being compared.
      */
     private int getLongerName (String name1, String name2) {
         if (name2.length() > name1.length()) {
@@ -79,9 +80,9 @@ public class Member implements Comparable<Member> {
     }
 
     /**
-     * Constructs a textual representation of a Member object
+     * Constructs a textual representation of a Member object.
      * @return a String in the format: "firstName lastname, DOB: mm/dd/yyyy, Membership expires
-     * mm/dd/yyyy, Location: City, Zip Code, County"
+     * mm/dd/yyyy, Location: City, Zip Code, County".
      */
     @Override
     public String toString() {
@@ -90,10 +91,10 @@ public class Member implements Comparable<Member> {
     }
 
     /**
-     * Checks if two objects are of the same class or if either is null, then checks equality
-     * @param obj an object that is not necessarily a Member object, used for comparison
+     * Checks if two objects are of the same class or if either is null, then checks equality.
+     * @param obj an object that is not necessarily a Member object, and is used for comparison.
      * @return true if first name, last name, and DOB of objects are all equal,
-     * otherwise returns false
+     * otherwise returns false.
      */
     @Override
     public boolean equals(Object obj) {
@@ -113,9 +114,10 @@ public class Member implements Comparable<Member> {
 
     /**
      *
-     * @param member is the member object whose last and first name will be compared to this object
+     * @param member is the member object whose last and first name will be compared to this member
+     * object.
      * @return positive number, 0, or negative number based on if this object's name is
-     * alphabetically greater than, equal to, or less than the member parameters name, respectively
+     * alphabetically greater than, equal to, or less than the member parameters name, respectively.
      */
     @Override
     public int compareTo(Member member) {
