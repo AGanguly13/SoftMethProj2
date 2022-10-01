@@ -19,6 +19,24 @@ public class GymManager {
                 if(inputs[i].equals("Q")){
                     terminate = true;
                     break;
+                }else if(inputs[i].equals("A")){
+
+                }else if(inputs[i].equals("R")){
+
+                }else if(inputs[i].equals("P")){
+
+                }else if(inputs[i].equals("PC")){
+
+                }else if(inputs[i].equals("PN")){
+
+                }else if(inputs[i].equals("PD")){
+
+                }else if(inputs[i].equals("S")){
+
+                }else if(inputs[i].equals("C")){
+
+                }else if(inputs[i].equals("D")){
+
                 }
             }
         }while(!terminate);
@@ -26,3 +44,4 @@ public class GymManager {
         System.out.println("Gym Manager Terminated");
     }
 }
+
