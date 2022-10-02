@@ -1,6 +1,7 @@
 /**
  * Defines a member object to be a part of a gym.
  * Implements compareTo(), toString(), and equals() methods for comparing and representing members.
+ *
  * @author Adwait Ganguly
  */
 public class Member implements Comparable<Member> {
