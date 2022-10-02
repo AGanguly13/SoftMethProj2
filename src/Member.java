@@ -19,9 +19,9 @@ public class Member implements Comparable<Member> {
         String[] splitMember = newMember.split(" ");
         this.fname = splitMember[0];
         this.lname = splitMember[1];
-        this.dob = Date(splitMember[2]);
-        this.expire = Date(splitMember[3]);
-        this.location = Location(splitMember[4]);
+        this.dob = new Date(splitMember[2]);
+        this.expire = new Date(splitMember[3]);
+        this.location = Location.valueOf(splitMember[4].toUpperCase());
     }
 
     /**
@@ -34,7 +34,7 @@ public class Member implements Comparable<Member> {
     public Member (String firstName, String lastName, String DOB) {
         this.fname = firstName;
         this.lname = lastName;
-        this.dob = Date(DOB);
+        this.dob = new Date(DOB);
         this.expire = null;
         this.lname = null;
     }
