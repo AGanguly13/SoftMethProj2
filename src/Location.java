@@ -19,7 +19,7 @@ public enum Location {
          * @param zipCode the zip code where a gym is located
          * @param county the county where a gym is located
          */
-        Location(String city, String zipCode, String county){
+        Location(String city, String zipCode, String county) {
                 this.city = city;
                 this.zip = zipCode;
                 this.county = county;
@@ -31,7 +31,7 @@ public enum Location {
          * given as "[city], [zip code], [county]"
          */
         @Override
-        public String toString(){
+        public String toString() {
                 return city + ", " + zip + ", " + county;
         }
 

@@ -2,16 +2,16 @@
  * User Interface class that processes command line inputs from user
  * Accepts input as single command line or batch
  * Terminates only when "Q" is typed
- * @author Kennan Guan
+ * @author Kennan Guan, Adwait Ganguly
  */
 import java.util.Scanner;
 import java.util.Calendar;
 
 public class GymManager {
     private MemberDatabase database = new MemberDatabase();
-    private FitnessClass pilates = new FitnessClass(Time.MORNING, "Jennifer");
-    private FitnessClass spinning = new FitnessClass(Time.AFTERNOON, "Denise");
-    private FitnessClass cardio = new FitnessClass(Time.AFTERNOON, "Kim");
+    private FitnessClass pilates = new FitnessClass(Time.MORNING, "JENNIFER", "Pilates");
+    private FitnessClass spinning = new FitnessClass(Time.AFTERNOON, "DENISE", "Spinning");
+    private FitnessClass cardio = new FitnessClass(Time.AFTERNOON, "KIM", "Cardio");
 
     /**
      * Runs the Gym Manager and accepts input from command line
@@ -20,7 +20,6 @@ public class GymManager {
     public void run() {
         System.out.println("Gym Manager running...");
         Scanner keyboard = new Scanner(System.in);
-
 
         while (keyboard.hasNextLine()) {
             String inputLine = keyboard.nextLine();
@@ -40,9 +39,7 @@ public class GymManager {
             } else if (inputs[0].equals("PD")) {
                 database.printByExpirationDate();
             } else if (inputs[0].equals("S")) {
-                for (Time slot : Time.values()) {
-                    System.out.println(slot.toString());
-                }
+                printClasses();
             } else if (inputs[0].equals("C")) {
                 checkIn(inputs[1]);
             } else if (inputs[0].equals("D")) {
@@ -70,7 +67,7 @@ public class GymManager {
                 validCity = true;
             }
         }
-        if (!validCity){
+        if (!validCity) {
             System.out.println(city + ": invalid location!");
         }else if(!dateOfBirth.isValid()) {
             System.out.println("DOB " + dateOfBirth + ": invalid calendar date!");
@@ -88,18 +85,124 @@ public class GymManager {
         }
     }
 
-    public void cancelMembership(String input){
+    /**
+     * Cancels and removes a member from the member database
+     * @param input the command line inputs: first name, last name, date of birth, membership expiration date, location
+     */
+    public void cancelMembership(String input) {
         String[] inputs = input.split(" ");
         Member entry = new Member(inputs[0], inputs[1], inputs[2]);
         database.remove(entry);
     }
 
-    public void checkIn(String input){
-
+    /**
+     * Adds a new member into a specified fitness class
+     * @param input the command line inputs: fitness class name, first name, last name, date of birth
+     */
+    public void checkIn(String input) {
+        String[] split = input.split(" ");
+        Member entry = new Member(split[1], split[2], split[3]);
+        String session = split[0];
+        Date today = new Date();
+        Date DOB = new Date(split[3]);
+        if(DOB.isValid()) {
+            if(today.compareTo(entry.getExpire) <= 0) {
+                if (session.equals("Pilates")) {
+                    if(pilates.addMember(entry)) {
+                        System.out.println(split[1] + " " + split[2] + " check in Pilates");
+                    }else {
+                        System.out.println(split[1] + " " + split[2] + " has already checked in Pilates");
+                    }
+                } else if (session.equals("Spinning")) {
+                    if(spinning.addMember(entry)) {
+                        System.out.println(split[1] + " " + split[2] + " check in spinning");
+                    }else {
+                        System.out.println(split[1] + " " + split[2] + " has already checked in spinning");
+                    }
+                } else if (session.equals("Cardio")) {
+                    if(cardio.addMember(entry)) {
+                        System.out.println(split[1] + " " + split[2] + " check in cardio");
+                    }else {
+                        System.out.println(split[1] + " " + split[2] + " has already checked in cardio");
+                    }
+                } else {
+                    System.out.println(session + " class does not exist");
+                }
+            } else {
+                System.out.println(split[1] + " " + split[2] + " " + split[3] + " membership expired");
+            }
+        } else {
+            System.out.println("DOB " + split[3] + ": invalid calendar date!");
+        }
     }
 
-    public void dropMember(String input){
+    /**
+     * Drops a given member from a specified fitness class
+     * @param input the command line inputs: fitness class name, first name, last name, date of birth
+     */
+    public void dropMember(String input) {
+        String[] dropMemberInput = input.split(" ");
+        Member newMem = new Member(dropMemberInput[1], dropMemberInput[2], dropMemberInput[3]);
+        Date newDate = new Date(dropMemberInput[3]);
+        if (newDate.isValid()) {
+            if (dropMemberInput[0].equals("Pilates")) {
+                if (pilates.removeMember(newMem)) {
+                    System.out.println(dropMemberInput[1] + " " + dropMemberInput[2] + "dropped " +
+                            "Pilates");
+                }
+                else {
+                    System.out.println(dropMemberInput[1] + " " + dropMemberInput[2] + "is not a " +
+                            "member in Pilates");
+                }
+            }
+            if (dropMemberInput[0].equals("Spinning")) {
+                if (pilates.removeMember(newMem)) {
+                    System.out.println(dropMemberInput[1] + " " + dropMemberInput[2] + "dropped " +
+                            "Spinning");
+                }
+                else {
+                    System.out.println(dropMemberInput[1] + " " + dropMemberInput[2] + "is not a " +
+                            "member in Spinning");
+                }
+            }
+            if (dropMemberInput[0].equals("Cardio")) {
+                if (pilates.removeMember(newMem)) {
+                    System.out.println(dropMemberInput[1] + " " + dropMemberInput[2] + "dropped " +
+                            "Cardio");
+                }
+                else {
+                    System.out.println(dropMemberInput[1] + " " + dropMemberInput[2] + "is not a " +
+                            "member in Cardio");
+                }
+            }
+        }
+        else {
+            System.out.println("DOB: " + newDate + ": invalid calendar date!");
+        }
+    }
 
+
+    /**
+     * Prints out all the fitness classes' information
+     * Will add list of participants if available
+     */
+    public void printClasses() {
+        System.out.println("-Fitness Classes-");
+        System.out.println(pilates.getName() + " - " + pilates.getInstructor() + " " + pilates.getTime().getHour() + ":" + pilates.getTime().getMinute() + "\n");
+        if(!pilates.isEmpty()) {
+            System.out.println("**participants**");
+            System.out.println(pilates.getAttendance().print());
+        }
+        System.out.println(spinning.getName() + " - " + spinning.getInstructor() + " " + spinning.getTime().getHour() + ":" + spinning.getTime().getMinute() + "\n");
+        if(!spinning.isEmpty()) {
+            System.out.println("**participants**");
+            System.out.println(cardio.getAttendance().print());
+        }
+        System.out.println(cardio.getName() + " - " + cardio.getInstructor() + " " + cardio.getTime().getHour() + ":" + cardio.getTime().getMinute() + "\n");
+        if(!cardio.isEmpty()) {
+            System.out.println("**participants**");
+            System.out.println(cardio.getAttendance().print());
+        }
     }
 }
 

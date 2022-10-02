@@ -62,15 +62,16 @@ public class Date implements Comparable<Date> {
      * @return true is valid, false otherwise
      */
     public boolean isValid() {
-        if(month < 1 || month > 12){
+        if(month < 1 || month > 12) {
             return false;
         }
 
         boolean isLeapYear = (year % 4 == 0 && (year % 100 != 0 || year % 400 == 0));
 
-        if(month == 2 && isLeapYear){
+        if(month == 2 && isLeapYear) {
             return days[1]+1 == day;
-        }else{
+        }
+        else {
             return day == days[month-1];
         }
     }
