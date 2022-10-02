@@ -30,7 +30,7 @@ public class GymManager {
             } else if (inputs[0].equals("A")) {
                 addMember(inputs[1]);
             } else if (inputs[0].equals("R")) {
-                cancelMembership(inputs[1]); //how to remove only given name?
+                cancelMembership(inputs[1]);
             } else if (inputs[0].equals("P")) {
                 database.print();
             } else if (inputs[0].equals("PC")) {

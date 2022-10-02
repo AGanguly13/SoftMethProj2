@@ -26,6 +26,21 @@ public enum Location {
         }
 
         /**
+         * Getter method for zip code
+         * @return the zip code as an integer
+         */
+        public int getZip(){
+                return Integer.parseInt(zip);
+        }
+
+        /**
+         * Getter method for the county of the gym location
+         * @return the county where the gym is located
+         */
+        public String getCounty(){
+                return county;
+        }
+        /**
          * Textual representation of the Location object
          * @return a string representation of the location
          * given as "[city], [zip code], [county]"
