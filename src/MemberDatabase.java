@@ -9,7 +9,6 @@
 public class MemberDatabase {
     private Member [] mlist;
     private int size;
-
     private static final int NOT_FOUND = -1; //constant used when Member is not found in Database
 
     /**
@@ -27,8 +26,8 @@ public class MemberDatabase {
      * @return the index of the member if found, otherwise return constant NOT_FOUND.
      */
     private int find(Member member) {
-        for (int x = 0; x < size; x++) {
-            if (this.mlist[x].equals(member)) { //this .equals needs to be changed it's currently the Object superclass .equals()
+        for (int x = 0; x < this.size; x++) {
+            if (this.mlist[x].equals(member)) {
                 return x;
             }
         }
@@ -65,10 +64,7 @@ public class MemberDatabase {
             grow();
         }
 
-        if (wasAdded) {
-            return true;
-        }
-        return false;
+        return wasAdded;
     }
 
     /**
@@ -89,10 +85,7 @@ public class MemberDatabase {
             this.size--;
         }
 
-        if (wasRemoved) {
-            return true;
-        }
-        return false;
+        return wasRemoved;
     }
 
     /**
@@ -101,10 +94,61 @@ public class MemberDatabase {
      */
     public void print () {
         for (int x = 0; x < this.size; x++){
-            System.out.println(this.mlist[x].toString());//this needs to implement the member toString, currently implements Object superclass
+            System.out.println(this.mlist[x].toString());
         }
     } //print the array contents as is
-    public void printByCounty() { } //sort by county and then zipcode
-    public void printByExpirationDate() { } //sort by the expiration date
-    public void printByName() { } //sort by last name and then first name
+
+    /**
+     * Implements bubble sort to sort the database by Date of birth from earliest DOB to latest DOB.
+     * Calls print() method once the sorting is complete.
+     */
+    public void printByCounty() {
+        for (int x = 0; x < this.size - 1; x++) {
+            for (int y = 0; y < this.size - x - 1; y++) {
+                if (this.mlist[y].getDob().compareTo(this.mlist[y + 1].getDob()) > 0) { //needs to implement a Date class compareTo method
+                    Member temp = this.mlist[y];
+                    this.mlist[y] = this.mlist[y + 1];
+                    this.mlist[y + 1] = temp;
+                }
+            }
+        }
+
+        this.print();
+    } //sort by county and then zipcode
+
+    /**
+     * Implements bubble sort to sort the database by expiration date, from the earliest expiration
+     * date to the latest expiration date. Calls print() method once sorting is complete.
+     */
+    public void printByExpirationDate() {
+        for (int x = 0; x < this.size - 1; x++) {
+            for (int y = 0; y < this.size - x - 1; y++) {
+                if (this.mlist[y].getExpire().compareTo(this.mlist[y + 1].getExpire()) > 0) { //needs to implement a Date class compareTo method
+                    Member temp = this.mlist[y];
+                    this.mlist[y] = this.mlist[y + 1];
+                    this.mlist[y + 1] = temp;
+                }
+            }
+        }
+
+        this.print();
+    } //sort by the expiration date
+
+    /**
+     * Implement bubble sort to alphabetically sort the database by last name, and then first name
+     * if last names are the same. Calls print() method once sorting is complete.
+     */
+    public void printByName() {
+        for (int x = 0; x < this.size - 1; x++) {
+            for (int y = 0; y < this.size - x - 1; y++) {
+                if (this.mlist[y].compareTo(this.mlist[y + 1]) > 0) {
+                    Member temp = this.mlist[y];
+                    this.mlist[y] = this.mlist[y + 1];
+                    this.mlist[y + 1] = temp;
+                }
+            }
+        }
+
+        this.print();
+    } //sort by last name and then first name
 }
