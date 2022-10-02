@@ -12,6 +12,7 @@ public class GymManager {
     private FitnessClass pilates = new FitnessClass(Time.MORNING, "JENNIFER", "Pilates");
     private FitnessClass spinning = new FitnessClass(Time.AFTERNOON, "DENISE", "Spinning");
     private FitnessClass cardio = new FitnessClass(Time.AFTERNOON, "KIM", "Cardio");
+    private FitnessClass[] listOfClasses = {pilates, spinning, cardio};
 
     /**
      * Runs the Gym Manager and accepts input from command line
@@ -105,25 +106,16 @@ public class GymManager {
         String session = split[0];
         Date today = new Date();
         Date DOB = new Date(split[3]);
+
         if(DOB.isValid()) {
             if(today.compareTo(entry.getExpire) <= 0) {
-                if (session.equals("Pilates")) {
-                    if(pilates.addMember(entry)) {
-                        System.out.println(split[1] + " " + split[2] + " check in Pilates");
-                    }else {
-                        System.out.println(split[1] + " " + split[2] + " has already checked in Pilates");
-                    }
-                } else if (session.equals("Spinning")) {
-                    if(spinning.addMember(entry)) {
-                        System.out.println(split[1] + " " + split[2] + " check in spinning");
-                    }else {
-                        System.out.println(split[1] + " " + split[2] + " has already checked in spinning");
-                    }
-                } else if (session.equals("Cardio")) {
-                    if(cardio.addMember(entry)) {
-                        System.out.println(split[1] + " " + split[2] + " check in cardio");
-                    }else {
-                        System.out.println(split[1] + " " + split[2] + " has already checked in cardio");
+                if(session.equals("Pilates") || session.equals("Spinning") || session.equals("Cardio")){
+                    for(int i = 0 ; i < listOfClasses.length; i++) {
+                        if (session.equals(listOfClasses[i].getName()) && listOfClasses[i].addMember(entry)) {
+                            System.out.println(split[1] + " " + split[2] + " check in " + listOfClasses[i].getName());
+                        } else if (session.equals(listOfClasses[i].getName()) && !listOfClasses[i].addMember(entry)){
+                            System.out.println(split[1] + " " + split[2] + " has already checked in " + listOfClasses[i].getName());
+                        }
                     }
                 } else {
                     System.out.println(session + " class does not exist");
@@ -187,21 +179,13 @@ public class GymManager {
      * Will add list of participants if available
      */
     public void printClasses() {
-        System.out.println("-Fitness Classes-");
-        System.out.println(pilates.getName() + " - " + pilates.getInstructor() + " " + pilates.getTime().getHour() + ":" + pilates.getTime().getMinute() + "\n");
-        if(!pilates.isEmpty()) {
-            System.out.println("**participants**");
-            System.out.println(pilates.getAttendance().print());
-        }
-        System.out.println(spinning.getName() + " - " + spinning.getInstructor() + " " + spinning.getTime().getHour() + ":" + spinning.getTime().getMinute() + "\n");
-        if(!spinning.isEmpty()) {
-            System.out.println("**participants**");
-            System.out.println(cardio.getAttendance().print());
-        }
-        System.out.println(cardio.getName() + " - " + cardio.getInstructor() + " " + cardio.getTime().getHour() + ":" + cardio.getTime().getMinute() + "\n");
-        if(!cardio.isEmpty()) {
-            System.out.println("**participants**");
-            System.out.println(cardio.getAttendance().print());
+        for(int i = 0; i < listOfClasses.length; i++){
+            System.out.println("-Fitness Classes-");
+            System.out.println(listOfClasses[i].getName() + " - " + listOfClasses[i].getInstructor() + " " + listOfClasses[i].getTime().getHour() + ":" + listOfClasses[i].getTime().getMinute() + "\n");
+            if(!listOfClasses[i].isEmpty()) {
+                System.out.println("**participants**");
+                System.out.println(listOfClasses[i].getAttendance().print());
+            }
         }
     }
 }
