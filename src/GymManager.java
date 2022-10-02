@@ -80,9 +80,8 @@ public class GymManager {
             System.out.println("DOB " + expirationDate + ": invalid calendar date!");
         }else{
             Member newEntry = new Member(input);
-            boolean added = database.add(newEntry);
-            if(newAddition) System.out.println(newEntry.getFname + " " + newEntry.getLname + " added.");
-            else System.out.println(newEntry.getFname + " " + newEntry.getLname + " already in database.");
+            if(database.add(newEntry)) System.out.println(newEntry.getFname() + " " + newEntry.getLname() + " added.");
+            else System.out.println(newEntry.getFname() + " " + newEntry.getLname() + " already in database.");
         }
     }
 
@@ -108,10 +107,10 @@ public class GymManager {
         Date DOB = new Date(split[3]);
 
         if(DOB.isValid()) {
-            if(today.compareTo(entry.getExpire) <= 0) {
+            if(today.compareTo(entry.getExpire()) <= 0) {
                 if(session.equals("Pilates") || session.equals("Spinning") || session.equals("Cardio")){
-                    boolean inConflictSpinning = spinning.isInArray(entry);
-                    boolean inConflictCardio = cardio.isInArray(entry);
+                    boolean inConflictSpinning = spinning.getAttendance().isInArray(entry);
+                    boolean inConflictCardio = cardio.getAttendance().isInArray(entry);
                     for(int i = 0 ; i < listOfClasses.length; i++) {
                         if (session.equals(listOfClasses[i].getName()) && listOfClasses[i].addMember(entry)) {
                             if(i != 0 && inConflictSpinning){
@@ -172,7 +171,7 @@ public class GymManager {
             System.out.println(listOfClasses[i].getName() + " - " + listOfClasses[i].getInstructor() + " " + listOfClasses[i].getTime().getHour() + ":" + listOfClasses[i].getTime().getMinute() + "\n");
             if(!listOfClasses[i].isEmpty()) {
                 System.out.println("**participants**");
-                System.out.println(listOfClasses[i].getAttendance().print());
+                System.out.print(listOfClasses[i].getAttendance());
             }
         }
     }
