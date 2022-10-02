@@ -157,6 +157,10 @@ public class MemberDatabase {
                         this.mlist[y + 1] = temp;
                     }
                 }
+            }
+        }
+        for (int x = 0; x < this.size - 1; x++) {
+            for (int y = 0; y < this.size - x - 1; y++) {
                 if (this.mlist[y + 1].getLocation().getCounty().equals("SOMERSET")) {
                     if (this.mlist[y].getLocation().getZip() >
                             this.mlist[y + 1].getLocation().getZip()) {
