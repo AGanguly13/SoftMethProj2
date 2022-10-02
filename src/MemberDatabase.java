@@ -32,6 +32,21 @@ public class MemberDatabase {
     }
 
     /**
+     * This method checks if a member is currently in the array structure representing a Member
+     * Database.
+     * @param member is the member that is being checked for if they are in the array structure.
+     * @return true if the member is in the array, false otherwise.
+     */
+    public boolean isInArray(Member member) {
+        for (int x = 0; x < this.size; x++) {
+            if (this.mlist[x].equals(member)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
      * Searches for the parameter Member object in the database array.
      * @param member is the member that is being searched for in the database.
      * @return the index of the member if found, otherwise return constant NOT_FOUND.
