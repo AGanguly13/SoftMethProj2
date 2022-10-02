@@ -72,7 +72,7 @@ public class Date implements Comparable<Date> {
             return days[1]+1 == day;
         }
         else {
-            return day == days[month-1];
+            return day <= days[month-1];
         }
     }
 

@@ -60,24 +60,24 @@ public class GymManager {
     public void addMember(String input) {
         Date dateOfBirth = new Date(input.split(" ")[2]);
         Date expirationDate = new Date(input.split(" ")[3]);
-        String city = input.split(" ")[4];
+        String city = input.split(" ")[4].toUpperCase();
         boolean validCity = false;
 
         for (Location location : Location.values()) {
-            if (location.equals(city)) {
+            if (location.equals(Location.valueOf(city))) {
                 validCity = true;
             }
         }
         if (!validCity) {
             System.out.println(city + ": invalid location!");
         }else if(!dateOfBirth.isValid()) {
-            System.out.println("DOB " + dateOfBirth + ": invalid calendar date!");
+            System.out.println("DOB " + input.split(" ")[2] + ": invalid calendar date!");
         }else if(!dateOfBirth.isEighteen(dateOfBirth)) {
-            System.out.println("DOB " + dateOfBirth + ": must be 18 or older to join!");
+            System.out.println("DOB " + input.split(" ")[2] + ": must be 18 or older to join!");
         }else if(dateOfBirth.isFuture(dateOfBirth)) {
-            System.out.println("DOB " + dateOfBirth + ": cannot be today or future date!");
+            System.out.println("DOB " + input.split(" ")[2] + ": cannot be today or future date!");
         }else if(!expirationDate.isValid()) {
-            System.out.println("DOB " + expirationDate + ": invalid calendar date!");
+            System.out.println("DOB " + input.split(" ")[3] + ": invalid calendar date!");
         }else{
             Member newEntry = new Member(input);
             if(database.add(newEntry)) System.out.println(newEntry.getFname() + " " + newEntry.getLname() + " added.");
