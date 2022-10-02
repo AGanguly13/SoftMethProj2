@@ -21,6 +21,17 @@ public class MemberDatabase {
     }
 
     /**
+     * This method checks if a database object does or does not have any members in it.
+     * @return true if the database has no members, false if it does have members.
+     */
+    public boolean isEmpty() {
+        if (this.size == 0) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
      * Searches for the parameter Member object in the database array.
      * @param member is the member that is being searched for in the database.
      * @return the index of the member if found, otherwise return constant NOT_FOUND.
