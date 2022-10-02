@@ -76,6 +76,15 @@ public class Date implements Comparable<Date> {
         }
     }
 
+    /**
+     * Textual representation of the Date object
+     * @return a string in the format month/day/year
+     */
+    @Override
+    public String toString(){
+        return month + "/" + day + "/" + year;
+    }
+
     /** This method checks if the Date of Birth of the member is the same as the current day or the future.
      * @param dob is the date of birth of the member that is being checked.
      * @return true if the date is in fact today, false otherwise.
