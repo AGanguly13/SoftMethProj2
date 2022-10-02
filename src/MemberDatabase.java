@@ -126,7 +126,7 @@ public class MemberDatabase {
         for (int x = 0; x < this.size; x++){
             System.out.println(this.mlist[x].toString());
         }
-        System.out.println("-end of list");
+        System.out.println("-end of list-");
     } //print the array contents as is
 
     /**
@@ -152,7 +152,7 @@ public class MemberDatabase {
         for (int x = 0; x < this.size; x++){
             System.out.println(this.mlist[x].toString());
         }
-        System.out.println("-end of list");
+        System.out.println("-end of list-");
     } //sort by county and then zipcode
 
     /**
@@ -178,7 +178,7 @@ public class MemberDatabase {
         for (int x = 0; x < this.size; x++){
             System.out.println(this.mlist[x].toString());
         }
-        System.out.println("-end of list");
+        System.out.println("-end of list-");
     } //sort by the expiration date
 
     /**
@@ -204,6 +204,6 @@ public class MemberDatabase {
         for (int x = 0; x < this.size; x++){
             System.out.println(this.mlist[x].toString());
         }
-        System.out.println("-end of list");
+        System.out.println("-end of list-");
     } //sort by last name and then first name
 }
