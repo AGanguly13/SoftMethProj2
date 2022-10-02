@@ -92,7 +92,11 @@ public class GymManager {
     public void cancelMembership(String input) {
         String[] inputs = input.split(" ");
         Member entry = new Member(inputs[0], inputs[1], inputs[2]);
-        database.remove(entry);
+        if(database.remove(entry)) {
+            System.out.println(inputs[0] + " " + inputs[1] + " removed.");
+        }else {
+            System.out.println(inputs[0] + " " + inputs[1] + " is not in the database.");
+        }
     }
 
     /**
