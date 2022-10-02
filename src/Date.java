@@ -92,6 +92,6 @@ public class Date implements Comparable<Date> {
      */
     public boolean isEighteen(Date dob) {
         Date today = new Date();
-        return dob.year <= (today.year - 18);
+        return dob.year <= (today.year - 18) && dob.month <= today.month && dob.day <= today.day;
     }
 }
