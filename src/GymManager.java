@@ -72,7 +72,7 @@ public class GymManager {
             System.out.println(city + ": invalid location!");
         }else if(!dateOfBirth.isValid()) {
             System.out.println("DOB " + input.split(" ")[2] + ": invalid calendar date!");
-        }else if(dateOfBirth.isFuture(dateOfBirth)) {
+        }else if(!dateOfBirth.isFuture(dateOfBirth)) {
             System.out.println("DOB " + input.split(" ")[2] + ": cannot be today or future date!");
         }else if(!dateOfBirth.isEighteen(dateOfBirth)) {
             System.out.println("DOB " + input.split(" ")[2] + ": must be 18 or older to join!");
