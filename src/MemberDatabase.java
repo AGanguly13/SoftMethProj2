@@ -122,9 +122,11 @@ public class MemberDatabase {
         if (this.size == 0) {
             System.out.println("Member database is empty!");
         }
+        System.out.println("-list of members-");
         for (int x = 0; x < this.size; x++){
             System.out.println(this.mlist[x].toString());
         }
+        System.out.println("-end of list");
     } //print the array contents as is
 
     /**
@@ -132,6 +134,10 @@ public class MemberDatabase {
      * Calls print() method once the sorting is complete.
      */
     public void printByCounty() {
+        if (this.size == 0) {
+            System.out.println("Member database is empty!");
+        }
+
         for (int x = 0; x < this.size - 1; x++) {
             for (int y = 0; y < this.size - x - 1; y++) {
                 if (this.mlist[y].getDob().compareTo(this.mlist[y + 1].getDob()) > 0) { //needs to implement a Date class compareTo method
@@ -142,7 +148,11 @@ public class MemberDatabase {
             }
         }
 
-        this.print();
+        System.out.println("-list of members sorted by county and zipcode-");
+        for (int x = 0; x < this.size; x++){
+            System.out.println(this.mlist[x].toString());
+        }
+        System.out.println("-end of list");
     } //sort by county and then zipcode
 
     /**
@@ -150,6 +160,10 @@ public class MemberDatabase {
      * date to the latest expiration date. Calls print() method once sorting is complete.
      */
     public void printByExpirationDate() {
+        if (this.size == 0) {
+            System.out.println("Member database is empty!");
+        }
+
         for (int x = 0; x < this.size - 1; x++) {
             for (int y = 0; y < this.size - x - 1; y++) {
                 if (this.mlist[y].getExpire().compareTo(this.mlist[y + 1].getExpire()) > 0) { //needs to implement a Date class compareTo method
@@ -160,7 +174,11 @@ public class MemberDatabase {
             }
         }
 
-        this.print();
+        System.out.println("-list of members sorted by membership expiration date-");
+        for (int x = 0; x < this.size; x++){
+            System.out.println(this.mlist[x].toString());
+        }
+        System.out.println("-end of list");
     } //sort by the expiration date
 
     /**
@@ -168,6 +186,10 @@ public class MemberDatabase {
      * if last names are the same. Calls print() method once sorting is complete.
      */
     public void printByName() {
+        if (this.size == 0) {
+            System.out.println("Member database is empty!");
+        }
+
         for (int x = 0; x < this.size - 1; x++) {
             for (int y = 0; y < this.size - x - 1; y++) {
                 if (this.mlist[y].compareTo(this.mlist[y + 1]) > 0) {
@@ -178,6 +200,10 @@ public class MemberDatabase {
             }
         }
 
-        this.print();
+        System.out.println("-list of members sorted by last name, and first name-");
+        for (int x = 0; x < this.size; x++){
+            System.out.println(this.mlist[x].toString());
+        }
+        System.out.println("-end of list");
     } //sort by last name and then first name
 }

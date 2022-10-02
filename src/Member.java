@@ -102,8 +102,8 @@ public class Member implements Comparable<Member> {
      */
     @Override
     public String toString() {
-        return(fname + " " + lname + ", DOB: " + dob + ", Membership expires "
-                + expire + ", Location: " + location);
+        return(fname + " " + lname + ", DOB: " + dob.toString() + ", Membership expires "
+                + expire.toString() + ", Location: " + location);
     }
 
     /**
