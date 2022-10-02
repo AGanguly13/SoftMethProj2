@@ -119,6 +119,9 @@ public class MemberDatabase {
      * Uses the Member class toString() method to print out all necessary Member object information.
      */
     public void print () {
+        if (this.size == 0) {
+            System.out.println("Member database is empty!");
+        }
         for (int x = 0; x < this.size; x++){
             System.out.println(this.mlist[x].toString());
         }
