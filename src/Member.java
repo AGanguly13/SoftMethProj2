@@ -17,11 +17,26 @@ public class Member implements Comparable<Member> {
      */
     public Member (String newMember) {
         String[] splitMember = newMember.split(" ");
-        fname = splitMember[0];
-        lname = splitMember[1];
-        dob = Date(splitMember[2]);
-        expire = Date(splitMember[3]);
-        location = Location(splitMember[4]);
+        this.fname = splitMember[0];
+        this.lname = splitMember[1];
+        this.dob = Date(splitMember[2]);
+        this.expire = Date(splitMember[3]);
+        this.location = Location(splitMember[4]);
+    }
+
+    /**
+     * This is the constructor used to create a Member object that will be removed from the
+     * database.
+     * @param firstName is the first name of the member.
+     * @param lastName is the last name of the member.
+     * @param DOB is the date of birth of the member.
+     */
+    public Member (String firstName, String lastName, String DOB) {
+        this.fname = firstName;
+        this.lname = lastName;
+        this.dob = Date(DOB);
+        this.expire = null;
+        this.lname = null;
     }
 
     /**
