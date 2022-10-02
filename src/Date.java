@@ -17,7 +17,7 @@ public class Date implements Comparable<Date> {
     public Date() {
         Calendar today = Calendar.getInstance();
         year = today.get(Calendar.YEAR);
-        month = today.get(Calendar.MONTH);
+        month = today.get(Calendar.MONTH) + 1;
         day = today.get(Calendar.DAY_OF_MONTH);
     }
 
@@ -76,14 +76,13 @@ public class Date implements Comparable<Date> {
         }
     }
 
-    /** This method checks if the Date of Birth of the member is the same as the current day or the future. This is
-     * implemented using the get() method of the Calendar library.
+    /** This method checks if the Date of Birth of the member is the same as the current day or the future.
      * @param dob is the date of birth of the member that is being checked.
      * @return true if the date is in fact today, false otherwise.
      */
     public boolean isFuture(Date dob) {
         Date today = new Date();
-        return today.compareTo(dob) <= 0;
+        return today.compareTo(dob) == 1;
     }
 
     /** This method checks that the Member to be added is at least 18 years.
@@ -92,6 +91,14 @@ public class Date implements Comparable<Date> {
      */
     public boolean isEighteen(Date dob) {
         Date today = new Date();
-        return dob.year <= (today.year - 18) && dob.month <= today.month && dob.day <= today.day;
+        if(dob.year < (today.year - 18)){
+            return true;
+        }else if(dob.year == (today.year - 18) && dob.month < today.month){
+            return true;
+        }else if(dob.year == (today.year - 18) && dob.month == today.month && dob.day <= today.day){
+            return true;
+        }else{
+            return false;
+        }
     }
 }
