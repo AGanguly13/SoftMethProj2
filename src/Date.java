@@ -91,13 +91,16 @@ public class Date implements Comparable<Date> {
      */
     public boolean isEighteen(Date dob) {
         Date today = new Date();
-        if(dob.year < (today.year - 18)){
+        if (dob.year < (today.year - 18)) {
             return true;
-        }else if(dob.year == (today.year - 18) && dob.month < today.month){
+        }
+        else if (dob.year == (today.year - 18) && dob.month < today.month) {
             return true;
-        }else if(dob.year == (today.year - 18) && dob.month == today.month && dob.day <= today.day){
+        }
+        else if(dob.year == (today.year - 18) && dob.month == today.month && dob.day <= today.day) {
             return true;
-        }else{
+        }
+        else {
             return false;
         }
     }
