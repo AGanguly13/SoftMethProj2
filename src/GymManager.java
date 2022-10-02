@@ -110,9 +110,17 @@ public class GymManager {
         if(DOB.isValid()) {
             if(today.compareTo(entry.getExpire) <= 0) {
                 if(session.equals("Pilates") || session.equals("Spinning") || session.equals("Cardio")){
+                    boolean inConflictSpinning = spinning.isInArray(entry);
+                    boolean inConflictCardio = cardio.isInArray(entry);
                     for(int i = 0 ; i < listOfClasses.length; i++) {
                         if (session.equals(listOfClasses[i].getName()) && listOfClasses[i].addMember(entry)) {
-                            System.out.println(split[1] + " " + split[2] + " check in " + listOfClasses[i].getName());
+                            if(i != 0 && inConflictSpinning){
+                                System.out.println(listOfClasses[i].getName() + " time conflict -- " + split[1] + " " + split[2] + " has already checked into Spinning");
+                            }else if(i != 0 && inConflictCardio) {
+                                System.out.println(listOfClasses[i].getName() + " time conflict -- " + split[1] + " " + split[2] + " has already checked into Cardio");
+                            }else {
+                                System.out.println(split[1] + " " + split[2] + " check in " + listOfClasses[i].getName());
+                            }
                         } else if (session.equals(listOfClasses[i].getName()) && !listOfClasses[i].addMember(entry)){
                             System.out.println(split[1] + " " + split[2] + " has already checked in " + listOfClasses[i].getName());
                         }
@@ -137,34 +145,14 @@ public class GymManager {
         Member newMem = new Member(dropMemberInput[1], dropMemberInput[2], dropMemberInput[3]);
         Date newDate = new Date(dropMemberInput[3]);
         if (newDate.isValid()) {
-            if (dropMemberInput[0].equals("Pilates")) {
-                if (pilates.removeMember(newMem)) {
-                    System.out.println(dropMemberInput[1] + " " + dropMemberInput[2] + "dropped " +
-                            "Pilates");
-                }
-                else {
-                    System.out.println(dropMemberInput[1] + " " + dropMemberInput[2] + "is not a " +
-                            "member in Pilates");
-                }
-            }
-            if (dropMemberInput[0].equals("Spinning")) {
-                if (pilates.removeMember(newMem)) {
-                    System.out.println(dropMemberInput[1] + " " + dropMemberInput[2] + "dropped " +
-                            "Spinning");
-                }
-                else {
-                    System.out.println(dropMemberInput[1] + " " + dropMemberInput[2] + "is not a " +
-                            "member in Spinning");
-                }
-            }
-            if (dropMemberInput[0].equals("Cardio")) {
-                if (pilates.removeMember(newMem)) {
-                    System.out.println(dropMemberInput[1] + " " + dropMemberInput[2] + "dropped " +
-                            "Cardio");
-                }
-                else {
-                    System.out.println(dropMemberInput[1] + " " + dropMemberInput[2] + "is not a " +
-                            "member in Cardio");
+            for(int i = 0 ; i < listOfClasses.length; i++) {
+                if (dropMemberInput[0].equals(listOfClasses[i].getName())) {
+                    if (listOfClasses[i].removeMember(newMem)) {
+                        System.out.println(dropMemberInput[1] + " " + dropMemberInput[2] + "dropped " + listOfClasses[i].getName());
+                    } else {
+                        System.out.println(dropMemberInput[1] + " " + dropMemberInput[2] + "is not a " +
+                                "member in " + listOfClasses[i].getName());
+                    }
                 }
             }
         }
