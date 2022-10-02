@@ -36,7 +36,6 @@ public class Member implements Comparable<Member> {
         this.lname = lastName;
         this.dob = new Date(DOB);
         this.expire = null;
-        this.lname = null;
     }
 
     /**
