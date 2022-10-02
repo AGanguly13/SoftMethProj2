@@ -1,6 +1,6 @@
 /**
  * Defines the date object as day, month, and year
- * @author Kennan Guan
+ * @author Kennan Guan, Adwait Ganguly
  */
 import java.util.Calendar;
 public class Date implements Comparable<Date> {
@@ -73,5 +73,24 @@ public class Date implements Comparable<Date> {
         }else{
             return day == days[month-1];
         }
+    }
+
+    /** This method checks if the Date of Birth of the member is the same as the current day or the future. This is
+     * implemented using the get() method of the Calendar library.
+     * @param dob is the date of birth of the member that is being checked.
+     * @return true if the date is in fact today, false otherwise.
+     */
+    public boolean isFuture(Date dob) {
+        Date today = new Date();
+        return today.compareTo(dob) <= 0;
+    }
+
+    /** This method checks that the Member to be added is at least 18 years.
+     * @param dob is the date of birth of the member that is being checked.
+     * @return true if the Member is eighteen or older, false otherwise.
+     */
+    public boolean isEighteen(Date dob) {
+        Date today = new Date();
+        return dob.year <= (today.year - 18);
     }
 }
