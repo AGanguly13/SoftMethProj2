@@ -122,8 +122,9 @@ public class Member implements Comparable<Member> {
         }
 
         Member mem = (Member) obj;
-        if (this.fname.toLowerCase() == mem.fname.toLowerCase() &&
-                this.lname.toLowerCase() == mem.lname.toLowerCase() && this.dob == mem.dob) {
+        if (this.fname.equalsIgnoreCase(mem.fname.toLowerCase()) &&
+                this.lname.equalsIgnoreCase(mem.lname.toLowerCase()) &&
+                this.dob.compareTo(mem.dob) == 0) {
             return true;
         }
         return false;
