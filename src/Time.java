@@ -4,8 +4,8 @@
  * @author Kennan Guan
  */
 public enum Time {
-    Morning(9, 30),
-    Afternoon(14,0);
+    MORNING(9, 30),
+    AFTERNOON(14,0);
 
     private final int hour;
     private final int minute;

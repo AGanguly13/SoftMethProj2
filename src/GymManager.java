@@ -9,7 +9,10 @@ import java.util.Calendar;
 
 public class GymManager {
     private MemberDatabase database = new MemberDatabase();
-    private FitnessClass pilates = new FitnessClass();
+    private FitnessClass pilates = new FitnessClass(Time.MORNING, "Jennifer");
+    private FitnessClass spinning = new FitnessClass(Time.AFTERNOON, "Denise");
+    private FitnessClass cardio = new FitnessClass(Time.AFTERNOON, "Kim");
+
     /**
      * Runs the Gym Manager and accepts input from command line
      * Only terminates upon typing "Q"
@@ -43,7 +46,7 @@ public class GymManager {
             } else if (inputs[0].equals("C")) {
                 checkIn(inputs[1]);
             } else if (inputs[0].equals("D")) {
-                dropMember();
+                dropMember(inputs[1]);
             } else {
                 System.out.println(inputs[0] + " is an invalid command!");
             }
@@ -92,6 +95,10 @@ public class GymManager {
     }
 
     public void checkIn(String input){
+
+    }
+
+    public void dropMember(String input){
 
     }
 }
