@@ -64,7 +64,7 @@ public class GymManager {
         boolean validCity = false;
 
         for (Location location : Location.values()) {
-            if (location.equals(Location.valueOf(city))) {
+            if (location.name().equals(city.toUpperCase())) {
                 validCity = true;
             }
         }
