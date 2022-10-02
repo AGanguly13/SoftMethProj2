@@ -137,17 +137,36 @@ public class MemberDatabase {
         if (this.size == 0) {
             System.out.println("Member database is empty!");
         }
-
         for (int x = 0; x < this.size - 1; x++) {
             for (int y = 0; y < this.size - x - 1; y++) {
-                if (this.mlist[y].getDob().compareTo(this.mlist[y + 1].getDob()) > 0) { //needs to implement a Date class compareTo method
+                if (this.mlist[y].getLocation().getCounty().
+                        compareTo(this.mlist[y + 1].getLocation().getCounty()) > 0) { //needs to implement a String compareTo method
                     Member temp = this.mlist[y];
                     this.mlist[y] = this.mlist[y + 1];
                     this.mlist[y + 1] = temp;
                 }
             }
         }
-
+        for (int x = 0; x < this.size - 1; x++) {
+            for (int y = 0; y < this.size - x - 1; y++) {
+                if (this.mlist[y + 1].getLocation().getCounty().equals("MIDDLESEX")) {
+                    if (this.mlist[y].getLocation().getZip() >
+                            this.mlist[y + 1].getLocation().getZip()) {
+                        Member temp = this.mlist[y];
+                        this.mlist[y] = this.mlist[y + 1];
+                        this.mlist[y + 1] = temp;
+                    }
+                }
+                if (this.mlist[y + 1].getLocation().getCounty().equals("SOMERSET")) {
+                    if (this.mlist[y].getLocation().getZip() >
+                            this.mlist[y + 1].getLocation().getZip()) {
+                        Member temp = this.mlist[y];
+                        this.mlist[y] = this.mlist[y + 1];
+                        this.mlist[y + 1] = temp;
+                    }
+                }
+            }
+        }
         System.out.println("-list of members sorted by county and zipcode-");
         for (int x = 0; x < this.size; x++){
             System.out.println(this.mlist[x].toString());

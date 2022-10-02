@@ -66,8 +66,8 @@ public class Member implements Comparable<Member> {
      * Getter method for Member's gym membership expiration date.
      * @return a Date object representing the member's date of membership expiration.
      */
-    public Date getExpire(){
-        return this.dob;
+    public Date getExpire() {
+        return this.expire;
     }
 
     /**
