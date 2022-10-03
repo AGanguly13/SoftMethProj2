@@ -3,7 +3,6 @@
  * The database is implemented as a resizable array, and the class implements methods to increase
  * the size of the array, add or remove members from the array, and print the array as is or sorted
  * by location, expiration date, or name.
- *
  * @author Adwait Ganguly, Kennan Guan
  */
 public class MemberDatabase {
