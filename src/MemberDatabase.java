@@ -148,6 +148,7 @@ public class MemberDatabase {
     public void printByCounty() {
         if (this.size == 0) {
             System.out.println("Member database is empty!");
+            return;
         }
         for (int x = 0; x < this.size - 1; x++) {
             for (int y = 0; y < this.size - x - 1; y++) {
@@ -193,6 +194,7 @@ public class MemberDatabase {
     public void printByExpirationDate() {
         if (this.size == 0) {
             System.out.println("Member database is empty!");
+            return;
         }
 
         for (int x = 0; x < this.size - 1; x++) {
@@ -219,6 +221,7 @@ public class MemberDatabase {
     public void printByName() {
         if (this.size == 0) {
             System.out.println("Member database is empty!");
+            return;
         }
 
         for (int x = 0; x < this.size - 1; x++) {
