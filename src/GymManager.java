@@ -21,6 +21,7 @@ public class GymManager {
     public void run() {
         System.out.println("Gym Manager running...");
         Scanner keyboard = new Scanner(System.in);
+        System.out.println();
 
         while (keyboard.hasNextLine()) {
             String inputLine = keyboard.nextLine();
@@ -118,8 +119,8 @@ public class GymManager {
         String session = split[0].toUpperCase();
         Date today = new Date();
         Date DOB = new Date(split[3]);
-        if(storedEntry != null) {
-            if (DOB.isValid()) {
+        if(DOB.isValid()) {
+            if (storedEntry != null) {
                 if (today.compareTo(storedEntry.getExpire()) <= 0) {
                     if (session.equals("PILATES") || session.equals("SPINNING") || session.equals("CARDIO")) {
                         boolean inConflictSpinning = spinning.getAttendance().isInArray(storedEntry);
@@ -140,16 +141,16 @@ public class GymManager {
                             }
                         }
                     } else {
-                        System.out.println(session + " class does not exist.");
+                        System.out.println(split[0] + " class does not exist.");
                     }
                 } else {
                     System.out.println(split[1] + " " + split[2] + " " + split[3] + " membership expired.");
                 }
             } else {
-                System.out.println("DOB " + split[3] + ": invalid calendar date!");
+                System.out.println(split[1] + " " + split[2] + " " + split[3] + " is not in the database.");
             }
         } else {
-            System.out.println(split[1] + " " + split[2] + " " + split[3] + " is not in the database.");
+            System.out.println("DOB " + split[3] + ": invalid calendar date!");
         }
     }
 
@@ -170,7 +171,7 @@ public class GymManager {
                             System.out.println(dropMemberInput[1] + " " + dropMemberInput[2] + " dropped " + listOfClasses[i].getName() + ".");
                         } else {
                             System.out.println(dropMemberInput[1] + " " + dropMemberInput[2] + " is not a " +
-                                    "member in " + listOfClasses[i].getName() + ".");
+                                    "participant in " + listOfClasses[i].getName() + ".");
                         }
                     }
                 }
