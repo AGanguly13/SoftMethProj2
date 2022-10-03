@@ -119,6 +119,10 @@ public class Date implements Comparable<Date> {
         }
     }
 
+    /**
+     * Testbed main to test the isValid method
+     * @param args arguments from command line, but is unused
+     */
     public static void main(String[] args) {
         Date date = new Date("-1/31/2003"); //Test case #1
         boolean actual = date.isValid();
