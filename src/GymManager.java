@@ -33,7 +33,7 @@ public class GymManager {
             } else if (inputs[0].equals("R")) {
                 cancelMembership(inputs[1]);
             } else if (inputs[0].equals("P")) {
-                if(database.isEmpty()) database.print();
+                if (database.isEmpty()) database.print();
                 else {
                     System.out.println("-list of members-");
                     database.print();
@@ -52,7 +52,7 @@ public class GymManager {
                 checkIn(inputs[1]);
             } else if (inputs[0].equals("D")) {
                 dropMember(inputs[1]);
-            } else if(inputs[0].equals("")){
+            } else if (inputs[0].equals("")){
                 System.out.println();
             } else {
                 System.out.println(inputs[0] + " is an invalid command!");
@@ -79,17 +79,17 @@ public class GymManager {
         }
         if (!validCity) {
             System.out.println(city + ": invalid location!");
-        }else if(!dateOfBirth.isValid()) {
+        } else if (!dateOfBirth.isValid()) {
             System.out.println("DOB " + input.split(" ")[2] + ": invalid calendar date!");
-        }else if(!dateOfBirth.isFuture(dateOfBirth)) {
+        } else if (!dateOfBirth.isFuture(dateOfBirth)) {
             System.out.println("DOB " + input.split(" ")[2] + ": cannot be today or future date!");
-        }else if(!dateOfBirth.isEighteen(dateOfBirth)) {
+        } else if (!dateOfBirth.isEighteen(dateOfBirth)) {
             System.out.println("DOB " + input.split(" ")[2] + ": must be 18 or older to join!");
-        }else if(!expirationDate.isValid()) {
+        } else if (!expirationDate.isValid()) {
             System.out.println("Expiration Date " + input.split(" ")[3] + ": invalid calendar date!");
-        }else{
+        } else {
             Member newEntry = new Member(input);
-            if(database.add(newEntry)) System.out.println(newEntry.getFname() + " " + newEntry.getLname() + " added.");
+            if (database.add(newEntry)) System.out.println(newEntry.getFname() + " " + newEntry.getLname() + " added.");
             else System.out.println(newEntry.getFname() + " " + newEntry.getLname() + " already in database.");
         }
     }
@@ -101,9 +101,9 @@ public class GymManager {
     private void cancelMembership(String input) {
         String[] inputs = input.split(" ");
         Member entry = new Member(inputs[0], inputs[1], inputs[2]);
-        if(database.remove(entry)) {
+        if (database.remove(entry)) {
             System.out.println(inputs[0] + " " + inputs[1] + " removed.");
-        }else {
+        } else {
             System.out.println(inputs[0] + " " + inputs[1] + " is not in the database.");
         }
     }
@@ -128,10 +128,10 @@ public class GymManager {
                         for (int i = 0; i < listOfClasses.length; i++) {
                             if (session.equals(listOfClasses[i].getName().toUpperCase()) && listOfClasses[i].addMember(storedEntry)) {
                                 if (i != 0 && inConflictSpinning) {
-                                    System.out.println(listOfClasses[i].getName() + " time conflict -- " + split[1] + " " + split[2] + " has already checked into Spinning.");
+                                    System.out.println(listOfClasses[i].getName() + " time conflict -- " + split[1] + " " + split[2] + " has already checked in Spinning.");
                                     listOfClasses[i].removeMember(storedEntry);
                                 } else if (i != 0 && inConflictCardio) {
-                                    System.out.println(listOfClasses[i].getName() + " time conflict -- " + split[1] + " " + split[2] + " has already checked into Cardio.");
+                                    System.out.println(listOfClasses[i].getName() + " time conflict -- " + split[1] + " " + split[2] + " has already checked in Cardio.");
                                     listOfClasses[i].removeMember(storedEntry);
                                 } else {
                                     System.out.println(split[1] + " " + split[2] + " checked in " + listOfClasses[i].getName() + ".");
@@ -191,14 +191,15 @@ public class GymManager {
      */
     private void printClasses() {
         System.out.println("-Fitness Classes-");
-        for(int i = 0; i < listOfClasses.length; i++){
+        for (int i = 0; i < listOfClasses.length; i++) {
             System.out.println(listOfClasses[i].getName() + " - " + listOfClasses[i].getInstructor() + " " + listOfClasses[i].getTime().getClock());
-            if(!listOfClasses[i].isEmpty()) {
+            if (!listOfClasses[i].isEmpty()) {
                 System.out.println("     **participants**");
                 System.out.print("       ");
                 listOfClasses[i].getAttendance().print();
             }
         }
+        System.out.println();
     }
 }
 

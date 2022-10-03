@@ -21,31 +21,63 @@ public class FitnessClass {
         attendance = new MemberDatabase();
     }
 
-    public String getName(){
+    /**
+     * Getter method for the name of the class
+     * @return the name of the class
+     */
+    public String getName() {
         return name;
     }
 
-    public String getInstructor(){
+    /**
+     * Getter method for the instructor of the class
+     * @return the name of the instructor
+     */
+    public String getInstructor() {
         return instructor;
     }
 
-    public Time getTime(){
+    /**
+     * Getter method for the Time object of the class
+     * @return the Time object
+     */
+    public Time getTime() {
         return time;
     }
 
-    public MemberDatabase getAttendance(){
+    /**
+     * Getter method for the member datatbase of the class
+     * @return the member database
+     */
+    public MemberDatabase getAttendance() {
         return attendance;
     }
 
-    public boolean isEmpty(){
+    /**
+     * Returns whether the member database for the class is empty
+     * @return true if empty, false otherwise
+     */
+    public boolean isEmpty() {
         return attendance.isEmpty();
     }
 
+    /**
+     * Adds a member into the member database and returns if the member was added
+     * Will return false if the member already is in the database
+     * @param member the member object to be added
+     * @return true if the member was successfully added, false otherwise
+     */
     public boolean addMember(Member member) {
         return attendance.add(member);
     }
 
-    public boolean removeMember(Member member){
+    /**
+     * Remove a member from the member datatbase and returns if the member was removed
+     * Will return false if the member does not exist
+     * @param member the member object to be removed
+     * @return true if the member was successfully removed, false otherwise
+     */
+    public boolean removeMember(Member member) {
         return attendance.remove(member);
     }
 

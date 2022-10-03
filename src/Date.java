@@ -41,17 +41,17 @@ public class Date implements Comparable<Date> {
     @Override
     public int compareTo(Date date) {
 
-        if(this.year > date.year)
+        if (this.year > date.year)
             return 1;
-        else if(this.year < date.year)
+        else if (this.year < date.year)
             return -1;
-        else if(this.month > date.month)
+        else if (this.month > date.month)
             return 1;
-        else if(this.month < date.month)
+        else if (this.month < date.month)
             return -1;
-        else if(this.day > date.day)
+        else if (this.day > date.day)
             return 1;
-        else if(this.day < date.day)
+        else if (this.day < date.day)
             return -1;
 
         return 0;
@@ -62,13 +62,13 @@ public class Date implements Comparable<Date> {
      * @return true is valid, false otherwise
      */
     public boolean isValid() {
-        if(month < 1 || month > 12) {
+        if (month < 1 || month > 12) {
             return false;
         }
 
         boolean isLeapYear = (year % 4 == 0 && (year % 100 != 0 || year % 400 == 0));
 
-        if(month == 2 && isLeapYear) {
+        if (month == 2 && isLeapYear) {
             return days[1]+1 == day;
         }
         else {
@@ -81,7 +81,7 @@ public class Date implements Comparable<Date> {
      * @return a string in the format month/day/year
      */
     @Override
-    public String toString(){
+    public String toString() {
         return month + "/" + day + "/" + year;
     }
 

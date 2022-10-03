@@ -29,7 +29,7 @@ public enum Location {
          * Getter method for zip code
          * @return the zip code as an integer
          */
-        public int getZip(){
+        public int getZip() {
                 return Integer.parseInt(zip);
         }
 
@@ -37,7 +37,7 @@ public enum Location {
          * Getter method for the county of the gym location
          * @return the county where the gym is located
          */
-        public String getCounty(){
+        public String getCounty() {
                 return county;
         }
         /**
