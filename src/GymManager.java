@@ -37,6 +37,7 @@ public class GymManager {
                     System.out.println("-list of members-");
                     database.print();
                     System.out.println("-end of list-");
+                    System.out.println();
                 }
             } else if (inputs[0].equals("PC")) {
                 database.printByCounty();
