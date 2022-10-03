@@ -9,6 +9,19 @@ public class Date implements Comparable<Date> {
     private int day;
     private static final int[] days = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31}; //constant array containing days of month corresponding to each month
 
+    private static final int QUADRENNIAL = 4;
+
+    private static final int CENTENNIAL = 100;
+
+    private static final int QUATERCENTENNIAL = 400;
+
+    private static final int DAYSINYEAR = 12;
+
+    private static final int FEBRUARYMONTHNUMBER = 2; //constant used to define number of months in february
+
+    private static final int INDICATESFALSE = -1; //returned in compareTo for when object's year, day, or month, is less than when parameter date
+
+    private static final int CHECKIFEIGHTEEN = 18; //used for subtracting 18 years from today's date
     /**
      * Constructs a date object with today's date.
      * Today's date is define by a year, month, and day of month.
@@ -44,19 +57,19 @@ public class Date implements Comparable<Date> {
             return 1;
         }
         else if (this.year < date.year) {
-            return -1;
+            return INDICATESFALSE;
         }
         else if (this.month > date.month) {
             return 1;
         }
         else if (this.month < date.month) {
-            return -1;
+            return INDICATESFALSE;
         }
         else if (this.day > date.day) {
             return 1;
         }
         else if (this.day < date.day) {
-            return -1;
+            return INDICATESFALSE;
         }
 
         return 0;
@@ -67,13 +80,13 @@ public class Date implements Comparable<Date> {
      * @return true is valid, false otherwise.
      */
     public boolean isValid() {
-        if (month < 1 || month > 12 || day < 1 || year < 1) {
+        if (month < 1 || month > DAYSINYEAR || day < 1 || year < 1) {
             return false;
         }
 
-        boolean isLeapYear = (year % 4 == 0 && (year % 100 != 0 || year % 400 == 0));
+        boolean isLeapYear = (year % QUADRENNIAL == 0 && (year % CENTENNIAL != 0 || year % QUATERCENTENNIAL == 0));
 
-        if (month == 2 && isLeapYear) {
+        if (month == FEBRUARYMONTHNUMBER && isLeapYear) {
             return days[1]+1 == day;
         }
         else {
@@ -105,13 +118,13 @@ public class Date implements Comparable<Date> {
      */
     public boolean isEighteen(Date dob) {
         Date today = new Date();
-        if (dob.year < (today.year - 18)) {
+        if (dob.year < (today.year - CHECKIFEIGHTEEN)) {
             return true;
         }
-        else if (dob.year == (today.year - 18) && dob.month < today.month) {
+        else if (dob.year == (today.year - CHECKIFEIGHTEEN) && dob.month < today.month) {
             return true;
         }
-        else if (dob.year == (today.year - 18) && dob.month == today.month && dob.day <= today.day) {
+        else if (dob.year == (today.year - CHECKIFEIGHTEEN) && dob.month == today.month && dob.day <= today.day) {
             return true;
         }
         else {
