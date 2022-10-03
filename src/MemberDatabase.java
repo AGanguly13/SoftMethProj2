@@ -21,7 +21,7 @@ public class MemberDatabase {
     }
 
     /**
-     * This method is a getter for the size of a database array structure
+     * This method is a getter for the size of a database array structure.
      * @return the size of the array structure
      */
     public int getSize() {
@@ -208,7 +208,7 @@ public class MemberDatabase {
 
         for (int x = 0; x < this.size - 1; x++) {
             for (int y = 0; y < this.size - x - 1; y++) {
-                if (this.mlist[y].getExpire().compareTo(this.mlist[y + 1].getExpire()) > 0) { //needs to implement a Date class compareTo method
+                if (this.mlist[y].getExpire().compareTo(this.mlist[y + 1].getExpire()) > 0) {
                     Member temp = this.mlist[y];
                     this.mlist[y] = this.mlist[y + 1];
                     this.mlist[y + 1] = temp;

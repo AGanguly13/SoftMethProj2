@@ -1,7 +1,7 @@
 /**
- * User Interface class that processes command line inputs from user
- * Accepts input as single command line or batch
- * Terminates only when "Q" is typed
+ * This is the User Interface class that processes command line inputs from user.
+ * Accepts input as single command line or batch.
+ * Terminates only when "Q" is typed.
  * @author Kennan Guan, Adwait Ganguly
  */
 import java.util.Scanner;
@@ -15,14 +15,12 @@ public class GymManager {
     private FitnessClass[] listOfClasses = {pilates, spinning, cardio};
 
     /**
-     * Runs the Gym Manager and accepts input from command line
-     * Only terminates upon typing "Q"
+     * Runs the Gym Manager and accepts input from command line.
+     * Only terminates upon typing "Q".
      */
     public void run() {
         System.out.println("Gym Manager running...");
         Scanner keyboard = new Scanner(System.in);
-
-
         while (keyboard.hasNextLine()) {
             String inputLine = keyboard.nextLine();
             String[] inputs = inputLine.split(" ", 2);
@@ -33,7 +31,9 @@ public class GymManager {
             } else if (inputs[0].equals("R")) {
                 cancelMembership(inputs[1]);
             } else if (inputs[0].equals("P")) {
-                if (database.isEmpty()) database.print();
+                if (database.isEmpty()) {
+                    database.print();
+                }
                 else {
                     System.out.println("-list of members-");
                     database.print();
@@ -52,7 +52,7 @@ public class GymManager {
                 checkIn(inputs[1]);
             } else if (inputs[0].equals("D")) {
                 dropMember(inputs[1]);
-            } else if (inputs[0].equals("")){
+            } else if (inputs[0].equals("")) {
                 System.out.println();
             } else {
                 System.out.println(inputs[0] + " is an invalid command!");
@@ -62,9 +62,9 @@ public class GymManager {
     }
 
     /**
-     * Helper method that adds a new member into the gym database
-     * Will also check for valid date of birth and expiration date
-     * @param input the customer data: first name, last name, date of birth, membership expiration date, and gym location
+     * Helper method that adds a new member into the gym database.
+     * Will also check for valid date of birth and expiration date.
+     * @param input the customer data: first name, last name, date of birth, membership expiration date, and gym location.
      */
     private void addMember(String input) {
         Date dateOfBirth = new Date(input.split(" ")[2]);
@@ -89,28 +89,33 @@ public class GymManager {
             System.out.println("Expiration Date " + input.split(" ")[3] + ": invalid calendar date!");
         } else {
             Member newEntry = new Member(input);
-            if (database.add(newEntry)) System.out.println(newEntry.getFname() + " " + newEntry.getLname() + " added.");
-            else System.out.println(newEntry.getFname() + " " + newEntry.getLname() + " already in database.");
+            if (database.add(newEntry)) {
+                System.out.println(newEntry.getFname() + " " + newEntry.getLname() + " added.");
+            }
+            else {
+                System.out.println(newEntry.getFname() + " " + newEntry.getLname() + " already in database.");
+            }
         }
     }
 
     /**
-     * Helper method that cancels and removes a member from the member database
-     * @param input the command line inputs: first name, last name, date of birth, membership expiration date, location
+     * Helper method that cancels and removes a member from the member database.
+     * @param input the command line inputs: first name, last name, date of birth, membership expiration date, location.
      */
     private void cancelMembership(String input) {
         String[] inputs = input.split(" ");
         Member entry = new Member(inputs[0], inputs[1], inputs[2]);
         if (database.remove(entry)) {
             System.out.println(inputs[0] + " " + inputs[1] + " removed.");
-        } else {
+        }
+        else {
             System.out.println(inputs[0] + " " + inputs[1] + " is not in the database.");
         }
     }
 
     /**
-     * Helper method that adds a new member into a specified fitness class
-     * @param input the command line inputs: fitness class name, first name, last name, date of birth
+     * Helper method that adds a new member into a specified fitness class.
+     * @param input the command line inputs: fitness class name, first name, last name, date of birth.
      */
     private void checkIn(String input) {
         String[] split = input.split(" ");
@@ -119,7 +124,7 @@ public class GymManager {
         String session = split[0].toUpperCase();
         Date today = new Date();
         Date DOB = new Date(split[3]);
-        if(DOB.isValid()) {
+        if (DOB.isValid()) {
             if (storedEntry != null) {
                 if (today.compareTo(storedEntry.getExpire()) <= 0) {
                     if (session.equals("PILATES") || session.equals("SPINNING") || session.equals("CARDIO")) {
@@ -155,8 +160,8 @@ public class GymManager {
     }
 
     /**
-     * Helper method that drops a given member from a specified fitness class
-     * @param input the command line inputs: fitness class name, first name, last name, date of birth
+     * Helper method that drops a given member from a specified fitness class.
+     * @param input the command line inputs: fitness class name, first name, last name, date of birth.
      */
     private void dropMember(String input) {
         String[] dropMemberInput = input.split(" ");
@@ -164,18 +169,20 @@ public class GymManager {
         String className = dropMemberInput[0].toUpperCase();
         Date newDate = new Date(dropMemberInput[3]);
         if (newDate.isValid()) {
-            if(className.equals("PILATES") || className.equals("SPINNING") || className.equals("CARDIO")) {
+            if (className.equals("PILATES") || className.equals("SPINNING") || className.equals("CARDIO")) {
                 for (int i = 0; i < listOfClasses.length; i++) {
                     if (dropMemberInput[0].equalsIgnoreCase(listOfClasses[i].getName())) {
                         if (listOfClasses[i].removeMember(newMem)) {
                             System.out.println(dropMemberInput[1] + " " + dropMemberInput[2] + " dropped " + listOfClasses[i].getName() + ".");
-                        } else {
+                        }
+                        else {
                             System.out.println(dropMemberInput[1] + " " + dropMemberInput[2] + " is not a " +
                                     "participant in " + listOfClasses[i].getName() + ".");
                         }
                     }
                 }
-            } else {
+            }
+            else {
                 System.out.println(dropMemberInput[0] + " class does not exist");
             }
         }
@@ -185,8 +192,8 @@ public class GymManager {
     }
 
     /**
-     * Helper method prints out all the fitness classes' information
-     * Will add list of participants if available
+     * Helper method that prints out all the fitness classes' information.
+     * Will add list of participants if available.
      */
     private void printClasses() {
         System.out.println("-Fitness Classes-");

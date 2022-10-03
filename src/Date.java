@@ -7,12 +7,11 @@ public class Date implements Comparable<Date> {
     private int year;
     private int month;
     private int day;
-
     private int[] days = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
 
     /**
-     * Constructs a date object with today's date
-     * Today's date is define by a year, month, and day of month
+     * Constructs a date object with today's date.
+     * Today's date is define by a year, month, and day of month.
      */
     public Date() {
         Calendar today = Calendar.getInstance();
@@ -22,8 +21,8 @@ public class Date implements Comparable<Date> {
     }
 
     /**
-     * Constructs a date object given a date in format "mm/dd/yyyy"
-     * @param date a date in format "mm/dd/yyyy"
+     * Constructs a date object given a date in format "mm/dd/yyyy".
+     * @param date a date in format "mm/dd/yyyy".
      */
     public Date(String date) {
         String[] split_date = date.split("/");
@@ -34,32 +33,38 @@ public class Date implements Comparable<Date> {
 
     /**
      * Compares two dates for ordering and returns an integer value of -1, 0, or 1
-     * -1 indicates less than, 0 indicates equality, 1 indicates greater than
-     * @param date a date object with a day, month, and year
-     * @return an integer value of -1, 0, or 1 when object is less than, equal to, or greater than the passed object
+     * -1 indicates less than, 0 indicates equality, 1 indicates greater than.
+     * @param date a date object with a day, month, and year.
+     * @return an integer value of -1, 0, or 1 when object is less than, equal to, or greater than the passed object.
      */
     @Override
     public int compareTo(Date date) {
 
-        if (this.year > date.year)
+        if (this.year > date.year) {
             return 1;
-        else if (this.year < date.year)
+        }
+        else if (this.year < date.year) {
             return -1;
-        else if (this.month > date.month)
+        }
+        else if (this.month > date.month) {
             return 1;
-        else if (this.month < date.month)
+        }
+        else if (this.month < date.month) {
             return -1;
-        else if (this.day > date.day)
+        }
+        else if (this.day > date.day) {
             return 1;
-        else if (this.day < date.day)
+        }
+        else if (this.day < date.day) {
             return -1;
+        }
 
         return 0;
     }
 
     /**
-     * Determines if the date object is valid
-     * @return true is valid, false otherwise
+     * Determines if the date object is valid.
+     * @return true is valid, false otherwise.
      */
     public boolean isValid() {
         if (month < 1 || month > 12 || day < 1 || year < 1) {
@@ -77,8 +82,8 @@ public class Date implements Comparable<Date> {
     }
 
     /**
-     * Textual representation of the Date object
-     * @return a string in the format month/day/year
+     * Textual representation of the Date object.
+     * @return a string in the format month/day/year.
      */
     @Override
     public String toString() {
@@ -106,7 +111,7 @@ public class Date implements Comparable<Date> {
         else if (dob.year == (today.year - 18) && dob.month < today.month) {
             return true;
         }
-        else if(dob.year == (today.year - 18) && dob.month == today.month && dob.day <= today.day) {
+        else if (dob.year == (today.year - 18) && dob.month == today.month && dob.day <= today.day) {
             return true;
         }
         else {
@@ -114,7 +119,7 @@ public class Date implements Comparable<Date> {
         }
     }
 
-    public static void main(String[] args){
+    public static void main(String[] args) {
         Date date = new Date("-1/31/2003"); //Test case #1
         boolean actual = date.isValid();
         System.out.println("**Test case #1a: month must be between 1 and 12");

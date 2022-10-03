@@ -1,5 +1,5 @@
 /**
- * Defines the five set gym locations
+ * Defines the five set gym locations.
  * @author Kennan Guan, Adwait Ganguly
  */
 public enum Location {
@@ -14,10 +14,10 @@ public enum Location {
         private final String county;
 
         /**
-         * Constructor for Location given city, zip code, and county
-         * @param city the city where a gym is located
-         * @param zipCode the zip code where a gym is located
-         * @param county the county where a gym is located
+         * Constructor for Location given city, zip code, and county.
+         * @param city the city where a gym is located.
+         * @param zipCode the zip code where a gym is located.
+         * @param county the county where a gym is located.
          */
         Location(String city, String zipCode, String county) {
                 this.city = city;
@@ -26,24 +26,23 @@ public enum Location {
         }
 
         /**
-         * Getter method for zip code
-         * @return the zip code as an integer
+         * Getter method for zip code.
+         * @return the zip code as an integer.
          */
         public int getZip() {
                 return Integer.parseInt(zip);
         }
 
         /**
-         * Getter method for the county of the gym location
-         * @return the county where the gym is located
+         * Getter method for the county of the gym location.
+         * @return the county where the gym is located.
          */
         public String getCounty() {
                 return county;
         }
         /**
-         * Textual representation of the Location object
-         * @return a string representation of the location
-         * given as "[city], [zip code], [county]"
+         * Constructs a textual representation of the Location object.
+         * @return a string representation of the location given as "[city], [zip code], [county]"
          */
         @Override
         public String toString() {

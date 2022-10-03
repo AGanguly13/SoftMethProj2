@@ -1,5 +1,5 @@
 /**
- * Defines the times of the set fitness classes
+ * Defines the times of the set fitness classes.
  * Format is hours:minutes
  * @author Kennan Guan, Adwait Ganguly
  */
@@ -12,9 +12,9 @@ public enum Time {
     private final String clock;
 
     /**
-     * Constructs the Time object with hours, minutes, and a string representation
-     * @param hour the hour of day a class takes place
-     * @param minute the minutes into an hour a class takes place
+     * Constructs the Time object with hours, minutes, and a string representation.
+     * @param hour the hour of day a class takes place.
+     * @param minute the minutes into an hour a class takes place.
      */
     Time(int hour, int minute, String clock) {
         this.hour = hour;
@@ -23,24 +23,24 @@ public enum Time {
     }
 
     /**
-     * Getter method for hour
-     * @return the hour of day
+     * Getter method for hour.
+     * @return the hour of day.
      */
     public int getHour() {
         return hour;
     }
 
     /**
-     * Getter method for minute
-     * @return the minute of the hour
+     * Getter method for minute.
+     * @return the minute of the hour.
      */
     public int getMinute() {
         return minute;
     }
 
     /**
-     * Getter method for the clock representation of time
-     * @return the clock representation
+     * Getter method for the clock representation of time.
+     * @return the clock representation.
      */
     public String getClock(){
         return clock;
