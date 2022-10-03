@@ -32,9 +32,12 @@ public class GymManager {
             } else if (inputs[0].equals("R")) {
                 cancelMembership(inputs[1]);
             } else if (inputs[0].equals("P")) {
-                System.out.println("-list of members-");
-                database.print();
-                System.out.println("-end of list-");
+                if(database.isEmpty()) database.print();
+                else {
+                    System.out.println("-list of members");
+                    database.print();
+                    System.out.println("-end of list-");
+                }
             } else if (inputs[0].equals("PC")) {
                 database.printByCounty();
             } else if (inputs[0].equals("PN")) {

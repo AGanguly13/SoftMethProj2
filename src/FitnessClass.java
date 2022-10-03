@@ -48,4 +48,5 @@ public class FitnessClass {
     public boolean removeMember(Member member){
         return attendance.remove(member);
     }
+
 }

@@ -140,6 +140,7 @@ public class MemberDatabase {
         for (int x = 0; x < this.size; x++) {
             System.out.println(this.mlist[x].toString());
         }
+        System.out.println("-end of list-");
     } //print the array contents as is
 
     /**
