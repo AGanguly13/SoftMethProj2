@@ -9,13 +9,16 @@ public class MemberDatabase {
     private Member [] mlist;
     private int size;
     private static final int NOT_FOUND = -1; //constant used when Member is not found in Database
+    private static final int MAXFITNESSPARTICIPANTS = 2; //constant used for most number of participants in class
+
+    private static final int ARRAYSIZEINCREMENT = 4;
 
     /**
      * Default constructor that creates a Member Database as an array of length 4 with the size
      * variable set to 0, given that there are initially no members in the database.
      */
     public MemberDatabase() {
-        this.mlist = new Member[4];
+        this.mlist = new Member[ARRAYSIZEINCREMENT];
         this.size = 0;
     }
 
@@ -86,7 +89,7 @@ public class MemberDatabase {
      * array to a new array that has an increased length.
      */
     private void grow() {
-        Member[] copy = new Member[this.mlist.length + 4];
+        Member[] copy = new Member[this.mlist.length + ARRAYSIZEINCREMENT];
         for (int x = 0; x < this.size; x++) {
             copy[x] = this.mlist[x];
         }
@@ -142,6 +145,12 @@ public class MemberDatabase {
     public void print () {
         if (this.size == 0) {
             System.out.println("Member database is empty!");
+            return;
+        }
+        if (this.size == 1 || this.size == MAXFITNESSPARTICIPANTS) {
+            for (int x = 0; x < this.size; x++) {
+                System.out.println("       " + this.mlist[x].toString());
+            }
             return;
         }
         for (int x = 0; x < this.size; x++) {
@@ -215,6 +224,7 @@ public class MemberDatabase {
             }
         }
 
+        System.out.println();
         System.out.println("-list of members sorted by membership expiration date-");
         for (int x = 0; x < this.size; x++) {
             System.out.println(this.mlist[x].toString());

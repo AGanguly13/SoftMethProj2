@@ -1,8 +1,8 @@
+import java.util.Calendar;
 /**
  * Defines the date object as day, month, and year
  * @author Kennan Guan, Adwait Ganguly
  */
-import java.util.Calendar;
 public class Date implements Comparable<Date> {
     private int year;
     private int month;
@@ -22,6 +22,7 @@ public class Date implements Comparable<Date> {
     private static final int INDICATESFALSE = -1; //returned in compareTo for when object's year, day, or month, is less than when parameter date
 
     private static final int CHECKIFEIGHTEEN = 18; //used for subtracting 18 years from today's date
+
     /**
      * Constructs a date object with today's date.
      * Today's date is define by a year, month, and day of month.
@@ -134,7 +135,7 @@ public class Date implements Comparable<Date> {
 
     /**
      * Testbed main to test the isValid method
-     * @param args arguments from command line, but is unused
+     * @param args arguments from command line, but is unused.
      */
     public static void main(String[] args) {
         Date date = new Date("-1/31/2003"); //Test case #1

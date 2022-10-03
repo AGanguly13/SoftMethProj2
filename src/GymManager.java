@@ -1,12 +1,11 @@
+import java.util.Scanner;
+import java.util.Calendar;
 /**
  * This is the User Interface class that processes command line inputs from user.
  * Accepts input as single command line or batch.
  * Terminates only when "Q" is typed.
  * @author Kennan Guan, Adwait Ganguly
  */
-import java.util.Scanner;
-import java.util.Calendar;
-
 public class GymManager {
     private MemberDatabase database = new MemberDatabase();
     private FitnessClass pilates = new FitnessClass(Time.MORNING, "JENNIFER", "Pilates");
@@ -93,7 +92,7 @@ public class GymManager {
                 System.out.println(newEntry.getFname() + " " + newEntry.getLname() + " added.");
             }
             else {
-                System.out.println(newEntry.getFname() + " " + newEntry.getLname() + " already in database.");
+                System.out.println(newEntry.getFname() + " " + newEntry.getLname() + " is already in database.");
             }
         }
     }
@@ -107,6 +106,7 @@ public class GymManager {
         Member entry = new Member(inputs[0], inputs[1], inputs[2]);
         if (database.remove(entry)) {
             System.out.println(inputs[0] + " " + inputs[1] + " removed.");
+            System.out.println();
         }
         else {
             System.out.println(inputs[0] + " " + inputs[1] + " is not in the database.");
@@ -196,12 +196,12 @@ public class GymManager {
      * Will add list of participants if available.
      */
     private void printClasses() {
+        System.out.println();
         System.out.println("-Fitness Classes-");
         for (int i = 0; i < listOfClasses.length; i++) {
             System.out.println(listOfClasses[i].getName() + " - " + listOfClasses[i].getInstructor() + " " + listOfClasses[i].getTime().getClock());
             if (!listOfClasses[i].isEmpty()) {
                 System.out.println("     **participants**");
-                System.out.print("       ");
                 listOfClasses[i].getAttendance().print();
             }
         }

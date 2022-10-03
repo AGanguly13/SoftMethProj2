@@ -42,7 +42,7 @@ public enum Time {
      * Getter method for the clock representation of time.
      * @return the clock representation.
      */
-    public String getClock(){
+    public String getClock() {
         return clock;
     }
 }

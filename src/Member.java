@@ -107,8 +107,7 @@ public class Member implements Comparable<Member> {
     /**
      * Checks if two objects are of the same class or if either is null, then checks equality.
      * @param obj an object that is not necessarily a Member object, and is used for comparison.
-     * @return true if first name, last name, and DOB of objects are all equal,
-     * otherwise returns false.
+     * @return true if first name, last name, and DOB of objects are all equal, otherwise returns false.
      */
     @Override
     public boolean equals(Object obj) {
@@ -158,5 +157,129 @@ public class Member implements Comparable<Member> {
             }
         }
         return 0;
+    }
+
+    /**
+     * Testbed main to exercise the compareTo() method in the Member class.
+     * @param args is the command line input of the user.
+     */
+    public static void main(String[] args) {
+        //TEST 1
+        Member member1 = new Member("John Doe 1/20/2004 3/30/2023 BRIDGEWATER");
+        Member member2 = null;
+        int expectedOutput = 1;
+        int actualOutput = member1.compareTo(member2);
+        System.out.println("**Test case #1: comparing to member object that is null");
+        System.out.print("compareTo() returns: ");
+        if (actualOutput == expectedOutput) {
+            System.out.println(actualOutput + " PASS");
+        }
+        else {
+            System.out.println(actualOutput + " FAIL");
+        }
+        System.out.println();
+
+        //TEST 2
+        member1 = new Member("John Doe 1/20/2004 3/30/2023 BRIDGEWATER");
+        member2 = new Member("John Doe 1/20/2004 3/30/2023 BRIDGEWATER");
+        expectedOutput = 0;
+        actualOutput = member1.compareTo(member2);
+        System.out.println("**Test case #2: comparing member objects that have the exact same name");
+        System.out.print("compareTo() returns: ");
+        if (actualOutput == expectedOutput) {
+            System.out.println(actualOutput + " PASS");
+        }
+        else {
+            System.out.println(actualOutput + " FAIL");
+        }
+        System.out.println();
+
+        //TEST 3
+        member1 = new Member("John Doe 1/20/2004 3/30/2023 BRIDGEWATER");
+        member2 = new Member("Jane Doe 5/1/1996 3/30/2023 Edison");
+        actualOutput = member1.compareTo(member2);
+        System.out.println("**Test case #3: comparing member objects that have the same last name but different first names");
+        System.out.print("compareTo() returns: ");
+        if (actualOutput > 0) {
+            System.out.println(actualOutput + " PASS");
+        }
+        else {
+            System.out.println(actualOutput + " FAIL");
+        }
+        System.out.println();
+
+        //TEST 4
+        member1 = new Member("Roy Brooks 8/8/1977 9/30/2020 somerville");
+        member2 = new Member("Carl Brown 10/7/1991 3/31/2023 piscataway");
+        actualOutput = member1.compareTo(member2);
+        System.out.println("**Test case #4: comparing member objects whose last name have the same first three letters");
+        System.out.print("compareTo() returns: ");
+        if (actualOutput < 0) {
+            System.out.println(actualOutput + " PASS");
+        }
+        else {
+            System.out.println(actualOutput + " FAIL");
+        }
+        System.out.println();
+
+        //TEST 5
+        member1 = new Member("John Doe 1/20/2004 3/30/2023 BRIDGEWATER");
+        member2 = new Member("john doe 1/20/2003 3/30/2023 BRIDGEWATER");
+        expectedOutput = 0;
+        actualOutput = member1.compareTo(member2);
+        System.out.println("**Test case #5: comparing member objects who have the same name, but the parameter member name is fully lowercase");
+        System.out.print("compareTo() returns: ");
+        if (actualOutput == expectedOutput) {
+            System.out.println(actualOutput + " PASS");
+        }
+        else {
+            System.out.println(actualOutput + " FAIL");
+        }
+        System.out.println();
+
+        //TEST 6
+        member1 = new Member("John Doe 1/20/2004 3/30/2023 BRIDGEWATER");
+        member2 = new Member("JOHN DOE 1/20/2003 3/30/2023 BRIDGEWATER");
+        expectedOutput = 0;
+        actualOutput = member1.compareTo(member2);
+        System.out.println("**Test case #6: comparing member objects who have the same name, but the parameter member name is fully uppercase");
+        System.out.print("compareTo() returns: ");
+        if (actualOutput == expectedOutput) {
+            System.out.println(actualOutput + " PASS");
+        }
+        else {
+            System.out.println(actualOutput + " FAIL");
+        }
+        System.out.println();
+
+        //TEST 7
+        member1 = new Member("John Doe 1/20/2004 3/30/2023 BRIDGEWATER");
+        member2 = new Member("Roy Brooks 8/8/1977 9/30/2020 somerville");
+        actualOutput = member1.compareTo(member2);
+        System.out.println("**Test case #7: comparing member objects who have the same name, " +
+                            "but the parameter member has an alphabetically lesser/earlier last name");
+        System.out.print("compareTo() returns: ");
+        if (actualOutput > 0) {
+            System.out.println(actualOutput + " PASS");
+        }
+        else {
+            System.out.println(actualOutput + " FAIL");
+        }
+        System.out.println();
+
+        //TEST 8
+        member1 = new Member("Roy Brooks 8/8/1977 9/30/2020 somerville");
+        member2 = new Member("John Doe 1/20/2004 3/30/2023 BRIDGEWATER");
+        actualOutput = member1.compareTo(member2);
+        System.out.println("**Test case #8: comparing member objects who have the same name, " +
+                "but the parameter member has an alphabetically later/greater last name");
+        System.out.print("compareTo() returns: ");
+        if (actualOutput < 0) {
+            System.out.println(actualOutput + " PASS");
+        }
+        else {
+            System.out.println(actualOutput + " FAIL");
+        }
+        System.out.println();
     }
 }
