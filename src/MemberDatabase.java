@@ -139,19 +139,18 @@ public class MemberDatabase {
         }
         for (int x = 0; x < this.size - 1; x++) {
             for (int y = 0; y < this.size - x - 1; y++) {
-                if (this.mlist[y].getLocation().getCounty().
-                        compareTo(this.mlist[y + 1].getLocation().getCounty()) > 0) { //needs to implement a String compareTo method
+                if (this.mlist[y].getLocation().getCounty().compareTo(this.mlist[y + 1].getLocation().getCounty()) > 0) { //needs to implement a String compareTo method
                     Member temp = this.mlist[y];
                     this.mlist[y] = this.mlist[y + 1];
                     this.mlist[y + 1] = temp;
                 }
             }
         }
-        for (int x = 0; x < this.size - 1; x++) {
+        int trackSwitch = 0; //variable that tracks when the county changes
+        for (int x = trackSwitch; trackSwitch < this.size - 1; trackSwitch++) {
             for (int y = 0; y < this.size - x - 1; y++) {
                 if (this.mlist[y + 1].getLocation().getCounty().equals("MIDDLESEX")) {
-                    if (this.mlist[y].getLocation().getZip() >
-                            this.mlist[y + 1].getLocation().getZip()) {
+                    if (this.mlist[y].getLocation().getZip() > this.mlist[y + 1].getLocation().getZip()) {
                         Member temp = this.mlist[y];
                         this.mlist[y] = this.mlist[y + 1];
                         this.mlist[y + 1] = temp;
@@ -159,16 +158,13 @@ public class MemberDatabase {
                 }
             }
         }
-        for (int x = 0; x < this.size - 1; x++) {
-            for (int y = 0; y < this.size - x - 1; y++) {
-                if (this.mlist[y + 1].getLocation().getCounty().equals("SOMERSET")) {
-                    if (this.mlist[y].getLocation().getZip() >
-                            this.mlist[y + 1].getLocation().getZip()) {
+        for (int x = trackSwitch; trackSwitch < this.size - 1; trackSwitch++) {
+            for (int y = trackSwitch; y < this.size - x - 1; y++) {
+                    if (this.mlist[y].getLocation().getZip() > this.mlist[y + 1].getLocation().getZip()) {
                         Member temp = this.mlist[y];
                         this.mlist[y] = this.mlist[y + 1];
                         this.mlist[y + 1] = temp;
                     }
-                }
             }
         }
         System.out.println("-list of members sorted by county and zipcode-");
