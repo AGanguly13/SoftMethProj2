@@ -3,7 +3,7 @@
  * @author Kennan Guan
  */
 public enum Location {
-        BRIDGEWATER("BRIDGEWATER","08817", "SOMERSET"),
+        BRIDGEWATER("BRIDGEWATER","08807", "SOMERSET"),
         EDISON("EDISON", "08837", "MIDDLESEX"),
         FRANKLIN("FRANKLIN", "08873", "SOMERSET"),
         PISCATAWAY("PISCATAWAY", "08854", "MIDDLESEX"),
