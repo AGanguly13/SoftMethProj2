@@ -34,7 +34,7 @@ public class GymManager {
             } else if (inputs[0].equals("P")) {
                 if(database.isEmpty()) database.print();
                 else {
-                    System.out.println("-list of members");
+                    System.out.println("-list of members-");
                     database.print();
                     System.out.println("-end of list-");
                 }
