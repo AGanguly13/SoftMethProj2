@@ -32,21 +32,13 @@ public class GymManager {
             } else if (inputs[0].equals("R")) {
                 cancelMembership(inputs[1]);
             } else if (inputs[0].equals("P")) {
-                System.out.println("-list of members-");
                 database.print();
-                System.out.println("-end of list-");
             } else if (inputs[0].equals("PC")) {
-                System.out.println("-list of members-");
                 database.printByCounty();
-                System.out.println("-end of list-");
             } else if (inputs[0].equals("PN")) {
-                System.out.println("-list of members-");
                 database.printByName();
-                System.out.println("-end of list-");
             } else if (inputs[0].equals("PD")) {
-                System.out.println("-list of members-");
                 database.printByExpirationDate();
-                System.out.println("-end of list-");
             } else if (inputs[0].equals("S")) {
                 printClasses();
             } else if (inputs[0].equals("C")) {
