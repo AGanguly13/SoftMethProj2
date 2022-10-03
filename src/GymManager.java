@@ -195,6 +195,7 @@ public class GymManager {
             System.out.println(listOfClasses[i].getName() + " - " + listOfClasses[i].getInstructor() + " " + listOfClasses[i].getTime().getClock());
             if(!listOfClasses[i].isEmpty()) {
                 System.out.println("     **participants**");
+                System.out.print("        ");
                 listOfClasses[i].getAttendance().print();
             }
         }
