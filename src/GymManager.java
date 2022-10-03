@@ -170,9 +170,9 @@ public class GymManager {
      * Will add list of participants if available
      */
     public void printClasses() {
+        System.out.println("-Fitness Classes-");
         for(int i = 0; i < listOfClasses.length; i++){
-            System.out.println("-Fitness Classes-");
-            System.out.println(listOfClasses[i].getName() + " - " + listOfClasses[i].getInstructor() + " " + listOfClasses[i].getTime().getHour() + ":" + listOfClasses[i].getTime().getMinute() + "\n");
+            System.out.println(listOfClasses[i].getName() + " - " + listOfClasses[i].getInstructor() + " " + listOfClasses[i].getTime().getClock());
             if(!listOfClasses[i].isEmpty()) {
                 System.out.println("**participants**");
                 System.out.print(listOfClasses[i].getAttendance());
