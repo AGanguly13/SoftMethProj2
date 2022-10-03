@@ -36,7 +36,7 @@ public class Date implements Comparable<Date> {
      * Compares two dates for ordering and returns an integer value of -1, 0, or 1
      * -1 indicates less than, 0 indicates equality, 1 indicates greater than
      * @param date a date object with a day, month, and year
-     * @return an integer value of -1, 0, or 1 when object is less than, equal to, or or greater than the passed object
+     * @return an integer value of -1, 0, or 1 when object is less than, equal to, or greater than the passed object
      */
     @Override
     public int compareTo(Date date) {
@@ -112,5 +112,105 @@ public class Date implements Comparable<Date> {
         else {
             return false;
         }
+    }
+
+    public static void main(String[] args){
+        Date date = new Date("-1/31/2003"); //Test case #1
+        boolean actual = date.isValid();
+        System.out.println("**Test case #1a: month must be between 1 and 12");
+        System.out.println("Input: " + date);
+        System.out.print("isValid() returns " + actual);
+        System.out.println(", " + ((actual == false) ? "PASS" : "FAIL"));
+
+        System.out.println();
+
+        date = new Date("13/31/2003"); //Test case #1
+        actual = date.isValid();
+        System.out.println("**Test case #1b: month must be between 1 and 12");
+        System.out.println("Input: " + date);
+        System.out.print("isValid() returns " + actual);
+        System.out.println(", " + ((actual == false) ? "PASS" : "FAIL"));
+
+        System.out.println();
+
+        date = new Date("13/8/1977"); //Test case #1
+        actual = date.isValid();
+        System.out.println("**Test case #1c: month must be between 1 and 12");
+        System.out.println("Input: " + date);
+        System.out.print("isValid() returns " + actual);
+        System.out.println(", " + ((actual == false) ? "PASS" : "FAIL"));
+
+        System.out.println();
+
+        date = new Date("10/-24/2002"); //Test case #2
+        actual = date.isValid();
+        System.out.println("**Test case #2: Day must be greater than 0");
+        System.out.println("Input: " + date);
+        System.out.print("isValid() returns " + actual);
+        System.out.println(", " + ((actual == false) ? "PASS" : "FAIL"));
+
+        System.out.println();
+
+        date = new Date("3/32/2003"); //Test case #3
+        actual = date.isValid();
+        System.out.println("**Test case #3a: January, March, May, July, August, October, and December must not have days above 31");
+        System.out.println("Input: " + date);
+        System.out.print("isValid() returns " + actual);
+        System.out.println(", " + ((actual == false) ? "PASS" : "FAIL"));
+
+        System.out.println();
+
+        date = new Date("12/32/1989"); //Test case #3
+        actual = date.isValid();
+        System.out.println("**Test case #3b: January, March, May, July, August, October, and December must not have days above 31");
+        System.out.println("Input: " + date);
+        System.out.print("isValid() returns " + actual);
+        System.out.println(", " + ((actual == false) ? "PASS" : "FAIL"));
+
+        System.out.println();
+
+        date = new Date("4/31/2003"); //Test case #3
+        actual = date.isValid();
+        System.out.println("**Test case #3: April, June, September, and November must not have days above 30");
+        System.out.println("Input: " + date);
+        System.out.print("isValid() returns " + actual);
+        System.out.println(", " + ((actual == false) ? "PASS" : "FAIL"));
+
+        System.out.println();
+
+        date = new Date("4/31/2003"); //Test case #4
+        actual = date.isValid();
+        System.out.println("**Test case #4: April, June, September, and November must not have days above 30");
+        System.out.println("Input: " + date);
+        System.out.print("isValid() returns " + actual);
+        System.out.println(", " + ((actual == false) ? "PASS" : "FAIL"));
+
+        System.out.println();
+
+        date = new Date("10/24/-2002"); //Test case #5
+        actual = date.isValid();
+        System.out.println("**Test case #5: Year must be greater than 0");
+        System.out.println("Input: " + date);
+        System.out.print("isValid() returns " + actual);
+        System.out.println(", " + ((actual == false) ? "PASS" : "FAIL"));
+
+        System.out.println();
+
+        date = new Date("2/29/2020"); //Test case #6
+        actual = date.isValid();
+        System.out.println("**Test case #6: For a leap year, the day for February can be 29");
+        System.out.println("Input: " + date);
+        System.out.print("isValid() returns " + actual);
+        System.out.println(", " + ((actual == true) ? "PASS" : "FAIL"));
+
+        System.out.println();
+
+        date = new Date("2/29/2003"); //Test case #7
+        actual = date.isValid();
+        System.out.println("**Test case #7: For a non-leap year, the day for February cannot be 29");
+        System.out.println("Input: " + date);
+        System.out.print("isValid() returns " + actual);
+        System.out.println(", " + ((actual == false) ? "PASS" : "FAIL"));
+
     }
 }
