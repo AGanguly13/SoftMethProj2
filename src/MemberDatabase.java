@@ -21,6 +21,14 @@ public class MemberDatabase {
     }
 
     /**
+     * This method is a getter for the size of a database array structure
+     * @return the size of the array structure
+     */
+    public int getSize() {
+        return this.size;
+    }
+
+    /**
      * This method checks if a database object does or does not have any members in it.
      * @return true if the database has no members, false if it does have members.
      */
@@ -87,7 +95,7 @@ public class MemberDatabase {
     }
 
     /**
-     *
+     * This method removes a member from the database as long as the member is not already in the database.
      * @param member is the member that is intended to be added to the database.
      * @return true if the member was not initially in the database and was then successfully added,
      * otherwise this method returns false.
@@ -108,7 +116,7 @@ public class MemberDatabase {
     }
 
     /**
-     *
+     * This method removes a member from the database as long as the member is already in the database.
      * @param member is the member that is a candidate to be removed from the database.
      * @return true if the member is in the database and is successfully removed, false otherwise.
      */
@@ -153,14 +161,14 @@ public class MemberDatabase {
         }
         for (int x = 0; x < this.size - 1; x++) {
             for (int y = 0; y < this.size - x - 1; y++) {
-                if (this.mlist[y].getLocation().getCounty().compareTo(this.mlist[y + 1].getLocation().getCounty()) > 0) { //needs to implement a String compareTo method
+                if (this.mlist[y].getLocation().getCounty().compareTo(this.mlist[y + 1].getLocation().getCounty()) > 0) {
                     Member temp = this.mlist[y];
                     this.mlist[y] = this.mlist[y + 1];
                     this.mlist[y + 1] = temp;
                 }
             }
         }
-        int trackSwitch = 0; //variable that tracks when the county changes
+        int trackSwitch = 0; //variable that tracks when the county changes from Middlesex to Somerset in the Member database
         for (int x = trackSwitch; trackSwitch < this.size - 1; trackSwitch++) {
             for (int y = 0; y < this.size - x - 1; y++) {
                 if (this.mlist[y + 1].getLocation().getCounty().equals("MIDDLESEX")) {
@@ -182,11 +190,10 @@ public class MemberDatabase {
             }
         }
         System.out.println("-list of members sorted by county and zipcode-");
-        for (int x = 0; x < this.size; x++){
+        for (int x = 0; x < this.size; x++) {
             System.out.println(this.mlist[x].toString());
         }
-        System.out.println("-end of list-");
-        System.out.println();
+        System.out.println("-end of list-" + "\n");
     } //sort by county and then zipcode
 
     /**
@@ -210,7 +217,7 @@ public class MemberDatabase {
         }
 
         System.out.println("-list of members sorted by membership expiration date-");
-        for (int x = 0; x < this.size; x++){
+        for (int x = 0; x < this.size; x++) {
             System.out.println(this.mlist[x].toString());
         }
         System.out.println("-end of list-");
@@ -238,7 +245,7 @@ public class MemberDatabase {
         }
 
         System.out.println("-list of members sorted by last name, and first name-");
-        for (int x = 0; x < this.size; x++){
+        for (int x = 0; x < this.size; x++) {
             System.out.println(this.mlist[x].toString());
         }
         System.out.println("-end of list-");

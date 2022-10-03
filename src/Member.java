@@ -58,7 +58,7 @@ public class Member implements Comparable<Member> {
      * Getter method for Member date of birth.
      * @return a Date object representing the member's date of birth.
      */
-    public Date getDob(){
+    public Date getDob() {
         return this.dob;
     }
 
@@ -121,16 +121,15 @@ public class Member implements Comparable<Member> {
         }
 
         Member mem = (Member) obj;
-        if (this.fname.equalsIgnoreCase(mem.fname.toLowerCase()) &&
-                this.lname.equalsIgnoreCase(mem.lname.toLowerCase()) &&
-                this.dob.compareTo(mem.dob) == 0) {
+        if (this.fname.equalsIgnoreCase(mem.fname.toLowerCase()) && this.lname.equalsIgnoreCase(mem.lname.toLowerCase())
+                && this.dob.compareTo(mem.dob) == 0) {
             return true;
         }
         return false;
     }
 
     /**
-     *
+     * Compares two members based on last name alphabetically, and then first name alphabetically.
      * @param member is the member object whose last and first name will be compared to this member
      * object.
      * @return positive number, 0, or negative number based on if this object's name is
@@ -142,8 +141,7 @@ public class Member implements Comparable<Member> {
             return 1;
         }
 
-        // variable that will be assigned the longer last or first name
-        int maxLength = getLongerName(this.lname, member.lname);
+        int maxLength = getLongerName(this.lname, member.lname); // variable that will be assigned the longer last or first name
         char[] thisLastName = this.lname.toCharArray();
         char[] memLastName = member.lname.toCharArray();
         for (int x = 0; x < maxLength; x++) {

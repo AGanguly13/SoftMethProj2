@@ -184,7 +184,6 @@ public class GymManager {
         }
     }
 
-
     /**
      * Helper method prints out all the fitness classes' information
      * Will add list of participants if available
