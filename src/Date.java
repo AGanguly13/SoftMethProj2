@@ -7,7 +7,7 @@ public class Date implements Comparable<Date> {
     private int year;
     private int month;
     private int day;
-    private int[] days = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+    private static final int[] days = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31}; //constant array containing days of month corresponding to each month
 
     /**
      * Constructs a date object with today's date.
