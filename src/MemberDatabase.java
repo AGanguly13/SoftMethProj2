@@ -47,6 +47,20 @@ public class MemberDatabase {
     }
 
     /**
+     * This method returns a member if it is in the database.
+     * @param member is the member that is being checked for if they are in the database.
+     * @return the member if that member is found in the database, null otherwise
+     */
+    public Member isMemberInArray(Member member) {
+        for (int x = 0; x < this.size; x++) {
+            if (this.mlist[x].equals(member)) {
+                return this.mlist[x];
+            }
+        }
+        return null;
+    }
+
+    /**
      * Searches for the parameter Member object in the database array.
      * @param member is the member that is being searched for in the database.
      * @return the index of the member if found, otherwise return constant NOT_FOUND.
