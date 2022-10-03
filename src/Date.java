@@ -62,7 +62,7 @@ public class Date implements Comparable<Date> {
      * @return true is valid, false otherwise
      */
     public boolean isValid() {
-        if (month < 1 || month > 12) {
+        if (month < 1 || month > 12 || day < 1 || year < 1) {
             return false;
         }
 
