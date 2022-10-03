@@ -47,8 +47,8 @@ public class GymManager {
                 checkIn(inputs[1]);
             } else if (inputs[0].equals("D")) {
                 dropMember(inputs[1]);
-            } else if(inputs[0].equals("\n")){
-                System.out.println("\n");
+            } else if(inputs[0].equals("")){
+                System.out.println();
             } else {
                 System.out.println(inputs[0] + " is an invalid command!");
             }
