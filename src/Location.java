@@ -1,6 +1,6 @@
 /**
  * Defines the five set gym locations
- * @author Kennan Guan
+ * @author Kennan Guan, Adwait Ganguly
  */
 public enum Location {
         BRIDGEWATER("BRIDGEWATER","08807", "SOMERSET"),

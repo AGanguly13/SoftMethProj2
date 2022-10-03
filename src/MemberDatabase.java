@@ -4,7 +4,7 @@
  * the size of the array, add or remove members from the array, and print the array as is or sorted
  * by location, expiration date, or name.
  *
- * @author Adwait Ganguly
+ * @author Adwait Ganguly, Kennan Guan
  */
 public class MemberDatabase {
     private Member [] mlist;

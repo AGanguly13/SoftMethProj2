@@ -21,7 +21,7 @@ public class GymManager {
     public void run() {
         System.out.println("Gym Manager running...");
         Scanner keyboard = new Scanner(System.in);
-        System.out.println();
+
 
         while (keyboard.hasNextLine()) {
             String inputLine = keyboard.nextLine();
@@ -195,7 +195,7 @@ public class GymManager {
             System.out.println(listOfClasses[i].getName() + " - " + listOfClasses[i].getInstructor() + " " + listOfClasses[i].getTime().getClock());
             if(!listOfClasses[i].isEmpty()) {
                 System.out.println("     **participants**");
-                System.out.print("        ");
+                System.out.print("       ");
                 listOfClasses[i].getAttendance().print();
             }
         }

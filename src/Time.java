@@ -1,7 +1,7 @@
 /**
  * Defines the times of the set fitness classes
  * Format is hours:minutes
- * @author Kennan Guan
+ * @author Kennan Guan, Adwait Ganguly
  */
 public enum Time {
     MORNING(9, 30, "9:30"),

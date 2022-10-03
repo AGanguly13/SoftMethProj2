@@ -1,6 +1,6 @@
 /**
  * Defines the fitness classes offered
- * @author Kennan Guan
+ * @author Kennan Guan, Adwait Ganguly
  */
 public class FitnessClass {
     private Time time;
