@@ -137,11 +137,9 @@ public class MemberDatabase {
             System.out.println("Member database is empty!");
             return;
         }
-        System.out.println("-list of members-");
-        for (int x = 0; x < this.size; x++){
+        for (int x = 0; x < this.size; x++) {
             System.out.println(this.mlist[x].toString());
         }
-        System.out.println("-end of list-");
     } //print the array contents as is
 
     /**

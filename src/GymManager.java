@@ -32,7 +32,9 @@ public class GymManager {
             } else if (inputs[0].equals("R")) {
                 cancelMembership(inputs[1]);
             } else if (inputs[0].equals("P")) {
+                System.out.println("-list of members-");
                 database.print();
+                System.out.println("-end of list-");
             } else if (inputs[0].equals("PC")) {
                 database.printByCounty();
             } else if (inputs[0].equals("PN")) {
@@ -45,6 +47,8 @@ public class GymManager {
                 checkIn(inputs[1]);
             } else if (inputs[0].equals("D")) {
                 dropMember(inputs[1]);
+            } else if(inputs[0].equals("\n")){
+                System.out.println("\n");
             } else {
                 System.out.println(inputs[0] + " is an invalid command!");
             }
@@ -185,7 +189,7 @@ public class GymManager {
         for(int i = 0; i < listOfClasses.length; i++){
             System.out.println(listOfClasses[i].getName() + " - " + listOfClasses[i].getInstructor() + " " + listOfClasses[i].getTime().getClock());
             if(!listOfClasses[i].isEmpty()) {
-                System.out.println("**participants**");
+                System.out.println("     **participants**");
                 listOfClasses[i].getAttendance().print();
             }
         }
