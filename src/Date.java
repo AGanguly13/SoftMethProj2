@@ -1,6 +1,9 @@
 import java.util.Calendar;
 /**
- * Defines the date object as day, month, and year
+ * Defines the date object by splitting a string into three integer values - day, month, and year.
+ * This class offers two constructors to create a date with today's date and a date with a specified date.
+ * Date also overrides toString and compareTo to allow an accurate string representation and
+ * the ability to compare two dates.
  * @author Kennan Guan, Adwait Ganguly
  */
 public class Date implements Comparable<Date> {
@@ -140,7 +143,7 @@ public class Date implements Comparable<Date> {
     public static void main(String[] args) {
         Date date = new Date("-1/31/2003"); //Test case #1
         boolean actual = date.isValid();
-        System.out.println("**Test case #1a: month must be between 1 and 12");
+        System.out.println("**Test case #1a: month must be between 1 and 12**");
         System.out.println("Input: " + date);
         System.out.print("isValid() returns " + actual);
         System.out.println(", " + ((actual == false) ? "PASS" : "FAIL"));
@@ -149,7 +152,7 @@ public class Date implements Comparable<Date> {
 
         date = new Date("13/31/2003"); //Test case #1
         actual = date.isValid();
-        System.out.println("**Test case #1b: month must be between 1 and 12");
+        System.out.println("**Test case #1b: month must be between 1 and 12**");
         System.out.println("Input: " + date);
         System.out.print("isValid() returns " + actual);
         System.out.println(", " + ((actual == false) ? "PASS" : "FAIL"));
@@ -158,7 +161,7 @@ public class Date implements Comparable<Date> {
 
         date = new Date("13/8/1977"); //Test case #1
         actual = date.isValid();
-        System.out.println("**Test case #1c: month must be between 1 and 12");
+        System.out.println("**Test case #1c: month must be between 1 and 12**");
         System.out.println("Input: " + date);
         System.out.print("isValid() returns " + actual);
         System.out.println(", " + ((actual == false) ? "PASS" : "FAIL"));
@@ -167,7 +170,7 @@ public class Date implements Comparable<Date> {
 
         date = new Date("10/-24/2002"); //Test case #2
         actual = date.isValid();
-        System.out.println("**Test case #2: Day must be greater than 0");
+        System.out.println("**Test case #2: Day must be greater than 0**");
         System.out.println("Input: " + date);
         System.out.print("isValid() returns " + actual);
         System.out.println(", " + ((actual == false) ? "PASS" : "FAIL"));
@@ -176,7 +179,7 @@ public class Date implements Comparable<Date> {
 
         date = new Date("3/32/2003"); //Test case #3
         actual = date.isValid();
-        System.out.println("**Test case #3a: January, March, May, July, August, October, and December must not have days above 31");
+        System.out.println("**Test case #3a: January, March, May, July, August, October, and December must not have days above 31**");
         System.out.println("Input: " + date);
         System.out.print("isValid() returns " + actual);
         System.out.println(", " + ((actual == false) ? "PASS" : "FAIL"));
@@ -185,7 +188,7 @@ public class Date implements Comparable<Date> {
 
         date = new Date("12/32/1989"); //Test case #3
         actual = date.isValid();
-        System.out.println("**Test case #3b: January, March, May, July, August, October, and December must not have days above 31");
+        System.out.println("**Test case #3b: January, March, May, July, August, October, and December must not have days above 31**");
         System.out.println("Input: " + date);
         System.out.print("isValid() returns " + actual);
         System.out.println(", " + ((actual == false) ? "PASS" : "FAIL"));
@@ -194,7 +197,7 @@ public class Date implements Comparable<Date> {
 
         date = new Date("4/31/2003"); //Test case #3
         actual = date.isValid();
-        System.out.println("**Test case #3: April, June, September, and November must not have days above 30");
+        System.out.println("**Test case #3: April, June, September, and November must not have days above 30**");
         System.out.println("Input: " + date);
         System.out.print("isValid() returns " + actual);
         System.out.println(", " + ((actual == false) ? "PASS" : "FAIL"));
@@ -203,7 +206,7 @@ public class Date implements Comparable<Date> {
 
         date = new Date("4/31/2003"); //Test case #4
         actual = date.isValid();
-        System.out.println("**Test case #4: April, June, September, and November must not have days above 30");
+        System.out.println("**Test case #4: April, June, September, and November must not have days above 30**");
         System.out.println("Input: " + date);
         System.out.print("isValid() returns " + actual);
         System.out.println(", " + ((actual == false) ? "PASS" : "FAIL"));
@@ -212,7 +215,7 @@ public class Date implements Comparable<Date> {
 
         date = new Date("10/24/-2002"); //Test case #5
         actual = date.isValid();
-        System.out.println("**Test case #5: Year must be greater than 0");
+        System.out.println("**Test case #5: Year must be greater than 0**");
         System.out.println("Input: " + date);
         System.out.print("isValid() returns " + actual);
         System.out.println(", " + ((actual == false) ? "PASS" : "FAIL"));

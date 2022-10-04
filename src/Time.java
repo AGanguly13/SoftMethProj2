@@ -1,5 +1,7 @@
 /**
- * Defines the times of the set fitness classes.
+ * Defines the times of the set fitness classes as morning and afternoon fitness class sessions.
+ * Time is defined by hour and minutes and also a textual representation in a clock format.
+ * This class also provides getter methods for each attribute assigned to the sessions.
  * Format is hours:minutes
  * @author Kennan Guan, Adwait Ganguly
  */
