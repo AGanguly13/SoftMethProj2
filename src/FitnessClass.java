@@ -1,5 +1,9 @@
 /**
  * Defines the fitness classes offered.
+ * Each fitness class consists of a Time enum instance, an instructor String instance variable,
+ * a name String instance variable, and a MemberDatabase instance.
+ * Methods that occur in the FitnessClass class include getter methods, a method to check if a fitness
+ * class has no participants, and methods to add or remove participants from a fitness class.
  * @author Kennan Guan, Adwait Ganguly
  */
 public class FitnessClass {

@@ -1,5 +1,7 @@
 /**
  * Driver class to run the GymManager class.
+ * This class implements a main method that will run the GymManager class and thus initializes
+ * the interactive user interface.
  * @author Kennan Guan, Adwait Ganguly
  */
 public class RunProject1 {

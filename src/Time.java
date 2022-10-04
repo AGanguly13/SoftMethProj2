@@ -17,8 +17,9 @@ public enum Time {
      * Constructs the Time object with hours, minutes, and a string representation.
      * @param hour the hour of day a class takes place.
      * @param minute the minutes into an hour a class takes place.
+     * @param clock is a string representation of time instance
      */
-    Time(int hour, int minute, String clock) {
+    Time (int hour, int minute, String clock) {
         this.hour = hour;
         this.minute = minute;
         this.clock = clock;

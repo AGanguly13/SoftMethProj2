@@ -1,5 +1,8 @@
 /**
  * Defines the five set gym locations.
+ * Includes three String instance variables representing city name, zipcode, and county name, respectively.
+ * The method also includes getter methods for the zipcode and the county instance variables, as well
+ * as a toString() method.
  * @author Kennan Guan, Adwait Ganguly
  */
 public enum Location {

@@ -1,6 +1,9 @@
 /**
  * Defines a member object to be a part of a gym.
- * Implements compareTo(), toString(), and equals() methods for comparing and representing members.
+ * Implements compareTo(), toString(), and equals() methods for comparing and representing members,
+ * as well as getter methods for all instance variables.
+ * Also includes two constructors, one with all instance variables being initialized, and another
+ * constructor with only first and last name as well as Date of Birth being initialized.
  * @author Adwait Ganguly, Kennan Guan
  */
 public class Member implements Comparable<Member> {
