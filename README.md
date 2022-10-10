@@ -1,3 +1,3 @@
-# SoftMethProject1
+# SoftMethProject2
 
-Gym Manager
+Gym Manager Extension

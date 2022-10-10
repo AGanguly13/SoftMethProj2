@@ -3,21 +3,32 @@
  * The database is implemented as a resizable array, and the class implements methods to increase
  * the size of the array, add or remove members from the array, and print the array as is or sorted
  * by location, expiration date, or name.
- *
- * @author Adwait Ganguly
+ * There are also some public helper methods that assist the command handling in the GymManager class.
+ * @author Adwait Ganguly, Kennan Guan
  */
 public class MemberDatabase {
     private Member [] mlist;
     private int size;
     private static final int NOT_FOUND = -1; //constant used when Member is not found in Database
+    private static final int MAXFITNESSPARTICIPANTS = 2; //constant used for most number of participants in class
+
+    private static final int ARRAYSIZEINCREMENT = 4;
 
     /**
      * Default constructor that creates a Member Database as an array of length 4 with the size
      * variable set to 0, given that there are initially no members in the database.
      */
     public MemberDatabase() {
-        this.mlist = new Member[4];
+        this.mlist = new Member[ARRAYSIZEINCREMENT];
         this.size = 0;
+    }
+
+    /**
+     * This method is a getter for the size of a database array structure.
+     * @return the size of the array structure
+     */
+    public int getSize() {
+        return this.size;
     }
 
     /**
@@ -47,6 +58,20 @@ public class MemberDatabase {
     }
 
     /**
+     * This method returns a member if it is in the database.
+     * @param member is the member that is being checked for if they are in the database.
+     * @return the member if that member is found in the database, null otherwise
+     */
+    public Member isMemberInArray(Member member) {
+        for (int x = 0; x < this.size; x++) {
+            if (this.mlist[x].equals(member)) {
+                return this.mlist[x];
+            }
+        }
+        return null;
+    }
+
+    /**
      * Searches for the parameter Member object in the database array.
      * @param member is the member that is being searched for in the database.
      * @return the index of the member if found, otherwise return constant NOT_FOUND.
@@ -65,7 +90,7 @@ public class MemberDatabase {
      * array to a new array that has an increased length.
      */
     private void grow() {
-        Member[] copy = new Member[this.mlist.length + 4];
+        Member[] copy = new Member[this.mlist.length + ARRAYSIZEINCREMENT];
         for (int x = 0; x < this.size; x++) {
             copy[x] = this.mlist[x];
         }
@@ -73,7 +98,7 @@ public class MemberDatabase {
     }
 
     /**
-     *
+     * This method removes a member from the database as long as the member is not already in the database.
      * @param member is the member that is intended to be added to the database.
      * @return true if the member was not initially in the database and was then successfully added,
      * otherwise this method returns false.
@@ -94,7 +119,7 @@ public class MemberDatabase {
     }
 
     /**
-     *
+     * This method removes a member from the database as long as the member is already in the database.
      * @param member is the member that is a candidate to be removed from the database.
      * @return true if the member is in the database and is successfully removed, false otherwise.
      */
@@ -119,7 +144,17 @@ public class MemberDatabase {
      * Uses the Member class toString() method to print out all necessary Member object information.
      */
     public void print () {
-        for (int x = 0; x < this.size; x++){
+        if (this.size == 0) {
+            System.out.println("Member database is empty!");
+            return;
+        }
+        if (this.size == 1 || this.size == MAXFITNESSPARTICIPANTS) {
+            for (int x = 0; x < this.size; x++) {
+                System.out.println("       " + this.mlist[x].toString());
+            }
+            return;
+        }
+        for (int x = 0; x < this.size; x++) {
             System.out.println(this.mlist[x].toString());
         }
     } //print the array contents as is
@@ -129,17 +164,45 @@ public class MemberDatabase {
      * Calls print() method once the sorting is complete.
      */
     public void printByCounty() {
+        if (this.size == 0) {
+            System.out.println("Member database is empty!");
+            return;
+        }
         for (int x = 0; x < this.size - 1; x++) {
             for (int y = 0; y < this.size - x - 1; y++) {
-                if (this.mlist[y].getDob().compareTo(this.mlist[y + 1].getDob()) > 0) { //needs to implement a Date class compareTo method
+                if (this.mlist[y].getLocation().getCounty().compareTo(this.mlist[y + 1].getLocation().getCounty()) > 0) {
                     Member temp = this.mlist[y];
                     this.mlist[y] = this.mlist[y + 1];
                     this.mlist[y + 1] = temp;
                 }
             }
         }
-
-        this.print();
+        int trackSwitch = 0; //variable that tracks when the county changes from Middlesex to Somerset in the Member database
+        for (int x = trackSwitch; trackSwitch < this.size - 1; trackSwitch++) {
+            for (int y = 0; y < this.size - x - 1; y++) {
+                if (this.mlist[y + 1].getLocation().getCounty().equals("MIDDLESEX")) {
+                    if (this.mlist[y].getLocation().getZip() > this.mlist[y + 1].getLocation().getZip()) {
+                        Member temp = this.mlist[y];
+                        this.mlist[y] = this.mlist[y + 1];
+                        this.mlist[y + 1] = temp;
+                    }
+                }
+            }
+        }
+        for (int x = trackSwitch; trackSwitch < this.size - 1; trackSwitch++) {
+            for (int y = trackSwitch; y < this.size - x - 1; y++) {
+                    if (this.mlist[y].getLocation().getZip() > this.mlist[y + 1].getLocation().getZip()) {
+                        Member temp = this.mlist[y];
+                        this.mlist[y] = this.mlist[y + 1];
+                        this.mlist[y + 1] = temp;
+                    }
+            }
+        }
+        System.out.println("-list of members sorted by county and zipcode-");
+        for (int x = 0; x < this.size; x++) {
+            System.out.println(this.mlist[x].toString());
+        }
+        System.out.println("-end of list-" + "\n");
     } //sort by county and then zipcode
 
     /**
@@ -147,9 +210,14 @@ public class MemberDatabase {
      * date to the latest expiration date. Calls print() method once sorting is complete.
      */
     public void printByExpirationDate() {
+        if (this.size == 0) {
+            System.out.println("Member database is empty!");
+            return;
+        }
+
         for (int x = 0; x < this.size - 1; x++) {
             for (int y = 0; y < this.size - x - 1; y++) {
-                if (this.mlist[y].getExpire().compareTo(this.mlist[y + 1].getExpire()) > 0) { //needs to implement a Date class compareTo method
+                if (this.mlist[y].getExpire().compareTo(this.mlist[y + 1].getExpire()) > 0) {
                     Member temp = this.mlist[y];
                     this.mlist[y] = this.mlist[y + 1];
                     this.mlist[y + 1] = temp;
@@ -157,7 +225,13 @@ public class MemberDatabase {
             }
         }
 
-        this.print();
+        System.out.println();
+        System.out.println("-list of members sorted by membership expiration date-");
+        for (int x = 0; x < this.size; x++) {
+            System.out.println(this.mlist[x].toString());
+        }
+        System.out.println("-end of list-");
+        System.out.println();
     } //sort by the expiration date
 
     /**
@@ -165,6 +239,11 @@ public class MemberDatabase {
      * if last names are the same. Calls print() method once sorting is complete.
      */
     public void printByName() {
+        if (this.size == 0) {
+            System.out.println("Member database is empty!");
+            return;
+        }
+
         for (int x = 0; x < this.size - 1; x++) {
             for (int y = 0; y < this.size - x - 1; y++) {
                 if (this.mlist[y].compareTo(this.mlist[y + 1]) > 0) {
@@ -175,6 +254,11 @@ public class MemberDatabase {
             }
         }
 
-        this.print();
+        System.out.println("-list of members sorted by last name, and first name-");
+        for (int x = 0; x < this.size; x++) {
+            System.out.println(this.mlist[x].toString());
+        }
+        System.out.println("-end of list-");
+        System.out.println();
     } //sort by last name and then first name
 }
