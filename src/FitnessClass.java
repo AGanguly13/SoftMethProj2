@@ -10,6 +10,7 @@ public class FitnessClass {
     private Time time;
     private String instructor;
     private String name;
+    private Location location;
     private MemberDatabase attendance;
 
     /**
