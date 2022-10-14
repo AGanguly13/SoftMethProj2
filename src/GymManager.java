@@ -143,7 +143,7 @@ public class GymManager {
         } else if (storedEntry == null) {
             System.out.println(split[3] + " " + split[4] + " " + split[5] + " is not in the database.");
         } else {
-            FitnessClass checkInClass = findClass(listOfClasses.getClasses(), split[2], split[1], split[0]);
+            FitnessClass checkInClass = findClass(listOfClasses.getClasses(), split[2], split[1], split[0]); //need to add case of conflict
             if(checkInClass.addMember(storedEntry)) {
                 System.out.println(storedEntry.getFname() + " " + storedEntry.getLname() + " checked in " + checkInClass);
                 System.out.println("- Participants -");
@@ -205,33 +205,22 @@ public class GymManager {
 
     /**
      * Helper method that drops a given member from a specified fitness class.
-     * @param input the command line inputs: fitness class name, first name, last name, date of birth.
+     * @param input the command line inputs: fitness class name, instructor, location, first name, last name, date of birth.
      */
     private void dropMember(String input) {
         String[] dropMemberInput = input.split(" ");
-        Member newMem = database.isMemberInArray(new Member(dropMemberInput[1], dropMemberInput[2], dropMemberInput[3]));
-        String className = dropMemberInput[0].toUpperCase();
-        Date newDate = new Date(dropMemberInput[3]);
-        if (newDate.isValid()) {
-            if (className.equals("PILATES") || className.equals("SPINNING") || className.equals("CARDIO")) {
-                for (int i = 0; i < listOfClasses.length; i++) {
-                    if (dropMemberInput[0].equalsIgnoreCase(listOfClasses[i].getName())) {
-                        if (listOfClasses[i].removeMember(newMem)) {
-                            System.out.println(dropMemberInput[1] + " " + dropMemberInput[2] + " dropped " + listOfClasses[i].getName() + ".");
-                        }
-                        else {
-                            System.out.println(dropMemberInput[1] + " " + dropMemberInput[2] + " is not a " +
-                                    "participant in " + listOfClasses[i].getName() + ".");
-                        }
-                    }
-                }
+        Member storedEntry = database.isMemberInArray(new Member(dropMemberInput[3], dropMemberInput[4], dropMemberInput[5]));
+        Date DOB = new Date(dropMemberInput[5]);
+
+        if (!DOB.isValid()) {
+            System.out.println(DOB + ": invalid calendar date!");
+        } else if (storedEntry == null) {
+            System.out.println(dropMemberInput[3] + " " + dropMemberInput[4] + " " + dropMemberInput[5] + " is not in the database.");
+        } else {
+            FitnessClass checkInClass = findClass(listOfClasses.getClasses(), dropMemberInput[2], dropMemberInput[1], dropMemberInput[0]);
+            if(checkInClass.removeMember(storedEntry)) {
+                System.out.println(storedEntry.getFname() + " " + storedEntry.getLname() + " done with the class");
             }
-            else {
-                System.out.println(dropMemberInput[0] + " class does not exist");
-            }
-        }
-        else {
-            System.out.println("DOB: " + newDate + ": invalid calendar date!");
         }
     }
 
