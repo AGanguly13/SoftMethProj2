@@ -1,5 +1,6 @@
+import java.io.FileNotFoundException;
 import java.util.Scanner;
-import java.util.Calendar;
+import java.io.File;
 /**
  * This is the User Interface class that processes command line inputs from user.
  * Accepts input as single command line or batch.
@@ -8,10 +9,7 @@ import java.util.Calendar;
  */
 public class GymManager {
     private MemberDatabase database = new MemberDatabase();
-    private FitnessClass pilates = new FitnessClass(Time.MORNING, "JENNIFER", "Pilates");
-    private FitnessClass spinning = new FitnessClass(Time.AFTERNOON, "DENISE", "Spinning");
-    private FitnessClass cardio = new FitnessClass(Time.AFTERNOON, "KIM", "Cardio");
-    private FitnessClass[] listOfClasses = {pilates, spinning, cardio};
+    private ClassSchedule listOfClasses;
 
     /**
      * Runs the Gym Manager and accepts input from command line.
@@ -27,6 +25,10 @@ public class GymManager {
                 break;
             } else if (inputs[0].equals("A")) {
                 addMember(inputs[1]);
+            } else if (inputs[0].equals("AF")) {
+
+            } else if (inputs[0].equals("AP")) {
+
             } else if (inputs[0].equals("R")) {
                 cancelMembership(inputs[1]);
             } else if (inputs[0].equals("P")) {
@@ -45,12 +47,22 @@ public class GymManager {
                 database.printByName();
             } else if (inputs[0].equals("PD")) {
                 database.printByExpirationDate();
+            } else if (inputs[0].equals("PF")) {
+
             } else if (inputs[0].equals("S")) {
-                printClasses();
+                listOfClasses.print();
             } else if (inputs[0].equals("C")) {
                 checkIn(inputs[1]);
+            } else if (inputs[0].equals("CG")) {
+
             } else if (inputs[0].equals("D")) {
                 dropMember(inputs[1]);
+            } else if (inputs[0].equals("DG")) {
+
+            } else if (inputs[0].equals("LS")) {
+                loadClasses();
+            } else if (inputs[0].equals("LM")) {
+
             } else if (inputs[0].equals("")) {
                 System.out.println();
             } else {
@@ -115,49 +127,81 @@ public class GymManager {
 
     /**
      * Helper method that adds a new member into a specified fitness class.
-     * @param input the command line inputs: fitness class name, first name, last name, date of birth.
+     * @param input the command line inputs: fitness class name, instructor, location, first name, last name, date of birth.
      */
     private void checkIn(String input) {
         String[] split = input.split(" ");
-        Member entry = new Member(split[1], split[2], split[3]);
+        Member entry = new Member(split[3], split[4], split[5]);
         Member storedEntry = database.isMemberInArray(entry);
-        String session = split[0].toUpperCase();
         Date today = new Date();
         Date DOB = new Date(split[3]);
-        if (DOB.isValid()) {
-            if (storedEntry != null) {
-                if (today.compareTo(storedEntry.getExpire()) <= 0) {
-                    if (session.equals("PILATES") || session.equals("SPINNING") || session.equals("CARDIO")) {
-                        boolean inConflictSpinning = spinning.getAttendance().isInArray(storedEntry);
-                        boolean inConflictCardio = cardio.getAttendance().isInArray(storedEntry);
-                        for (int i = 0; i < listOfClasses.length; i++) {
-                            if (session.equals(listOfClasses[i].getName().toUpperCase()) && listOfClasses[i].addMember(storedEntry)) {
-                                if (i != 0 && inConflictSpinning) {
-                                    System.out.println(listOfClasses[i].getName() + " time conflict -- " + split[1] + " " + split[2] + " has already checked in Spinning.");
-                                    listOfClasses[i].removeMember(storedEntry);
-                                } else if (i != 0 && inConflictCardio) {
-                                    System.out.println(listOfClasses[i].getName() + " time conflict -- " + split[1] + " " + split[2] + " has already checked in Cardio.");
-                                    listOfClasses[i].removeMember(storedEntry);
-                                } else {
-                                    System.out.println(split[1] + " " + split[2] + " checked in " + listOfClasses[i].getName() + ".");
-                                }
-                            } else if (session.equals(listOfClasses[i].getName().toUpperCase()) && listOfClasses[i].getAttendance().isInArray(storedEntry)) {
-                                System.out.println(split[1] + " " + split[2] + " has already checked in " + listOfClasses[i].getName() + ".");
-                            }
-                        }
-                    } else {
-                        System.out.println(split[0] + " class does not exist.");
-                    }
-                } else {
-                    System.out.println(split[1] + " " + split[2] + " " + split[3] + " membership expired.");
-                }
-            } else {
-                System.out.println(split[1] + " " + split[2] + " " + split[3] + " is not in the database.");
-            }
+
+        if (!DOB.isValid()) {
+            System.out.println(DOB + ": invalid calendar date!");
+        } else if (today.compareTo(storedEntry.getExpire()) <= 0) {
+            System.out.println(split[3] + " " + split[4] + " " + split[5] + " membership expired.");
+        } else if (storedEntry == null) {
+            System.out.println(split[3] + " " + split[4] + " " + split[5] + " is not in the database.");
         } else {
-            System.out.println("DOB " + split[3] + ": invalid calendar date!");
+            FitnessClass checkInClass = findClass(listOfClasses.getClasses(), split[2], split[1], split[0]);
+            if(checkInClass.addMember(storedEntry)) {
+                System.out.println(storedEntry.getFname() + " " + storedEntry.getLname() + " checked in " + checkInClass);
+                System.out.println("- Participants -");
+                for (int i = 0; i < checkInClass.getAttendance().size(); i++) {
+                    System.out.print("    ");
+                    System.out.println(checkInClass.getAttendance().get(i));
+                }
+            }
         }
     }
+
+    private FitnessClass findClass(FitnessClass[] fitnessClasses, String location, String instructor, String session) {
+        if (!validInstructor(instructor) && !validClass(session) && !validGym(location)) {
+            return null;
+        }
+
+        for (int i = 0; i < fitnessClasses.length; i++) {
+            String fitnessName = fitnessClasses[i].getName();
+            String fitnessInstructor = fitnessClasses[i].getInstructor();
+            Location fitnessLocation = fitnessClasses[i].getLocation();
+            if (fitnessName.equalsIgnoreCase(session) &&  fitnessLocation == Location.valueOf(location) && fitnessInstructor.equalsIgnoreCase(instructor)) {
+                return fitnessClasses[i];
+            }
+        }
+        System.out.println(session + " by " + instructor + " does not exist at " + location);
+        return null;
+    }
+
+    private boolean validGym(String gymLocation) {
+        for (Location gym : Location.values()) {
+            if (gym.name().equalsIgnoreCase(gymLocation)) {
+                return true;
+            }
+        }
+        System.out.println(gymLocation + " - invalid location.");
+        return false;
+    }
+
+    private boolean validInstructor(String name) {
+        for (int i = 0; i < listOfClasses.getClasses().length; i++) {
+            if (name.equalsIgnoreCase(listOfClasses.getClasses()[i].getInstructor())) {
+                return true;
+            }
+        }
+        System.out.println(name + " - instructor does not exist.");
+        return false;
+    }
+
+    private boolean validClass(String name) {
+        for (int i = 0; i < listOfClasses.getClasses().length; i++) {
+            if (name.equalsIgnoreCase(listOfClasses.getClasses()[i].getName())) {
+                return true;
+            }
+        }
+        System.out.println(name + " - class does not exist");
+        return false;
+    }
+
 
     /**
      * Helper method that drops a given member from a specified fitness class.
@@ -191,21 +235,40 @@ public class GymManager {
         }
     }
 
-    /**
-     * Helper method that prints out all the fitness classes' information.
-     * Will add list of participants if available.
-     */
-    private void printClasses() {
-        System.out.println();
-        System.out.println("-Fitness Classes-");
-        for (int i = 0; i < listOfClasses.length; i++) {
-            System.out.println(listOfClasses[i].getName() + " - " + listOfClasses[i].getInstructor() + " " + listOfClasses[i].getTime().getClock());
-            if (!listOfClasses[i].isEmpty()) {
-                System.out.println("     **participants**");
-                listOfClasses[i].getAttendance().print();
+//    /**
+//     * Helper method that prints out all the fitness classes' information.
+//     * Will add list of participants if available.
+//     */
+//    private void printClasses() {
+//        System.out.println();
+//        System.out.println("-Fitness Classes-");
+//        for (int i = 0; i < listOfClasses.length; i++) {
+//            System.out.println(listOfClasses[i].getName() + " - " + listOfClasses[i].getInstructor() + " " + listOfClasses[i].getTime().getClock());
+//            if (!listOfClasses[i].isEmpty()) {
+//                System.out.println("     **participants**");
+//                listOfClasses[i].getAttendance().print();
+//            }
+//        }
+//        System.out.println();
+//    }
+
+    private void loadClasses() {
+        try {
+            Scanner sc = new Scanner(new File("classSchedule.txt"));
+
+            while (sc.hasNextLine()) {
+                String[] inputs = sc.nextLine().split(" ");
+                String classType = inputs[0];
+                String instructor = inputs[1];
+                Time time = Time.valueOf(inputs[2].toUpperCase());
+                Location gymLocation = Location.valueOf(inputs[3].toUpperCase());
+
+                listOfClasses.addClass(new FitnessClass(time, instructor, classType, gymLocation));
             }
         }
-        System.out.println();
+        catch (Exception FileNotFoundException) {
+            System.out.println("classSchedule.txt file not found");
+        }
     }
 }
 

@@ -1,3 +1,5 @@
+import java.sql.Array;
+import java.util.ArrayList;
 /**
  * Defines the fitness classes offered.
  * Each fitness class consists of a Time enum instance, an instructor String instance variable,
@@ -11,7 +13,7 @@ public class FitnessClass {
     private String instructor;
     private String name;
     private Location location;
-    private MemberDatabase attendance;
+    private ArrayList<Member> attendance;
 
     /**
      * Constructs a fitness class given a time of day, instructor name, and class name.
@@ -19,11 +21,12 @@ public class FitnessClass {
      * @param instructor The name of the instructor for the class.
      * @param name The type of class being offered.
      */
-    public FitnessClass(Time time, String instructor, String name) {
+    public FitnessClass(Time time, String instructor, String name, Location location) {
         this.time = time;
         this.instructor = instructor;
         this.name = name;
-        attendance = new MemberDatabase();
+        this.location = location;
+        attendance = new ArrayList<>();
     }
 
     /**
@@ -50,11 +53,15 @@ public class FitnessClass {
         return time;
     }
 
+    public Location getLocation() {
+        return location;
+    }
+
     /**
      * Getter method for the member database of the class.
      * @return the member database.
      */
-    public MemberDatabase getAttendance() {
+    public ArrayList<Member> getAttendance() {
         return attendance;
     }
 
@@ -82,6 +89,11 @@ public class FitnessClass {
      */
     public boolean removeMember(Member member) {
         return attendance.remove(member);
+    }
+
+    @Override
+    public String toString() {
+        return time + " - " + instructor + ", " + time.getClock() + ", " + location;
     }
 
 }

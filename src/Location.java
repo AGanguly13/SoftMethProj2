@@ -43,6 +43,7 @@ public enum Location {
         public String getCounty() {
                 return county;
         }
+
         /**
          * Constructs a textual representation of the Location object.
          * @return a string representation of the location given as "[city], [zip code], [county]"
