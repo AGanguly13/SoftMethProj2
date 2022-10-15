@@ -9,7 +9,7 @@ import java.io.File;
  */
 public class GymManager {
     private MemberDatabase database = new MemberDatabase();
-    private ClassSchedule listOfClasses;
+    private ClassSchedule listOfClasses = new ClassSchedule();
 
     /**
      * Runs the Gym Manager and accepts input from command line.
@@ -75,12 +75,11 @@ public class GymManager {
     /**
      * Helper method that adds a new member into the gym database.
      * Will also check for valid date of birth and expiration date.
-     * @param input the customer data: first name, last name, date of birth, membership expiration date, and gym location.
+     * @param input the customer data: first name, last name, date of birth, and gym location.
      */
     private void addMember(String input) {
         Date dateOfBirth = new Date(input.split(" ")[2]);
-        Date expirationDate = new Date(input.split(" ")[3]);
-        String city = input.split(" ")[4].toUpperCase();
+        String city = input.split(" ")[3].toUpperCase();
         boolean validCity = false;
 
         for (Location location : Location.values()) {
@@ -96,10 +95,8 @@ public class GymManager {
             System.out.println("DOB " + input.split(" ")[2] + ": cannot be today or future date!");
         } else if (!dateOfBirth.isEighteen(dateOfBirth)) {
             System.out.println("DOB " + input.split(" ")[2] + ": must be 18 or older to join!");
-        } else if (!expirationDate.isValid()) {
-            System.out.println("Expiration Date " + input.split(" ")[3] + ": invalid calendar date!");
         } else {
-            Member newEntry = new Member(input);
+            Member newEntry = new Member(input.split(" ")[0], input.split(" ")[1], input.split(" ")[2]);
             if (database.add(newEntry)) {
                 System.out.println(newEntry.getFname() + " " + newEntry.getLname() + " added.");
             }
@@ -143,8 +140,10 @@ public class GymManager {
         } else if (storedEntry == null) {
             System.out.println(split[3] + " " + split[4] + " " + split[5] + " is not in the database.");
         } else {
-            FitnessClass checkInClass = findClass(listOfClasses.getClasses(), split[2], split[1], split[0]); //need to add case of conflict
-            if(checkInClass.addMember(storedEntry)) {
+            FitnessClass checkInClass = findClass(listOfClasses.getClasses(), split[2], split[1], split[0]);
+            if (findConflict(checkInClass.getTime(), storedEntry) != null) {
+                System.out.println("TIME CONFLICT - " + findConflict(checkInClass.getTime(), storedEntry).toString());
+            } else if(checkInClass.addMember(storedEntry)) {
                 System.out.println(storedEntry.getFname() + " " + storedEntry.getLname() + " checked in " + checkInClass);
                 System.out.println("- Participants -");
                 for (int i = 0; i < checkInClass.getAttendance().size(); i++) {
@@ -155,6 +154,30 @@ public class GymManager {
         }
     }
 
+    /**
+     * Helper method to find if the given member has a class at a given time.
+     * @param time the time object of the fitness class
+     * @param member the member object of the member
+     * @return the fitness class that conflicts, otherwise null
+     */
+    public FitnessClass findConflict(Time time, Member member) {
+        for (int i = 0; i < listOfClasses.getSize(); i++) {
+            if (listOfClasses.getClasses()[i].getTime() == time && listOfClasses.getClasses()[i].getAttendance().contains(member)) {
+                return listOfClasses.getClasses()[i];
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Helper method to find the correct fitness class based on location, instructor name, and class name.
+     * Will return null if a class is not found or the inputted information is invalid and print an error statement.
+     * @param fitnessClasses an array of the fitness classes
+     * @param location the location of the fitness class
+     * @param instructor the name of the instructor of the fitness class
+     * @param session the class name
+     * @return the desired fitness class, otherwise null
+     */
     private FitnessClass findClass(FitnessClass[] fitnessClasses, String location, String instructor, String session) {
         if (!validInstructor(instructor) && !validClass(session) && !validGym(location)) {
             return null;
@@ -172,6 +195,12 @@ public class GymManager {
         return null;
     }
 
+    /**
+     * Helper method to determine if the given gym location is valid.
+     * Will print an error statement if location is invalid.
+     * @param gymLocation the gym location.
+     * @return true if the gym is valid, false otherwise.
+     */
     private boolean validGym(String gymLocation) {
         for (Location gym : Location.values()) {
             if (gym.name().equalsIgnoreCase(gymLocation)) {
@@ -182,6 +211,11 @@ public class GymManager {
         return false;
     }
 
+    /**
+     * Helper method to determine if the given instructor name is valid.
+     * @param name the name of the instructor.
+     * @return true if the instructor is valid, false otherwise.
+     */
     private boolean validInstructor(String name) {
         for (int i = 0; i < listOfClasses.getClasses().length; i++) {
             if (name.equalsIgnoreCase(listOfClasses.getClasses()[i].getInstructor())) {
@@ -241,6 +275,10 @@ public class GymManager {
 //        System.out.println();
 //    }
 
+    /**
+     * Loads the fitness classes from a text file.
+     * @throws FileNotFoundException when file not found
+     */
     private void loadClasses() {
         try {
             Scanner sc = new Scanner(new File("classSchedule.txt"));
@@ -254,9 +292,9 @@ public class GymManager {
 
                 listOfClasses.addClass(new FitnessClass(time, instructor, classType, gymLocation));
             }
-        }
-        catch (Exception FileNotFoundException) {
-            System.out.println("classSchedule.txt file not found");
+            System.out.println("-Fitness classes Loaded-");
+        } catch (FileNotFoundException e) {
+            System.out.println("classSchedule.txt file not found.");
         }
     }
 }
