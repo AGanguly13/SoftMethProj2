@@ -26,9 +26,9 @@ public class GymManager {
             } else if (inputs[0].equals("A")) {
                 addMember(inputs[1]);
             } else if (inputs[0].equals("AF")) {
-
+                //add member with family membership
             } else if (inputs[0].equals("AP")) {
-
+                //add member with premium membership
             } else if (inputs[0].equals("R")) {
                 cancelMembership(inputs[1]);
             } else if (inputs[0].equals("P")) {
@@ -48,21 +48,21 @@ public class GymManager {
             } else if (inputs[0].equals("PD")) {
                 database.printByExpirationDate();
             } else if (inputs[0].equals("PF")) {
-
+                //list of members with fees
             } else if (inputs[0].equals("S")) {
                 listOfClasses.print();
             } else if (inputs[0].equals("C")) {
                 checkIn(inputs[1]);
             } else if (inputs[0].equals("CG")) {
-
+                //check-in guest
             } else if (inputs[0].equals("D")) {
                 dropMember(inputs[1]);
             } else if (inputs[0].equals("DG")) {
-
+                //drop guest
             } else if (inputs[0].equals("LS")) {
                 loadClasses();
             } else if (inputs[0].equals("LM")) {
-
+                //load members
             } else if (inputs[0].equals("")) {
                 System.out.println();
             } else {
@@ -131,14 +131,14 @@ public class GymManager {
         Member entry = new Member(split[3], split[4], split[5]);
         Member storedEntry = database.isMemberInArray(entry);
         Date today = new Date();
-        Date DOB = new Date(split[3]);
+        Date DOB = new Date(split[5]);
 
         if (!DOB.isValid()) {
             System.out.println(DOB + ": invalid calendar date!");
-        } else if (today.compareTo(storedEntry.getExpire()) <= 0) {
-            System.out.println(split[3] + " " + split[4] + " " + split[5] + " membership expired.");
         } else if (storedEntry == null) {
             System.out.println(split[3] + " " + split[4] + " " + split[5] + " is not in the database.");
+        } else if (today.compareTo(storedEntry.getExpire()) <= 0) {
+            System.out.println(split[3] + " " + split[4] + " " + split[5] + " membership expired.");
         } else {
             FitnessClass checkInClass = findClass(listOfClasses.getClasses(), split[2], split[1], split[0]);
             if (findConflict(checkInClass.getTime(), storedEntry) != null) {
@@ -257,23 +257,6 @@ public class GymManager {
             }
         }
     }
-
-//    /**
-//     * Helper method that prints out all the fitness classes' information.
-//     * Will add list of participants if available.
-//     */
-//    private void printClasses() {
-//        System.out.println();
-//        System.out.println("-Fitness Classes-");
-//        for (int i = 0; i < listOfClasses.length; i++) {
-//            System.out.println(listOfClasses[i].getName() + " - " + listOfClasses[i].getInstructor() + " " + listOfClasses[i].getTime().getClock());
-//            if (!listOfClasses[i].isEmpty()) {
-//                System.out.println("     **participants**");
-//                listOfClasses[i].getAttendance().print();
-//            }
-//        }
-//        System.out.println();
-//    }
 
     /**
      * Loads the fitness classes from a text file.
