@@ -38,6 +38,13 @@ public class Family extends Member {
     }
 
     /**
+     *
+     */
+    public void returnGuestPasses() {
+        this.guestPasses++;
+    }
+
+    /**
      * Getter for guest passes
      * @return
      */
@@ -68,7 +75,8 @@ public class Family extends Member {
      */
     @Override
     public String toString() {
-        return(super.toString() + " (Family) guest-pass remaining: " + guestPasses);
+        return(this.getFname() + " " + this.getLname() + ", DOB: " + this.getDob().toString() + ", Membership expires "
+                + this.getExpire().toString() + ", Location: " + this.getLocation() + " (Family) guest-pass remaining: " + guestPasses);
     }
 
     /**
