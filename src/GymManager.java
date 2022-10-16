@@ -216,8 +216,8 @@ public class GymManager {
             System.out.println(split[3] + " " + split[4] + " " + split[5] + " membership expired.");
         } else {
             FitnessClass checkInClass = findClass(listOfClasses.getClasses(), split[2], split[1], split[0]);
-            if (findConflict(checkInClass.getTime(), storedEntry, split[1]) != null) {
-                System.out.println("TIME CONFLICT - " + findConflict(checkInClass.getTime(), storedEntry, split[1]).toString());
+            if (findConflict(checkInClass.getTime(), storedEntry, split[1])) {
+                System.out.println("TIME CONFLICT - " + checkInClass);
             } else if (Location.valueOf(split[2].toUpperCase()) != storedEntry.getLocation() && !(storedEntry instanceof Family)) {
                 System.out.println(storedEntry.getFname() + " " + storedEntry.getLname() + " checking in " + checkInClass + " - standard membership restriction.");
             } else if(checkInClass.addMember(storedEntry)) {
@@ -256,8 +256,8 @@ public class GymManager {
             System.out.println(split[3] + " " + split[4] + " " + split[5] + " membership expired.");
         } else {
             FitnessClass checkInClass = findClass(listOfClasses.getClasses(), split[2], split[1], split[0]);
-            if (findConflict(checkInClass.getTime(), storedEntry, split[1]) != null) {
-                System.out.println("TIME CONFLICT - " + findConflict(checkInClass.getTime(), storedEntry, split[1]).toString());
+            if (findConflict(checkInClass.getTime(), storedEntry, split[1])) {
+                System.out.println("TIME CONFLICT - " + checkInClass);
             } else if(checkInClass.addMember(storedEntry)) {
                 if (storedEntry instanceof Family && !(storedEntry instanceof Premium)) {
                     ((Family) storedEntry).useGuestPass();
@@ -284,16 +284,17 @@ public class GymManager {
      * Helper method to find if the given member has a class at a given time.
      * @param time the time object of the fitness class
      * @param member the member object of the member
-     * @return the fitness class that conflicts, otherwise null
+     * @param instructor the instructor of the class
+     * @return true if a conflict exists, false otherwise
      */
-    private FitnessClass findConflict(Time time, Member member, String instructor) {
+    private boolean findConflict(Time time, Member member, String instructor) {
         for (int i = 0; i < listOfClasses.getSize(); i++) {
             FitnessClass fitness = listOfClasses.getClasses()[i];
             if (fitness.getTime() == time && fitness.getAttendance().contains(member) && !fitness.getInstructor().equalsIgnoreCase(instructor)) {
-                return listOfClasses.getClasses()[i];
+                return true;
             }
         }
-        return null;
+        return false;
     }
 
     /**

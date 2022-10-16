@@ -75,10 +75,14 @@ public class FitnessClass {
 
     /**
      * Adds a member into the member database and returns if the member was added.
+     * If member is a duplicate, false is returned
      * @param member the member object to be added.
-     * @return true if the member was successfully added, false otherwise.
+     * @return true if the member was successfully added and is not a duplicate, false otherwise.
      */
     public boolean addMember(Member member) {
+        if (attendance.contains(member)){
+            return false;
+        }
         return attendance.add(member);
     }
 
