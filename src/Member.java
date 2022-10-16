@@ -331,20 +331,3 @@ public class Member implements Comparable<Member> {
         System.out.println();
     }
 }
-
-/** This is a new data constructor to set the expiry date of a newly added member to x months from today
- *  This is intended for the A command, may also be implemented for AF command and AP
- public Date(int setExpiration) {
-    Calendar today = Calendar.getInstance();
-    if (setExpiration > DAYSINAYEAR) {
-        year = today.get(Calendar.YEAR + 1);
-        month = today.get(Calendar.MONTH)
-        day = today.get(Calendar.DAY_OF_MONTH);
-        }
-    else {
-        year = today.get(Calendar.YEAR);
-        month = today.get(Calendar.MONTH + setExpiration);
-        day = today.get(Calendar.DAY_OF_MONTH);
-    }
- }
- */

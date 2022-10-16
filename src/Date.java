@@ -49,6 +49,24 @@ public class Date implements Comparable<Date> {
     }
 
     /**
+     * Constructs a date object given an expiration.
+     * @param setExpiration
+     */
+    public Date(int setExpiration) {
+        Calendar today = Calendar.getInstance();
+        if (setExpiration > DAYSINYEAR) {
+            year = today.get(Calendar.YEAR + 1);
+            month = today.get(Calendar.MONTH);
+            day = today.get(Calendar.DAY_OF_MONTH);
+        }
+        else {
+            year = today.get(Calendar.YEAR);
+            month = today.get(Calendar.MONTH + setExpiration);
+            day = today.get(Calendar.DAY_OF_MONTH);
+        }
+    }
+
+    /**
      * Compares two dates for ordering and returns an integer value of -1, 0, or 1
      * -1 indicates less than, 0 indicates equality, 1 indicates greater than.
      * @param date a date object with a day, month, and year.
