@@ -26,6 +26,8 @@ public class Date implements Comparable<Date> {
 
     private static final int CHECKIFEIGHTEEN = 18; //used for subtracting 18 years from today's date
 
+    private static final int EXPIRATIONSMONTHS = 3;
+
     /**
      * Constructs a date object with today's date.
      * Today's date is define by a year, month, and day of month.
@@ -55,14 +57,10 @@ public class Date implements Comparable<Date> {
     public Date(int setExpiration) {
         Calendar today = Calendar.getInstance();
         if (setExpiration > DAYSINYEAR) {
-            year = today.get(Calendar.YEAR + 1);
-            month = today.get(Calendar.MONTH);
-            day = today.get(Calendar.DAY_OF_MONTH);
+            today.add(Calendar.YEAR, 1);
         }
         else {
-            year = today.get(Calendar.YEAR);
-            month = today.get(Calendar.MONTH + setExpiration);
-            day = today.get(Calendar.DAY_OF_MONTH);
+            today.add(Calendar.MONTH, EXPIRATIONSMONTHS);
         }
     }
 
