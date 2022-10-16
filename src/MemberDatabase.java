@@ -216,7 +216,7 @@ public class MemberDatabase {
         }
 
         for (int x = 0; x < this.size - 1; x++) {
-            for (int y = 0; y < this.size - x - 1; y++) {
+            for (int y = 0; y < this.size - 1 - x; y++) {
                 if (this.mlist[y].getExpire().compareTo(this.mlist[y + 1].getExpire()) > 0) {
                     Member temp = this.mlist[y];
                     this.mlist[y] = this.mlist[y + 1];

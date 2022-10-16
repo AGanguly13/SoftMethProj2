@@ -10,6 +10,7 @@ import java.io.File;
 public class GymManager {
     private MemberDatabase database = new MemberDatabase();
     private ClassSchedule listOfClasses = new ClassSchedule();
+    private static final int STANDARDEXPIRATION = 4;
 
     /**
      * Runs the Gym Manager and accepts input from command line.
@@ -78,8 +79,9 @@ public class GymManager {
      * @param input the customer data: first name, last name, date of birth, and gym location.
      */
     private void addStandardMember(String input) {
+        String[] inputs = input.split(" ");
         Date dateOfBirth = new Date(input.split(" ")[2]);
-        String city = input.split(" ")[3].toUpperCase();
+        String city = input.split(" ")[3];
         boolean validCity = false;
 
         for (Location location : Location.values()) {
@@ -96,7 +98,7 @@ public class GymManager {
         } else if (!dateOfBirth.isEighteen(dateOfBirth)) {
             System.out.println("DOB " + dateOfBirth + ": must be 18 or older to join!");
         } else {
-            Member newEntry = new Member(input.split(" ")[0], input.split(" ")[1], input.split(" ")[2]);
+            Member newEntry = new Member(inputs[0], inputs[1], inputs[2], inputs[3], STANDARDEXPIRATION);
             if (database.add(newEntry)) {
                 System.out.println(newEntry.getFname() + " " + newEntry.getLname() + " added.");
             }
@@ -112,7 +114,7 @@ public class GymManager {
      */
     private void addFamilyMember(String input) {
         Date dateOfBirth = new Date(input.split(" ")[2]);
-        String city = input.split(" ")[4].toUpperCase();
+        String city = input.split(" ")[3];
 
         boolean validCity = false;
 
@@ -147,7 +149,7 @@ public class GymManager {
      */
     private void addPremiumMember(String input) {
         Date dateOfBirth = new Date(input.split(" ")[2]);
-        String city = input.split(" ")[4].toUpperCase();
+        String city = input.split(" ")[3];
 
         boolean validCity = false;
 
@@ -203,17 +205,20 @@ public class GymManager {
         Date today = new Date();
         Date DOB = new Date(split[5]);
 
+        validClass(split[0]);
+        validInstructor(split[1]);
+        validGym(split[2]);
         if (!DOB.isValid()) {
-            System.out.println(DOB + ": invalid calendar date!");
+            System.out.println("DOB " + DOB + ": invalid calendar date!");
         } else if (storedEntry == null) {
             System.out.println(split[3] + " " + split[4] + " " + split[5] + " is not in the database.");
-        } else if (today.compareTo(storedEntry.getExpire()) <= 0) {
+        } else if (today.compareTo(storedEntry.getExpire()) >= 0) {
             System.out.println(split[3] + " " + split[4] + " " + split[5] + " membership expired.");
         } else {
             FitnessClass checkInClass = findClass(listOfClasses.getClasses(), split[2], split[1], split[0]);
-            if (findConflict(checkInClass.getTime(), storedEntry) != null) {
-                System.out.println("TIME CONFLICT - " + findConflict(checkInClass.getTime(), storedEntry).toString());
-            } else if (Location.valueOf(split[2]) != storedEntry.getLocation() && !(storedEntry instanceof Family)) {
+            if (findConflict(checkInClass.getTime(), storedEntry, split[1]) != null) {
+                System.out.println("TIME CONFLICT - " + findConflict(checkInClass.getTime(), storedEntry, split[1]).toString());
+            } else if (Location.valueOf(split[2].toUpperCase()) != storedEntry.getLocation() && !(storedEntry instanceof Family)) {
                 System.out.println(storedEntry.getFname() + " " + storedEntry.getLname() + " checking in " + checkInClass + " - standard membership restriction.");
             } else if(checkInClass.addMember(storedEntry)) {
                 System.out.println(storedEntry.getFname() + " " + storedEntry.getLname() + " checked in " + checkInClass);
@@ -222,6 +227,8 @@ public class GymManager {
                     System.out.print("    ");
                     System.out.println(checkInClass.getAttendance().get(i));
                 }
+            } else {
+                System.out.println(storedEntry.getFname() + " " + storedEntry.getLname() + " already checked in.");
             }
         }
     }
@@ -232,7 +239,45 @@ public class GymManager {
      * @param input
      */
     private void checkInGuest(String input) {
+        String[] split = input.split(" ");
+        Member entry = new Member(split[3], split[4], split[5]);
+        Member storedEntry = database.isMemberInArray(entry);
+        Date today = new Date();
+        Date DOB = new Date(split[5]);
 
+        validClass(split[0]);
+        validInstructor(split[1]);
+        validGym(split[2]);
+        if (!DOB.isValid()) {
+            System.out.println("DOB " + DOB + ": invalid calendar date!");
+        } else if (storedEntry == null) {
+            System.out.println(split[3] + " " + split[4] + " " + split[5] + " is not in the database.");
+        } else if (today.compareTo(storedEntry.getExpire()) >= 0) {
+            System.out.println(split[3] + " " + split[4] + " " + split[5] + " membership expired.");
+        } else {
+            FitnessClass checkInClass = findClass(listOfClasses.getClasses(), split[2], split[1], split[0]);
+            if (findConflict(checkInClass.getTime(), storedEntry, split[1]) != null) {
+                System.out.println("TIME CONFLICT - " + findConflict(checkInClass.getTime(), storedEntry, split[1]).toString());
+            } else if(checkInClass.addMember(storedEntry)) {
+                if (storedEntry instanceof Family && !(storedEntry instanceof Premium)) {
+                    ((Family) storedEntry).useGuestPass();
+                } else if (storedEntry instanceof Premium) {
+                    ((Premium) storedEntry).useGuestPass();
+                }
+                if (((Family) storedEntry).getGuestPasses() < 0) {
+                    System.out.println(storedEntry.getFname() + " " + storedEntry.getLname() + " ran out of guest pass.");
+                } else {
+                    System.out.println(storedEntry.getFname() + " " + storedEntry.getLname() + " checked in " + checkInClass);
+                    System.out.println("- Participants -");
+                    for (int i = 0; i < checkInClass.getAttendance().size(); i++) {
+                        System.out.print("    ");
+                        System.out.println(checkInClass.getAttendance().get(i).toString());
+                    }
+                }
+            } else {
+                System.out.println(storedEntry.getFname() + " " + storedEntry.getLname() + " already checked in.");
+            }
+        }
     }
 
     /**
@@ -241,9 +286,10 @@ public class GymManager {
      * @param member the member object of the member
      * @return the fitness class that conflicts, otherwise null
      */
-    private FitnessClass findConflict(Time time, Member member) {
+    private FitnessClass findConflict(Time time, Member member, String instructor) {
         for (int i = 0; i < listOfClasses.getSize(); i++) {
-            if (listOfClasses.getClasses()[i].getTime() == time && listOfClasses.getClasses()[i].getAttendance().contains(member)) {
+            FitnessClass fitness = listOfClasses.getClasses()[i];
+            if (fitness.getTime() == time && fitness.getAttendance().contains(member) && !fitness.getInstructor().equalsIgnoreCase(instructor)) {
                 return listOfClasses.getClasses()[i];
             }
         }
@@ -260,15 +306,11 @@ public class GymManager {
      * @return the desired fitness class, otherwise null
      */
     private FitnessClass findClass(FitnessClass[] fitnessClasses, String location, String instructor, String session) {
-        if (!validInstructor(instructor) && !validClass(session) && !validGym(location)) {
-            return null;
-        }
-
-        for (int i = 0; i < fitnessClasses.length; i++) {
+        for (int i = 0; i < fitnessClasses.length - 1; i++) {
             String fitnessName = fitnessClasses[i].getName();
             String fitnessInstructor = fitnessClasses[i].getInstructor();
             Location fitnessLocation = fitnessClasses[i].getLocation();
-            if (fitnessName.equalsIgnoreCase(session) &&  fitnessLocation == Location.valueOf(location) && fitnessInstructor.equalsIgnoreCase(instructor)) {
+            if (fitnessName.equalsIgnoreCase(session) &&  fitnessLocation == Location.valueOf(location.toUpperCase()) && fitnessInstructor.equalsIgnoreCase(instructor)) {
                 return fitnessClasses[i];
             }
         }
@@ -298,7 +340,7 @@ public class GymManager {
      * @return true if the instructor is valid, false otherwise.
      */
     private boolean validInstructor(String name) {
-        for (int i = 0; i < listOfClasses.getClasses().length; i++) {
+        for (int i = 0; i < listOfClasses.getSize(); i++) {
             if (name.equalsIgnoreCase(listOfClasses.getClasses()[i].getInstructor())) {
                 return true;
             }
@@ -308,7 +350,7 @@ public class GymManager {
     }
 
     private boolean validClass(String name) {
-        for (int i = 0; i < listOfClasses.getClasses().length; i++) {
+        for (int i = 0; i < listOfClasses.getSize(); i++) {
             if (name.equalsIgnoreCase(listOfClasses.getClasses()[i].getName())) {
                 return true;
             }
@@ -345,7 +387,20 @@ public class GymManager {
      * @param input
      */
     private void dropGuest(String input) {
+        String[] dropMemberInput = input.split(" ");
+        Member storedEntry = database.isMemberInArray(new Member(dropMemberInput[3], dropMemberInput[4], dropMemberInput[5]));
+        Date DOB = new Date(dropMemberInput[5]);
 
+        if (!DOB.isValid()) {
+            System.out.println(DOB + ": invalid calendar date!");
+        } else if (storedEntry == null) {
+            System.out.println(dropMemberInput[3] + " " + dropMemberInput[4] + " " + dropMemberInput[5] + " is not in the database.");
+        } else {
+            FitnessClass checkInClass = findClass(listOfClasses.getClasses(), dropMemberInput[2], dropMemberInput[1], dropMemberInput[0]);
+            if(checkInClass.removeMember(storedEntry)) {
+                System.out.println(storedEntry.getFname() + " " + storedEntry.getLname() + " done with the class");
+            }
+        }
     }
 
     /**
@@ -358,8 +413,8 @@ public class GymManager {
 
             while (sc.hasNextLine()) {
                 String[] inputs = sc.nextLine().split(" ");
-                String classType = inputs[0];
-                String instructor = inputs[1];
+                String classType = inputs[0].toUpperCase();
+                String instructor = inputs[1].toUpperCase();
                 Time time = Time.valueOf(inputs[2].toUpperCase());
                 Location gymLocation = Location.valueOf(inputs[3].toUpperCase());
 
