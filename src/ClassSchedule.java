@@ -70,7 +70,10 @@ public class ClassSchedule {
     public void print() {
         if (numClasses == 0) {
             System.out.println("Fitness class schedule is empty.");
-        } else {
+            System.out.println();
+        }
+        else {
+            System.out.println("-Fitness classes loaded-");
             for (int i = 0; i < numClasses; i++) {
                 System.out.println(classes[i]);
                 ArrayList attendance = classes[i].getAttendance();

@@ -51,7 +51,6 @@ public class GymManager {
             } else if (inputs[0].equals("PF")) {
                 database.printWithMembershipFee();
             } else if (inputs[0].equals("S")) {
-                System.out.println("-Fitness classes-");
                 listOfClasses.print();
             } else if (inputs[0].equals("C")) {
                 checkIn(inputs[1]);
@@ -478,7 +477,6 @@ public class GymManager {
 
                 listOfClasses.addClass(new FitnessClass(time, instructor, classType, gymLocation));
             }
-            System.out.println("-Fitness classes Loaded-");
             listOfClasses.print();
         } catch (FileNotFoundException e) {
             System.out.println("classSchedule.txt file not found.");
