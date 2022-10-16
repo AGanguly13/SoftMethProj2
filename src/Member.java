@@ -13,6 +13,12 @@ public class Member implements Comparable<Member> {
     private Date expire;
     private Location location;
 
+    private static final double ONETIMEFEE = 29.99;
+
+    private static final double STANDARDMONTHLYFEE = 39.99;
+
+    private static final int QUARTERLY = 3;
+
     /**
      * Constructs a member object based on String parsed from the command line and then split.
      * @param newMember is the string from the command line detailing the member information.
@@ -40,6 +46,20 @@ public class Member implements Comparable<Member> {
         this.expire = null;
     }
 
+    /**
+     * Constructor for adding a new standard, family, or premium membership member dependent on expiry date.
+     * @param fName
+     * @param lName
+     * @param DOB
+     * @param location
+     */
+    public Member (String fName, String lName, String DOB, String location, int expirationMonthsLater) {
+        this.fname = fName;
+        this.lname = lName;
+        this.dob = new Date(DOB);
+        this.location = Location.valueOf(location.toUpperCase());
+        this.expire = new Date(expirationMonthsLater); //need to implement a new data constructor that sets expiration to x months from today
+    }
     /**
      * Getter method for Member first name.
      * @return a String representing the first name of the Member.
@@ -94,6 +114,31 @@ public class Member implements Comparable<Member> {
         else {
             return name1.length();
         }
+    }
+
+    /**
+     * This method defines the membership fee for a standard Member.
+     * This includes the one time fee and next statement fee for this quarter.
+     * @return the current membership fee of the member.
+     */
+    public double membershipFee() {
+        return ONETIMEFEE + (QUARTERLY * STANDARDMONTHLYFEE);
+    }
+
+    /**
+     * Getter for onetimefee constant which will be same as one time fee in Family subclass
+     * @return
+     */
+    public double getOneTimeFee() {
+        return ONETIMEFEE;
+    }
+
+    /**
+     * Getter for quarterly static constant
+     * @return
+     */
+    public double getQuarterly() {
+        return QUARTERLY;
     }
 
     /**
@@ -286,3 +331,20 @@ public class Member implements Comparable<Member> {
         System.out.println();
     }
 }
+
+/** This is a new data constructor to set the expiry date of a newly added member to x months from today
+ *  This is intended for the A command, may also be implemented for AF command and AP
+ public Date(int setExpiration) {
+    Calendar today = Calendar.getInstance();
+    if (setExpiration > DAYSINAYEAR) {
+        year = today.get(Calendar.YEAR + 1);
+        month = today.get(Calendar.MONTH)
+        day = today.get(Calendar.DAY_OF_MONTH);
+        }
+    else {
+        year = today.get(Calendar.YEAR);
+        month = today.get(Calendar.MONTH + setExpiration);
+        day = today.get(Calendar.DAY_OF_MONTH);
+    }
+ }
+ */
