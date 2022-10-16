@@ -73,7 +73,7 @@ public class ClassSchedule {
             System.out.println();
         }
         else {
-            System.out.println("-Fitness classes loaded-");
+            System.out.println("- Fitness classes -");
             for (int i = 0; i < numClasses; i++) {
                 System.out.println(classes[i]);
                 ArrayList attendance = classes[i].getAttendance();
@@ -84,6 +84,15 @@ public class ClassSchedule {
                     System.out.print("      ");
                     System.out.println(attendance.get(j));
                 }
+
+                if (classes[i].getGuests().size() != 0) {
+                    System.out.println("- Guests -");
+                }
+                for (int k = 0; k < classes[i].getGuests().size(); k++) {
+                    System.out.print("      ");
+                    System.out.println(classes[i].getGuests().get(k));
+                }
+
             }
             System.out.println("-end of class list.");
         }

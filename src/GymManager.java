@@ -1,4 +1,5 @@
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.Scanner;
 import java.io.File;
 /**
@@ -277,7 +278,7 @@ public class GymManager {
             System.out.println(member.getFname() + " " + member.getLname() + " ran out of guest pass.");
         } else {
             ((Family) member).useGuestPass();
-            checkInClass.addGuest();
+            checkInClass.addGuest(member);
             System.out.println(member.getFname() + " " + member.getLname() + " (guest) checked in " + checkInClass);
             if (checkInClass.getAttendance().size() != 0) {
                 System.out.println("- Participants -");
@@ -287,9 +288,9 @@ public class GymManager {
                 }
             }
             System.out.println("- Guests -");
-            for (int i = 0; i < checkInClass.getGuests(); i++) {
+            for (int i = 0; i < checkInClass.getGuests().size(); i++) {
                 System.out.print("    ");
-                System.out.println(member);
+                System.out.println(checkInClass.getGuests().get(i));
             }
         }
     }
@@ -305,7 +306,7 @@ public class GymManager {
             System.out.println(member.getFname() + " " + member.getLname() + " ran out of guest pass.");
         } else {
             ((Premium) member).useGuestPass();
-            checkInClass.addGuest();
+            checkInClass.addGuest(member);
             System.out.println(member.getFname() + " " + member.getLname() + " (guest) checked in " + checkInClass);
             if (checkInClass.getAttendance().size() != 0) {
                 System.out.println("- Participants -");
@@ -315,9 +316,9 @@ public class GymManager {
                 }
             }
             System.out.println("- Guests -");
-            for (int i = 0; i < checkInClass.getGuests(); i++) {
+            for (int i = 0; i < checkInClass.getGuests().size(); i++) {
                 System.out.print("    ");
-                System.out.println(member);
+                System.out.println(checkInClass.getGuests().get(i));
             }
         }
     }
@@ -450,7 +451,7 @@ public class GymManager {
             System.out.println(dropMemberInput[3] + " " + dropMemberInput[4] + " " + dropMemberInput[5] + " is not in the database.");
         } else {
             FitnessClass checkInClass = findClass(listOfClasses.getClasses(), dropMemberInput[2], dropMemberInput[1], dropMemberInput[0]);
-            checkInClass.removeGuest();
+            checkInClass.removeGuest(storedEntry);
             System.out.println(storedEntry.getFname() + " " + storedEntry.getLname() + " Guest done with the class");
             if (storedEntry instanceof Family && !(storedEntry instanceof Premium)) {
                 ((Family)storedEntry).returnGuestPasses();
@@ -477,7 +478,11 @@ public class GymManager {
 
                 listOfClasses.addClass(new FitnessClass(time, instructor, classType, gymLocation));
             }
-            listOfClasses.print();
+            System.out.println("-Fitness classes loaded-");
+            for (int i = 0; i < listOfClasses.getSize(); i++) {
+                System.out.println(listOfClasses.getClasses()[i]);
+                }
+            System.out.println("-end of class list.");
         } catch (FileNotFoundException e) {
             System.out.println("classSchedule.txt file not found.");
         }

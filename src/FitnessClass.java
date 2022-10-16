@@ -14,7 +14,7 @@ public class FitnessClass {
     private String name;
     private Location location;
     private ArrayList<Member> attendance;
-    private int guests = 0;
+    private ArrayList<Member> guests;
 
     /**
      * Constructs a fitness class given a time of day, instructor name, and class name.
@@ -28,28 +28,31 @@ public class FitnessClass {
         this.name = name;
         this.location = location;
         attendance = new ArrayList<>();
+        guests = new ArrayList<>();
     }
 
     /**
-     * Getter method for the number of guests in this fitness class.
-     * @return the number of guests
+     * Getter method for the arraylist of guests in this fitness class.
+     * @return the arraylist of guests
      */
-    public int getGuests() {
+    public ArrayList<Member> getGuests() {
         return guests;
     }
 
     /**
      * Adds one guest into this fitness class.
+     * @return true if guest was added, false otherwise.
      */
-    public void addGuest() {
-        guests++;
+    public boolean addGuest(Member member) {
+        return guests.add(member);
     }
 
     /**
      * Removes one guest from this fitness class.
+     * @return true if guest was removed, false otherwise.
      */
-    public void removeGuest(){
-        guests--;
+    public boolean removeGuest(Member member){
+        return guests.remove(member);
     }
 
     /**

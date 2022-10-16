@@ -268,8 +268,11 @@ public class MemberDatabase {
             return;
         }
 
+        System.out.println("-list of members with membership fees-");
         for (int x = 0; x < this.size; x++) {
             System.out.println(this.mlist[x].toString() + ", Membership fee: " + this.mlist[x].membershipFee());
         }
+        System.out.println("-end of list-");
+        System.out.println();
     }
 }
