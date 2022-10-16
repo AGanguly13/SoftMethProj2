@@ -205,10 +205,13 @@ public class GymManager {
         Date today = new Date();
         Date DOB = new Date(split[5]);
 
-        validClass(split[0]);
-        validInstructor(split[1]);
-        validGym(split[2]);
-        if (!DOB.isValid()) {
+        if (!validClass(split[0])) {
+            System.out.println(split[0] + " - class does not exist");
+        } else if (!validGym(split[2])) {
+            System.out.println(split[2] + " - invalid location.");
+        } else if (!validInstructor(split[1])) {
+            System.out.println(split[1] + " - instructor does not exist.");
+        } else if (!DOB.isValid()) {
             System.out.println("DOB " + DOB + ": invalid calendar date!");
         } else if (storedEntry == null) {
             System.out.println(split[3] + " " + split[4] + " " + split[5] + " is not in the database.");
@@ -216,7 +219,9 @@ public class GymManager {
             System.out.println(split[3] + " " + split[4] + " " + split[5] + " membership expired.");
         } else {
             FitnessClass checkInClass = findClass(listOfClasses.getClasses(), split[2], split[1], split[0]);
-            if (findConflict(checkInClass.getTime(), storedEntry, split[1])) {
+            if (checkInClass == null) {
+                System.out.println(split[0] + " by " + split[1] + " does not exist at " + split[2]);
+            }else if (findConflict(checkInClass.getTime(), storedEntry, split[1])) {
                 System.out.println("TIME CONFLICT - " + checkInClass);
             } else if (Location.valueOf(split[2].toUpperCase()) != storedEntry.getLocation() && !(storedEntry instanceof Family)) {
                 System.out.println(storedEntry.getFname() + " " + storedEntry.getLname() + " checking in " + checkInClass + " - standard membership restriction.");
@@ -245,10 +250,13 @@ public class GymManager {
         Date today = new Date();
         Date DOB = new Date(split[5]);
 
-        validClass(split[0]);
-        validInstructor(split[1]);
-        validGym(split[2]);
-        if (!DOB.isValid()) {
+        if (!validClass(split[0])) {
+            System.out.println(split[0] + " - class does not exist");
+        } else if (!validGym(split[2])) {
+            System.out.println(split[2] + " - invalid location.");
+        } else if (!validInstructor(split[1])) {
+            System.out.println(split[1] + " - instructor does not exist.");
+        } else if (!DOB.isValid()) {
             System.out.println("DOB " + DOB + ": invalid calendar date!");
         } else if (storedEntry == null) {
             System.out.println(split[3] + " " + split[4] + " " + split[5] + " is not in the database.");
@@ -256,7 +264,9 @@ public class GymManager {
             System.out.println(split[3] + " " + split[4] + " " + split[5] + " membership expired.");
         } else {
             FitnessClass checkInClass = findClass(listOfClasses.getClasses(), split[2], split[1], split[0]);
-            if (findConflict(checkInClass.getTime(), storedEntry, split[1])) {
+            if (checkInClass == null) {
+                System.out.println(split[0] + " by " + split[1] + " does not exist at " + split[2]);
+            } else if (findConflict(checkInClass.getTime(), storedEntry, split[1])) {
                 System.out.println("TIME CONFLICT - " + checkInClass);
             } else if(checkInClass.addMember(storedEntry)) {
                 if (storedEntry instanceof Family && !(storedEntry instanceof Premium)) {
@@ -315,7 +325,6 @@ public class GymManager {
                 return fitnessClasses[i];
             }
         }
-        System.out.println(session + " by " + instructor + " does not exist at " + location);
         return null;
     }
 
@@ -331,7 +340,6 @@ public class GymManager {
                 return true;
             }
         }
-        System.out.println(gymLocation + " - invalid location.");
         return false;
     }
 
@@ -346,7 +354,6 @@ public class GymManager {
                 return true;
             }
         }
-        System.out.println(name + " - instructor does not exist.");
         return false;
     }
 
@@ -356,7 +363,6 @@ public class GymManager {
                 return true;
             }
         }
-        System.out.println(name + " - class does not exist");
         return false;
     }
 
