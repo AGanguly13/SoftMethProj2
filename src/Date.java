@@ -58,9 +58,15 @@ public class Date implements Comparable<Date> {
         Calendar today = Calendar.getInstance();
         if (setExpiration > DAYSINYEAR) {
             today.add(Calendar.YEAR, 1);
+            year = today.get(Calendar.YEAR);
+            month = today.get(Calendar.MONTH) + 1;
+            day = today.get(Calendar.DAY_OF_MONTH);
         }
         else {
             today.add(Calendar.MONTH, EXPIRATIONSMONTHS);
+            year = today.get(Calendar.YEAR);
+            month = today.get(Calendar.MONTH) + 1;
+            day = today.get(Calendar.DAY_OF_MONTH);
         }
     }
 
