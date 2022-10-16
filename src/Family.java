@@ -76,7 +76,7 @@ public class Family extends Member {
     @Override
     public String toString() {
         return(this.getFname() + " " + this.getLname() + ", DOB: " + this.getDob().toString() + ", Membership expires "
-                + this.getExpire().toString() + ", Location: " + this.getLocation() + " (Family) guest-pass remaining: " + guestPasses);
+                + this.getExpire().toString() + ", Location: " + this.getLocation() + ", (Family) guest-pass remaining: " + guestPasses);
     }
 
     /**

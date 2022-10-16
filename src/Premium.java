@@ -33,7 +33,7 @@ public class Premium extends Family {
     @Override
     public String toString() {
         return(this.getFname() + " " + this.getLname() + ", DOB: " + this.getDob().toString() + ", Membership expires "
-                + this.getExpire().toString() + ", Location: " + this.getLocation() +" (Premium) guest-pass remaining: " + this.getGuestPasses());
+                + this.getExpire().toString() + ", Location: " + this.getLocation() +", (Premium) guest-pass remaining: " + this.getGuestPasses());
     }
 
     /**
