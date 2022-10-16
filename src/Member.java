@@ -162,7 +162,7 @@ public class Member implements Comparable<Member> {
         if (this == obj) {
             return true;
         }
-        if (obj == null || this.getClass() != obj.getClass()) {
+        if (obj == null || (obj instanceof Member) == false) {
             return false;
         }
 
