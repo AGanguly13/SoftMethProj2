@@ -110,8 +110,8 @@ public class GymManager {
     }
 
     /**
-     *
-     * @param input
+     * Helper method to add a family membership into the database.
+     * @param input the customer data: first name, last name, date of birth, and membership location.
      */
     private void addFamilyMember(String input) {
         Date dateOfBirth = new Date(input.split(" ")[2]);
@@ -145,8 +145,8 @@ public class GymManager {
     }
 
     /**
-     *
-     * @param input
+     * Helper method to add a premium membership into the database.
+     * @param input the customer data: first name, last name, date of birth, and membership location.
      */
     private void addPremiumMember(String input) {
         Date dateOfBirth = new Date(input.split(" ")[2]);
@@ -267,7 +267,12 @@ public class GymManager {
         }
     }
 
-
+    /**
+     * Helper method to check in a guest with a family guest pass.
+     * Will also print out the participants and guests in the specified class
+     * @param member the owner of the membership
+     * @param checkInClass the desired class to check into
+     */
     private void checkInFamily(Member member, FitnessClass checkInClass) {
         if (((Family) member).getGuestPasses() <= 0) {
             System.out.println(member.getFname() + " " + member.getLname() + " ran out of guest pass.");
@@ -290,6 +295,12 @@ public class GymManager {
         }
     }
 
+    /**
+     * Helper method to check in a guest with a premium guest pass.
+     * Will also print out the participants and guests in the specified class
+     * @param member the owner of the membership
+     * @param checkInClass the desired class to check into
+     */
     private void checkInPremium(Member member, FitnessClass checkInClass) {
         if (((Premium) member).getGuestPasses() <= 0) {
             System.out.println(member.getFname() + " " + member.getLname() + " ran out of guest pass.");
@@ -381,6 +392,11 @@ public class GymManager {
         return false;
     }
 
+    /**
+     * Helper method to determine if the given class name is valid.
+     * @param name the name of the class
+     * @return true if the class if valid, false otherwise.
+     */
     private boolean validClass(String name) {
         for (int i = 0; i < listOfClasses.getSize(); i++) {
             if (name.equalsIgnoreCase(listOfClasses.getClasses()[i].getName())) {
