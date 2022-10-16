@@ -30,13 +30,24 @@ public class FitnessClass {
         attendance = new ArrayList<>();
     }
 
+    /**
+     * Getter method for the number of guests in this fitness class.
+     * @return the number of guests
+     */
     public int getGuests() {
         return guests;
     }
+
+    /**
+     * Adds one guest into this fitness class.
+     */
     public void addGuest() {
         guests++;
     }
 
+    /**
+     * Removes one guest from this fitness class.
+     */
     public void removeGuest(){
         guests--;
     }
@@ -107,6 +118,11 @@ public class FitnessClass {
         return attendance.remove(member);
     }
 
+    /**
+     * Overrides the toString method to print a textual representation of fitness class.
+     * Prints name, instructor, time, and location.
+     * @return a textual representation of fitness class as "name - instructor, hh:mm, location"
+     */
     @Override
     public String toString() {
         return name + " - " + instructor + ", " + time.getClock( ) + ", " + location;
