@@ -1,4 +1,5 @@
 import java.io.FileNotFoundException;
+import java.io.UnsupportedEncodingException;
 import java.util.Scanner;
 import java.io.File;
 /**
@@ -51,6 +52,7 @@ public class GymManager {
             } else if (inputs[0].equals("PF")) {
                 database.printWithMembershipFee();
             } else if (inputs[0].equals("S")) {
+                System.out.println("-Fitness classes-");
                 listOfClasses.print();
             } else if (inputs[0].equals("C")) {
                 checkIn(inputs[1]);
@@ -59,7 +61,7 @@ public class GymManager {
             } else if (inputs[0].equals("D")) {
                 dropMember(inputs[1]);
             } else if (inputs[0].equals("DG")) {
-                checkInGuest(inputs[1]);
+                dropGuest(inputs[1]);
             } else if (inputs[0].equals("LS")) {
                 loadClasses();
             } else if (inputs[0].equals("LM")) {
@@ -205,35 +207,31 @@ public class GymManager {
         Date today = new Date();
         Date DOB = new Date(split[5]);
 
-        if (!validClass(split[0])) {
-            System.out.println(split[0] + " - class does not exist");
-        } else if (!validGym(split[2])) {
-            System.out.println(split[2] + " - invalid location.");
-        } else if (!validInstructor(split[1])) {
-            System.out.println(split[1] + " - instructor does not exist.");
-        } else if (!DOB.isValid()) {
-            System.out.println("DOB " + DOB + ": invalid calendar date!");
-        } else if (storedEntry == null) {
-            System.out.println(split[3] + " " + split[4] + " " + split[5] + " is not in the database.");
-        } else if (today.compareTo(storedEntry.getExpire()) >= 0) {
-            System.out.println(split[3] + " " + split[4] + " " + split[5] + " membership expired.");
-        } else {
-            FitnessClass checkInClass = findClass(listOfClasses.getClasses(), split[2], split[1], split[0]);
-            if (checkInClass == null) {
-                System.out.println(split[0] + " by " + split[1] + " does not exist at " + split[2]);
-            }else if (findConflict(checkInClass.getTime(), storedEntry, split[1])) {
-                System.out.println("TIME CONFLICT - " + checkInClass);
-            } else if (Location.valueOf(split[2].toUpperCase()) != storedEntry.getLocation() && !(storedEntry instanceof Family)) {
-                System.out.println(storedEntry.getFname() + " " + storedEntry.getLname() + " checking in " + checkInClass + " - standard membership restriction.");
-            } else if(checkInClass.addMember(storedEntry)) {
-                System.out.println(storedEntry.getFname() + " " + storedEntry.getLname() + " checked in " + checkInClass);
-                System.out.println("- Participants -");
-                for (int i = 0; i < checkInClass.getAttendance().size(); i++) {
-                    System.out.print("    ");
-                    System.out.println(checkInClass.getAttendance().get(i));
-                }
+        if (validClass(split[0]) && validGym(split[2]) && validInstructor(split[1])) {
+            if (!DOB.isValid()) {
+                System.out.println("DOB " + DOB + ": invalid calendar date!");
+            } else if (storedEntry == null) {
+                System.out.println(split[3] + " " + split[4] + " " + split[5] + " is not in the database.");
+            } else if (today.compareTo(storedEntry.getExpire()) >= 0) {
+                System.out.println(split[3] + " " + split[4] + " " + split[5] + " membership expired.");
             } else {
-                System.out.println(storedEntry.getFname() + " " + storedEntry.getLname() + " already checked in.");
+                FitnessClass checkInClass = findClass(listOfClasses.getClasses(), split[2], split[1], split[0]);
+                if (checkInClass == null) {
+                    System.out.println(split[0] + " by " + split[1] + " does not exist at " + split[2]);
+                } else if (findConflict(checkInClass.getTime(), storedEntry, split[1])) {
+                    System.out.println("Time conflict - " + checkInClass);
+                } else if (Location.valueOf(split[2].toUpperCase()) != storedEntry.getLocation() && !(storedEntry instanceof Family)) {
+                    System.out.println(storedEntry.getFname() + " " + storedEntry.getLname() + " checking in " + checkInClass + " - standard membership restriction.");
+                } else if (checkInClass.addMember(storedEntry)) {
+                    System.out.println(storedEntry.getFname() + " " + storedEntry.getLname() + " checked in " + checkInClass);
+                    System.out.println("- Participants -");
+                    for (int i = 0; i < checkInClass.getAttendance().size(); i++) {
+                        System.out.print("    ");
+                        System.out.println(checkInClass.getAttendance().get(i));
+                    }
+                } else {
+                    System.out.println(storedEntry.getFname() + " " + storedEntry.getLname() + " already checked in.");
+                }
             }
         }
     }
@@ -249,43 +247,68 @@ public class GymManager {
         Member storedEntry = database.isMemberInArray(entry);
         Date today = new Date();
         Date DOB = new Date(split[5]);
+        FitnessClass checkInClass = findClass(listOfClasses.getClasses(), split[2], split[1], split[0]);
 
-        if (!validClass(split[0])) {
-            System.out.println(split[0] + " - class does not exist");
-        } else if (!validGym(split[2])) {
-            System.out.println(split[2] + " - invalid location.");
-        } else if (!validInstructor(split[1])) {
-            System.out.println(split[1] + " - instructor does not exist.");
-        } else if (!DOB.isValid()) {
-            System.out.println("DOB " + DOB + ": invalid calendar date!");
-        } else if (storedEntry == null) {
-            System.out.println(split[3] + " " + split[4] + " " + split[5] + " is not in the database.");
-        } else if (today.compareTo(storedEntry.getExpire()) >= 0) {
-            System.out.println(split[3] + " " + split[4] + " " + split[5] + " membership expired.");
+        if (validClass(split[0]) && validGym(split[2]) && validInstructor(split[1])) {
+            if (!DOB.isValid()) {
+                System.out.println("DOB " + DOB + ": invalid calendar date!");
+            } else if (storedEntry == null) {
+                System.out.println(split[3] + " " + split[4] + " " + split[5] + " is not in the database.");
+            } else if (today.compareTo(storedEntry.getExpire()) >= 0) {
+                System.out.println(split[3] + " " + split[4] + " " + split[5] + " membership expired.");
+            } else if (!(storedEntry instanceof Family)) {
+                System.out.println("Standard membership - guest check-in is not allowed.");
+            } else if (storedEntry.getLocation() != Location.valueOf(split[2].toUpperCase())) {
+                System.out.println(split[3] + " " + split[4] + " Guest checking in " + Location.valueOf(split[2].toUpperCase()) + " - guest location restriction.");
+            } else if (storedEntry instanceof Family && !(storedEntry instanceof Premium)) {
+                checkInFamily(storedEntry, checkInClass);
+            } else if (storedEntry instanceof Premium) {
+                checkInPremium(storedEntry, checkInClass);
+            }
+        }
+    }
+
+
+    private void checkInFamily(Member member, FitnessClass checkInClass) {
+        if (((Family) member).getGuestPasses() <= 0) {
+            System.out.println(member.getFname() + " " + member.getLname() + " ran out of guest pass.");
         } else {
-            FitnessClass checkInClass = findClass(listOfClasses.getClasses(), split[2], split[1], split[0]);
-            if (checkInClass == null) {
-                System.out.println(split[0] + " by " + split[1] + " does not exist at " + split[2]);
-            } else if (findConflict(checkInClass.getTime(), storedEntry, split[1])) {
-                System.out.println("TIME CONFLICT - " + checkInClass);
-            } else if(checkInClass.addMember(storedEntry)) {
-                if (storedEntry instanceof Family && !(storedEntry instanceof Premium)) {
-                    ((Family) storedEntry).useGuestPass();
-                } else if (storedEntry instanceof Premium) {
-                    ((Premium) storedEntry).useGuestPass();
+            ((Family) member).useGuestPass();
+            checkInClass.addGuest();
+            System.out.println(member.getFname() + " " + member.getLname() + " (guest) checked in " + checkInClass);
+            if (checkInClass.getAttendance().size() != 0) {
+                System.out.println("- Participants -");
+                for (int i = 0; i < checkInClass.getAttendance().size(); i++) {
+                    System.out.print("    ");
+                    System.out.println(checkInClass.getAttendance().get(i));
                 }
-                if (((Family) storedEntry).getGuestPasses() < 0) {
-                    System.out.println(storedEntry.getFname() + " " + storedEntry.getLname() + " ran out of guest pass.");
-                } else {
-                    System.out.println(storedEntry.getFname() + " " + storedEntry.getLname() + " checked in " + checkInClass);
-                    System.out.println("- Participants -");
-                    for (int i = 0; i < checkInClass.getAttendance().size(); i++) {
-                        System.out.print("    ");
-                        System.out.println(checkInClass.getAttendance().get(i).toString());
-                    }
+            }
+            System.out.println("- Guests -");
+            for (int i = 0; i < checkInClass.getGuests(); i++) {
+                System.out.print("    ");
+                System.out.println(member);
+            }
+        }
+    }
+
+    private void checkInPremium(Member member, FitnessClass checkInClass) {
+        if (((Premium) member).getGuestPasses() <= 0) {
+            System.out.println(member.getFname() + " " + member.getLname() + " ran out of guest pass.");
+        } else {
+            ((Premium) member).useGuestPass();
+            checkInClass.addGuest();
+            System.out.println(member.getFname() + " " + member.getLname() + " (guest) checked in " + checkInClass);
+            if (checkInClass.getAttendance().size() != 0) {
+                System.out.println("- Participants -");
+                for (int i = 0; i < checkInClass.getAttendance().size(); i++) {
+                    System.out.print("    ");
+                    System.out.println(checkInClass.getAttendance().get(i));
                 }
-            } else {
-                System.out.println(storedEntry.getFname() + " " + storedEntry.getLname() + " already checked in.");
+            }
+            System.out.println("- Guests -");
+            for (int i = 0; i < checkInClass.getGuests(); i++) {
+                System.out.print("    ");
+                System.out.println(member);
             }
         }
     }
@@ -340,6 +363,7 @@ public class GymManager {
                 return true;
             }
         }
+        System.out.println(gymLocation + " - invalid location.");
         return false;
     }
 
@@ -354,6 +378,7 @@ public class GymManager {
                 return true;
             }
         }
+        System.out.println(name + " - instructor does not exist.");
         return false;
     }
 
@@ -363,6 +388,7 @@ public class GymManager {
                 return true;
             }
         }
+        System.out.println(name + " - class does not exist");
         return false;
     }
 
@@ -376,14 +402,20 @@ public class GymManager {
         Member storedEntry = database.isMemberInArray(new Member(dropMemberInput[3], dropMemberInput[4], dropMemberInput[5]));
         Date DOB = new Date(dropMemberInput[5]);
 
-        if (!DOB.isValid()) {
-            System.out.println(DOB + ": invalid calendar date!");
-        } else if (storedEntry == null) {
-            System.out.println(dropMemberInput[3] + " " + dropMemberInput[4] + " " + dropMemberInput[5] + " is not in the database.");
-        } else {
-            FitnessClass checkInClass = findClass(listOfClasses.getClasses(), dropMemberInput[2], dropMemberInput[1], dropMemberInput[0]);
-            if(checkInClass.removeMember(storedEntry)) {
-                System.out.println(storedEntry.getFname() + " " + storedEntry.getLname() + " done with the class");
+        if (validClass(dropMemberInput[0]) && validGym(dropMemberInput[2]) && validInstructor(dropMemberInput[1])) {
+            if (!DOB.isValid()) {
+                System.out.println(DOB + ": invalid calendar date!");
+            } else if (storedEntry == null) {
+                System.out.println(dropMemberInput[3] + " " + dropMemberInput[4] + " " + dropMemberInput[5] + " is not in the database.");
+            } else {
+                FitnessClass checkInClass = findClass(listOfClasses.getClasses(), dropMemberInput[2], dropMemberInput[1], dropMemberInput[0]);
+                if (checkInClass == null) {
+                    System.out.println(dropMemberInput[0] + " by " + dropMemberInput[1] + " does not exist at " + dropMemberInput[2]);
+                } else if (checkInClass.removeMember(storedEntry)) {
+                    System.out.println(storedEntry.getFname() + " " + storedEntry.getLname() + " done with the class");
+                } else {
+                    System.out.println(storedEntry.getFname() + " " + storedEntry.getLname() + " did not check in");
+                }
             }
         }
     }
@@ -404,8 +436,12 @@ public class GymManager {
             System.out.println(dropMemberInput[3] + " " + dropMemberInput[4] + " " + dropMemberInput[5] + " is not in the database.");
         } else {
             FitnessClass checkInClass = findClass(listOfClasses.getClasses(), dropMemberInput[2], dropMemberInput[1], dropMemberInput[0]);
-            if(checkInClass.removeMember(storedEntry)) {
-                System.out.println(storedEntry.getFname() + " " + storedEntry.getLname() + " done with the class");
+            checkInClass.removeGuest();
+            System.out.println(storedEntry.getFname() + " " + storedEntry.getLname() + " Guest done with the class");
+            if (storedEntry instanceof Family && !(storedEntry instanceof Premium)) {
+                ((Family)storedEntry).returnGuestPasses();
+            } else if (storedEntry instanceof  Premium) {
+                ((Premium)storedEntry).returnGuestPasses();
             }
         }
     }
@@ -428,6 +464,7 @@ public class GymManager {
                 listOfClasses.addClass(new FitnessClass(time, instructor, classType, gymLocation));
             }
             System.out.println("-Fitness classes Loaded-");
+            listOfClasses.print();
         } catch (FileNotFoundException e) {
             System.out.println("classSchedule.txt file not found.");
         }
@@ -444,6 +481,9 @@ public class GymManager {
                 Member newMem = new Member(readMem.nextLine());
                 database.add(newMem);
             }
+            System.out.println("-list of members loaded");
+            database.print();
+            System.out.println("-end of list-");
         } catch (FileNotFoundException e) {
             System.out.println("memberList.txt file not found");
         }

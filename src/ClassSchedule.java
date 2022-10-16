@@ -78,10 +78,11 @@ public class ClassSchedule {
                     System.out.println("- Participants -");
                 }
                 for (int j = 0; j < attendance.size(); j++) {
+                    System.out.print("      ");
                     System.out.println(attendance.get(j));
                 }
             }
-            System.out.println("-End of class list.");
+            System.out.println("-end of class list.");
         }
     }
 

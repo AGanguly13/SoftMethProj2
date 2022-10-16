@@ -14,6 +14,7 @@ public class FitnessClass {
     private String name;
     private Location location;
     private ArrayList<Member> attendance;
+    private int guests = 0;
 
     /**
      * Constructs a fitness class given a time of day, instructor name, and class name.
@@ -27,6 +28,17 @@ public class FitnessClass {
         this.name = name;
         this.location = location;
         attendance = new ArrayList<>();
+    }
+
+    public int getGuests() {
+        return guests;
+    }
+    public void addGuest() {
+        guests++;
+    }
+
+    public void removeGuest(){
+        guests--;
     }
 
     /**
@@ -97,7 +109,7 @@ public class FitnessClass {
 
     @Override
     public String toString() {
-        return name + " - " + instructor + ", " + time.getClock() + ", " + location;
+        return name + " - " + instructor + ", " + time.getClock( ) + ", " + location;
     }
 
 }
