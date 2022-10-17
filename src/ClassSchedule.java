@@ -81,7 +81,7 @@ public class ClassSchedule {
                     System.out.println("- Participants -");
                 }
                 for (int j = 0; j < attendance.size(); j++) {
-                    System.out.print("   ");
+                    System.out.print("    ");
                     System.out.println(attendance.get(j));
                 }
 
@@ -89,7 +89,7 @@ public class ClassSchedule {
                     System.out.println("- Guests -");
                 }
                 for (int k = 0; k < classes[i].getGuests().size(); k++) {
-                    System.out.print("      ");
+                    System.out.print("    ");
                     System.out.println(classes[i].getGuests().get(k));
                 }
 

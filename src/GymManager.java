@@ -473,7 +473,7 @@ public class GymManager {
             Scanner sc = new Scanner(new File("classSchedule.txt"));
 
             while (sc.hasNextLine()) {
-                String[] inputs = sc.nextLine().split(" ");
+                String[] inputs = sc.nextLine().split("\\s+");
                 String classType = inputs[0].toUpperCase();
                 String instructor = inputs[1].toUpperCase();
                 Time time = Time.valueOf(inputs[2].toUpperCase());

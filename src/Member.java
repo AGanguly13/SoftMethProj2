@@ -24,7 +24,7 @@ public class Member implements Comparable<Member> {
      * @param newMember is the string from the command line detailing the member information.
      */
     public Member (String newMember) {
-        String[] splitMember = newMember.split(" ");
+        String[] splitMember = newMember.split("\\s+");
         this.fname = splitMember[0];
         this.lname = splitMember[1];
         this.dob = new Date(splitMember[2]);
