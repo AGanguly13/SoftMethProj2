@@ -1,6 +1,10 @@
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * JUnit test method for the Date class.
+ * Tests the isValid method for appropriate values.
+ */
 public class DateTest {
 
     @Test

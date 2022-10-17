@@ -2,6 +2,10 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * JUnit test for the Premium class.
+ * Tests the membership fee to ensure value is correct.
+ */
 class PremiumTest {
 
     @Test
