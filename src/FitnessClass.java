@@ -91,6 +91,34 @@ public class FitnessClass {
     }
 
     /**
+     * Getter method that returns the attendance as an array.
+     * @return an array of members
+     */
+    public Member[] getList() {
+        Member[] newList = new Member[attendance.size()];
+
+        for (int i = 0; i < attendance.size(); i++) {
+            newList[i] = attendance.get(i);
+        }
+
+        return newList;
+    }
+
+    /**
+     * Getter method that returns the guest attendance as an array.
+     * @return an array of guests
+     */
+    public Member[] getGuestList() {
+        Member[] newList = new Member[guests.size()];
+
+        for (int i = 0; i < guests.size(); i++) {
+            newList[i] = guests.get(i);
+        }
+
+        return newList;
+    }
+
+    /**
      * Adds a member into the member database and returns if the member was added.
      * If member is a duplicate, false is returned
      * @param member the member object to be added.

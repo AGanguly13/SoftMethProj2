@@ -51,41 +51,43 @@ public class GymManager {
 
     /**
      * Helper method for running the GymManager class and handling command line inputs
+     *
      * @param commandInputs is the current command line separated into an array of two elements, the command letter and the subsequent information.
      */
     public void run2(String[] commandInputs) {
-            if (commandInputs[0].equals("PC")) {
-                database.printByCounty();
-            } else if (commandInputs[0].equals("PN")) {
-                database.printByName();
-            } else if (commandInputs[0].equals("PD")) {
-                database.printByExpirationDate();
-            } else if (commandInputs[0].equals("PF")) {
-                database.printWithMembershipFee();
-            } else if (commandInputs[0].equals("S")) {
-                printClasses();
-            } else if (commandInputs[0].equals("C")) {
-                checkIn(commandInputs[1]);
-            } else if (commandInputs[0].equals("CG")) {
-                checkInGuest(commandInputs[1]);
-            } else if (commandInputs[0].equals("D")) {
-                dropMember(commandInputs[1]);
-            } else if (commandInputs[0].equals("DG")) {
-                dropGuest(commandInputs[1]);
-            } else if (commandInputs[0].equals("LS")) {
-                loadClasses();
-            } else if (commandInputs[0].equals("LM")) {
-                bulkLoad();
-            } else if (commandInputs[0].equals("")) {
-                System.out.println();
-            } else {
-                System.out.println(commandInputs[0] + " is an invalid command!");
-            }
+        if (commandInputs[0].equals("PC")) {
+            database.printByCounty();
+        } else if (commandInputs[0].equals("PN")) {
+            database.printByName();
+        } else if (commandInputs[0].equals("PD")) {
+            database.printByExpirationDate();
+        } else if (commandInputs[0].equals("PF")) {
+            database.printWithMembershipFee();
+        } else if (commandInputs[0].equals("S")) {
+            listOfClasses.printClasses();
+        } else if (commandInputs[0].equals("C")) {
+            checkIn(commandInputs[1]);
+        } else if (commandInputs[0].equals("CG")) {
+            checkInGuest(commandInputs[1]);
+        } else if (commandInputs[0].equals("D")) {
+            dropMember(commandInputs[1]);
+        } else if (commandInputs[0].equals("DG")) {
+            dropGuest(commandInputs[1]);
+        } else if (commandInputs[0].equals("LS")) {
+            loadClasses();
+        } else if (commandInputs[0].equals("LM")) {
+            bulkLoad();
+        } else if (commandInputs[0].equals("")) {
+            System.out.println();
+        } else {
+            System.out.println(commandInputs[0] + " is an invalid command!");
+        }
     }
 
     /**
      * Helper method that adds a new member into the gym database.
      * Will also check for valid date of birth and expiration date.
+     *
      * @param input the customer data: first name, last name, date of birth, and gym location.
      */
     private void addStandardMember(String input) {
@@ -111,8 +113,7 @@ public class GymManager {
             Member newEntry = new Member(inputs[0], inputs[1], inputs[2], inputs[3], STANDARDEXPIRATION);
             if (database.add(newEntry)) {
                 System.out.println(newEntry.getFname() + " " + newEntry.getLname() + " added.");
-            }
-            else {
+            } else {
                 System.out.println(newEntry.getFname() + " " + newEntry.getLname() + " is already in database.");
             }
         }
@@ -120,6 +121,7 @@ public class GymManager {
 
     /**
      * Helper method to add a family membership into the database.
+     *
      * @param input the customer data: first name, last name, date of birth, and membership location.
      */
     private void addFamilyMember(String input) {
@@ -146,8 +148,7 @@ public class GymManager {
             Member newEntry = new Family(input);
             if (database.add(newEntry)) {
                 System.out.println(newEntry.getFname() + " " + newEntry.getLname() + " added.");
-            }
-            else {
+            } else {
                 System.out.println(newEntry.getFname() + " " + newEntry.getLname() + " is already in database.");
             }
         }
@@ -155,6 +156,7 @@ public class GymManager {
 
     /**
      * Helper method to add a premium membership into the database.
+     *
      * @param input the customer data: first name, last name, date of birth, and membership location.
      */
     private void addPremiumMember(String input) {
@@ -181,8 +183,7 @@ public class GymManager {
             Member newEntry = new Premium(input);
             if (database.add(newEntry)) {
                 System.out.println(newEntry.getFname() + " " + newEntry.getLname() + " added.");
-            }
-            else {
+            } else {
                 System.out.println(newEntry.getFname() + " " + newEntry.getLname() + " is already in database.");
             }
         }
@@ -190,6 +191,7 @@ public class GymManager {
 
     /**
      * Helper method that cancels and removes a member from the member database.
+     *
      * @param input the command line inputs: first name, last name, date of birth, membership expiration date, location.
      */
     private void cancelMembership(String input) {
@@ -198,14 +200,14 @@ public class GymManager {
         if (database.remove(entry)) {
             System.out.println(inputs[0] + " " + inputs[1] + " removed.");
             System.out.println();
-        }
-        else {
+        } else {
             System.out.println(inputs[0] + " " + inputs[1] + " is not in the database.");
         }
     }
 
     /**
      * Helper method that adds a new member into a specified fitness class.
+     *
      * @param input the command line inputs: fitness class name, instructor, location, first name, last name, date of birth.
      */
     private void checkIn(String input) {
@@ -248,6 +250,7 @@ public class GymManager {
     /**
      * Helper method to check in a guest for a fitness class.
      * Will keep track of guest passes for the member.
+     *
      * @param input
      */
     private void checkInGuest(String input) {
@@ -280,7 +283,8 @@ public class GymManager {
     /**
      * Helper method to check in a guest with a family guest pass.
      * Will also print out the participants and guests in the specified class
-     * @param member the owner of the membership
+     *
+     * @param member       the owner of the membership
      * @param checkInClass the desired class to check into
      */
     private void checkInFamily(Member member, FitnessClass checkInClass) {
@@ -309,7 +313,8 @@ public class GymManager {
     /**
      * Helper method to check in a guest with a premium guest pass.
      * Will also print out the participants and guests in the specified class
-     * @param member the owner of the membership
+     *
+     * @param member       the owner of the membership
      * @param checkInClass the desired class to check into
      */
     private void checkInPremium(Member member, FitnessClass checkInClass) {
@@ -337,8 +342,9 @@ public class GymManager {
 
     /**
      * Helper method to find if the given member has a class at a given time.
-     * @param time the time object of the fitness class
-     * @param member the member object of the member
+     *
+     * @param time       the time object of the fitness class
+     * @param member     the member object of the member
      * @param instructor the instructor of the class
      * @return true if a conflict exists, false otherwise
      */
@@ -355,10 +361,11 @@ public class GymManager {
     /**
      * Helper method to find the correct fitness class based on location, instructor name, and class name.
      * Will return null if a class is not found or the inputted information is invalid and print an error statement.
+     *
      * @param fitnessClasses an array of the fitness classes
-     * @param location the location of the fitness class
-     * @param instructor the name of the instructor of the fitness class
-     * @param session the class name
+     * @param location       the location of the fitness class
+     * @param instructor     the name of the instructor of the fitness class
+     * @param session        the class name
      * @return the desired fitness class, otherwise null
      */
     private FitnessClass findClass(FitnessClass[] fitnessClasses, String location, String instructor, String session) {
@@ -366,7 +373,7 @@ public class GymManager {
             String fitnessName = fitnessClasses[i].getName();
             String fitnessInstructor = fitnessClasses[i].getInstructor();
             Location fitnessLocation = fitnessClasses[i].getLocation();
-            if (fitnessName.equalsIgnoreCase(session) &&  fitnessLocation == Location.valueOf(location.toUpperCase()) && fitnessInstructor.equalsIgnoreCase(instructor)) {
+            if (fitnessName.equalsIgnoreCase(session) && fitnessLocation == Location.valueOf(location.toUpperCase()) && fitnessInstructor.equalsIgnoreCase(instructor)) {
                 return fitnessClasses[i];
             }
         }
@@ -376,6 +383,7 @@ public class GymManager {
     /**
      * Helper method to determine if the given gym location is valid.
      * Will print an error statement if location is invalid.
+     *
      * @param gymLocation the gym location.
      * @return true if the gym is valid, false otherwise.
      */
@@ -391,6 +399,7 @@ public class GymManager {
 
     /**
      * Helper method to determine if the given instructor name is valid.
+     *
      * @param name the name of the instructor.
      * @return true if the instructor is valid, false otherwise.
      */
@@ -406,6 +415,7 @@ public class GymManager {
 
     /**
      * Helper method to determine if the given class name is valid.
+     *
      * @param name the name of the class
      * @return true if the class is valid, false otherwise.
      */
@@ -422,6 +432,7 @@ public class GymManager {
 
     /**
      * Helper method that drops a given member from a specified fitness class.
+     *
      * @param input the command line inputs: fitness class name, instructor, location, first name, last name, date of birth.
      */
     private void dropMember(String input) {
@@ -450,6 +461,7 @@ public class GymManager {
     /**
      * Helper method to check out a guest from a fitness class.
      * Will keep track of remaining guest passes.
+     *
      * @param input
      */
     private void dropGuest(String input) {
@@ -466,9 +478,9 @@ public class GymManager {
             checkInClass.removeGuest(storedEntry);
             System.out.println(storedEntry.getFname() + " " + storedEntry.getLname() + " Guest done with the class");
             if (storedEntry instanceof Family && !(storedEntry instanceof Premium)) {
-                ((Family)storedEntry).returnGuestPasses();
-            } else if (storedEntry instanceof  Premium) {
-                ((Premium)storedEntry).returnGuestPasses();
+                ((Family) storedEntry).returnGuestPasses();
+            } else if (storedEntry instanceof Premium) {
+                ((Premium) storedEntry).returnGuestPasses();
             }
         }
     }
@@ -515,41 +527,6 @@ public class GymManager {
             System.out.println();
         } catch (FileNotFoundException e) {
             System.out.println("memberList.txt file not found");
-        }
-    }
-
-    /**
-     * Helper method to print the class schedule.
-     */
-    private void printClasses() {
-        if (listOfClasses.getSize() == 0) {
-            System.out.println("Fitness class schedule is empty.");
-            System.out.println();
-        }
-        else {
-            System.out.println("- Fitness classes -");
-            for (int i = 0; i < listOfClasses.getSize(); i++) {
-                System.out.println(listOfClasses.getClasses()[i]);
-                ArrayList attendance = listOfClasses.getClasses()[i].getAttendance();
-                if (attendance.size() != 0) {
-                    System.out.println("- Participants -");
-                }
-                for (int j = 0; j < attendance.size(); j++) {
-                    System.out.print("    ");
-                    System.out.println(attendance.get(j));
-                }
-
-                if (listOfClasses.getClasses()[i].getGuests().size() != 0) {
-                    System.out.println("- Guests -");
-                }
-                for (int k = 0; k < listOfClasses.getClasses()[i].getGuests().size(); k++) {
-                    System.out.print("    ");
-                    System.out.println(listOfClasses.getClasses()[i].getGuests().get(k));
-                }
-
-            }
-            System.out.println("-end of class list.");
-            System.out.println();
         }
     }
 }

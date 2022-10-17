@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 /**
  * Defines a schedule of fitness classes.
  * A class schedule is defined by a list of classes on the schedule and a counter to keep track of the classes in the list.
@@ -62,5 +64,41 @@ public class ClassSchedule {
     public FitnessClass[] getClasses() {
         return classes;
     }
+
+    /**
+     * Method to print the class schedule.
+     */
+    public void printClasses() {
+        if (numClasses == 0) {
+            System.out.println("Fitness class schedule is empty.");
+            System.out.println();
+        }
+        else {
+            System.out.println("- Fitness classes -");
+            for (int i = 0; i < numClasses; i++) {
+                System.out.println(classes[i]);
+                Member[] attendance = classes[i].getList();
+                if (attendance.length != 0) {
+                    System.out.println("- Participants -");
+                }
+                for (int j = 0; j < attendance.length; j++) {
+                    System.out.print("    ");
+                    System.out.println(attendance[j]);
+                }
+
+                if (classes[i].getGuests().size() != 0) {
+                    System.out.println("- Guests -");
+                }
+                for (int k = 0; k < classes[i].getGuestList().length; k++) {
+                    System.out.print("    ");
+                    System.out.println(classes[i].getGuestList()[k]);
+                }
+
+            }
+            System.out.println("-end of class list.");
+            System.out.println();
+        }
+    }
+
 
 }
