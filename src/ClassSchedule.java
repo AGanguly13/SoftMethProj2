@@ -81,7 +81,7 @@ public class ClassSchedule {
                     System.out.println("- Participants -");
                 }
                 for (int j = 0; j < attendance.size(); j++) {
-                    System.out.print("      ");
+                    System.out.print("   ");
                     System.out.println(attendance.get(j));
                 }
 
@@ -95,6 +95,7 @@ public class ClassSchedule {
 
             }
             System.out.println("-end of class list.");
+            System.out.println();
         }
     }
 

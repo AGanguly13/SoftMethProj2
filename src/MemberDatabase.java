@@ -253,7 +253,7 @@ public class MemberDatabase {
                 }
             }
         }
-
+        System.out.println();
         System.out.println("-list of members sorted by last name, and first name-");
         for (int x = 0; x < this.size; x++) {
             System.out.println(this.mlist[x].toString());

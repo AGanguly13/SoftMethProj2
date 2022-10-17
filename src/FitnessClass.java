@@ -128,7 +128,7 @@ public class FitnessClass {
      */
     @Override
     public String toString() {
-        return name + " - " + instructor + ", " + time.getClock( ) + ", " + location;
+        return name + " - " + instructor + ", " + time.getClock( ) + ", " + location.getCity();
     }
 
 }
