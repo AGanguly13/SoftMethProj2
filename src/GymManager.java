@@ -95,7 +95,7 @@ public class GymManager {
         } else if (!dateOfBirth.isValid()) {
             System.out.println("DOB " + dateOfBirth + ": invalid calendar date!");
         } else if (!dateOfBirth.isFuture(dateOfBirth)) {
-            System.out.println("DOB " + dateOfBirth + ": cannot be today or future date!");
+            System.out.println("DOB " + dateOfBirth + ": cannot be today or a future date!");
         } else if (!dateOfBirth.isEighteen(dateOfBirth)) {
             System.out.println("DOB " + dateOfBirth + ": must be 18 or older to join!");
         } else {
@@ -130,7 +130,7 @@ public class GymManager {
         } else if (!dateOfBirth.isValid()) {
             System.out.println("DOB " + dateOfBirth + ": invalid calendar date!");
         } else if (!dateOfBirth.isFuture(dateOfBirth)) {
-            System.out.println("DOB " + dateOfBirth + ": cannot be today or future date!");
+            System.out.println("DOB " + dateOfBirth + ": cannot be today or a future date!");
         } else if (!dateOfBirth.isEighteen(dateOfBirth)) {
             System.out.println("DOB " + dateOfBirth + ": must be 18 or older to join!");
         } else {
@@ -165,7 +165,7 @@ public class GymManager {
         } else if (!dateOfBirth.isValid()) {
             System.out.println("DOB " + dateOfBirth + ": invalid calendar date!");
         } else if (!dateOfBirth.isFuture(dateOfBirth)) {
-            System.out.println("DOB " + dateOfBirth + ": cannot be today or future date!");
+            System.out.println("DOB " + dateOfBirth + ": cannot be today or a future date!");
         } else if (!dateOfBirth.isEighteen(dateOfBirth)) {
             System.out.println("DOB " + dateOfBirth + ": must be 18 or older to join!");
         } else {
@@ -218,16 +218,17 @@ public class GymManager {
                 if (checkInClass == null) {
                     System.out.println(split[0] + " by " + split[1] + " does not exist at " + split[2]);
                 } else if (findConflict(checkInClass.getTime(), storedEntry, split[1])) {
-                    System.out.println("Time conflict - " + checkInClass);
+                    System.out.println("Time conflict - " + checkInClass.toString() + ", " + checkInClass.getLocation().getStringZip() + ", " + checkInClass.getLocation().getCounty());
                 } else if (Location.valueOf(split[2].toUpperCase()) != storedEntry.getLocation() && !(storedEntry instanceof Family)) {
-                    System.out.println(storedEntry.getFname() + " " + storedEntry.getLname() + " checking in " + checkInClass + " - standard membership restriction.");
+                    System.out.println(storedEntry.getFname() + " " + storedEntry.getLname() + " checking in " + checkInClass.getLocation() + " - standard membership restriction.");
                 } else if (checkInClass.addMember(storedEntry)) {
                     System.out.println(storedEntry.getFname() + " " + storedEntry.getLname() + " checked in " + checkInClass);
                     System.out.println("- Participants -");
                     for (int i = 0; i < checkInClass.getAttendance().size(); i++) {
-                        System.out.print("    ");
+                        System.out.print("   ");
                         System.out.println(checkInClass.getAttendance().get(i));
                     }
+                    System.out.println();
                 } else {
                     System.out.println(storedEntry.getFname() + " " + storedEntry.getLname() + " already checked in.");
                 }
@@ -292,6 +293,7 @@ public class GymManager {
                 System.out.print("    ");
                 System.out.println(checkInClass.getGuests().get(i));
             }
+            System.out.println();
         }
     }
 
@@ -320,6 +322,7 @@ public class GymManager {
                 System.out.print("    ");
                 System.out.println(checkInClass.getGuests().get(i));
             }
+            System.out.println();
         }
     }
 
@@ -403,7 +406,7 @@ public class GymManager {
                 return true;
             }
         }
-        System.out.println(name + " - class does not exist");
+        System.out.println(name + " - class does not exist.");
         return false;
     }
 
@@ -419,7 +422,7 @@ public class GymManager {
 
         if (validClass(dropMemberInput[0]) && validGym(dropMemberInput[2]) && validInstructor(dropMemberInput[1])) {
             if (!DOB.isValid()) {
-                System.out.println(DOB + ": invalid calendar date!");
+                System.out.println("DOB " + DOB + ": invalid calendar date!");
             } else if (storedEntry == null) {
                 System.out.println(dropMemberInput[3] + " " + dropMemberInput[4] + " " + dropMemberInput[5] + " is not in the database.");
             } else {
@@ -427,9 +430,9 @@ public class GymManager {
                 if (checkInClass == null) {
                     System.out.println(dropMemberInput[0] + " by " + dropMemberInput[1] + " does not exist at " + dropMemberInput[2]);
                 } else if (checkInClass.removeMember(storedEntry)) {
-                    System.out.println(storedEntry.getFname() + " " + storedEntry.getLname() + " done with the class");
+                    System.out.println(storedEntry.getFname() + " " + storedEntry.getLname() + " done with the class.");
                 } else {
-                    System.out.println(storedEntry.getFname() + " " + storedEntry.getLname() + " did not check in");
+                    System.out.println(storedEntry.getFname() + " " + storedEntry.getLname() + " did not check in.");
                 }
             }
         }
@@ -480,8 +483,8 @@ public class GymManager {
             }
             System.out.println("-Fitness classes loaded-");
             for (int i = 0; i < listOfClasses.getSize(); i++) {
-                System.out.println(listOfClasses.getClasses()[i]);
-                }
+                System.out.println(listOfClasses.getClasses()[i].toString());
+            }
             System.out.println("-end of class list.");
         } catch (FileNotFoundException e) {
             System.out.println("classSchedule.txt file not found.");
@@ -499,9 +502,10 @@ public class GymManager {
                 Member newMem = new Member(readMem.nextLine());
                 database.add(newMem);
             }
-            System.out.println("-list of members loaded");
+            System.out.println("-list of members loaded-");
             database.print();
             System.out.println("-end of list-");
+            System.out.println();
         } catch (FileNotFoundException e) {
             System.out.println("memberList.txt file not found");
         }
