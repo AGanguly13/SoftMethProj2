@@ -43,6 +43,9 @@ public class FitnessClass {
      * @return true if guest was added, false otherwise.
      */
     public boolean addGuest(Member member) {
+        if (member == null) {
+            return false;
+        }
         return guests.add(member);
     }
 
@@ -125,7 +128,7 @@ public class FitnessClass {
      * @return true if the member was successfully added and is not a duplicate, false otherwise.
      */
     public boolean addMember(Member member) {
-        if (attendance.contains(member)){
+        if (attendance.contains(member) || member == null){
             return false;
         }
         return attendance.add(member);
