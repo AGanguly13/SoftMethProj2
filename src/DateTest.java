@@ -3,7 +3,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class DateTest {
 
-    @org.junit.jupiter.api.Test
+    @Test
     void valid_month_in_year() {
         Date date1 = new Date("-1/31/2003");
         assertFalse(date1.isValid());
