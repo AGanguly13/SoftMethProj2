@@ -1,5 +1,4 @@
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
 import java.util.Scanner;
 import java.io.File;
 /**
@@ -218,7 +217,7 @@ public class GymManager {
                 if (checkInClass == null) {
                     System.out.println(split[0] + " by " + split[1] + " does not exist at " + split[2]);
                 } else if (findConflict(checkInClass.getTime(), storedEntry, split[1])) {
-                    System.out.println("Time conflict - " + checkInClass.toString() + ", " + checkInClass.getLocation().getStringZip() + ", " + checkInClass.getLocation().getCounty());
+                    System.out.println("Time conflict - " + checkInClass + ", " + checkInClass.getLocation().getStringZip() + ", " + checkInClass.getLocation().getCounty());
                 } else if (Location.valueOf(split[2].toUpperCase()) != storedEntry.getLocation() && !(storedEntry instanceof Family)) {
                     System.out.println(storedEntry.getFname() + " " + storedEntry.getLname() + " checking in " + checkInClass.getLocation() + " - standard membership restriction.");
                 } else if (checkInClass.addMember(storedEntry)) {
@@ -398,7 +397,7 @@ public class GymManager {
     /**
      * Helper method to determine if the given class name is valid.
      * @param name the name of the class
-     * @return true if the class if valid, false otherwise.
+     * @return true if the class is valid, false otherwise.
      */
     private boolean validClass(String name) {
         for (int i = 0; i < listOfClasses.getSize(); i++) {
@@ -466,7 +465,6 @@ public class GymManager {
 
     /**
      * Loads the fitness classes from a text file.
-     * @throws FileNotFoundException when file not found.
      */
     private void loadClasses() {
         try {
@@ -493,7 +491,6 @@ public class GymManager {
 
     /**
      * Loads the member list from a text file.
-     * @throws  FileNotFoundException when file not found.
      */
     private void bulkLoad() {
         try {

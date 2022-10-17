@@ -1,4 +1,3 @@
-import java.sql.Array;
 import java.util.ArrayList;
 /**
  * Defines the fitness classes offered.
@@ -89,14 +88,6 @@ public class FitnessClass {
      */
     public ArrayList<Member> getAttendance() {
         return attendance;
-    }
-
-    /**
-     * Returns whether the member database for the class is empty.
-     * @return true if empty, false otherwise.
-     */
-    public boolean isEmpty() {
-        return attendance.isEmpty();
     }
 
     /**

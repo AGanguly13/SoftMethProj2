@@ -52,7 +52,7 @@ public class Date implements Comparable<Date> {
 
     /**
      * Constructs a date object given an expiration.
-     * @param setExpiration
+     * @param setExpiration the expiration timeframe
      */
     public Date(int setExpiration) {
         Calendar today = Calendar.getInstance();
