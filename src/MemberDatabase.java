@@ -24,35 +24,12 @@ public class MemberDatabase {
     }
 
     /**
-     * This method is a getter for the size of a database array structure.
-     * @return the size of the array structure
-     */
-    public int getSize() {
-        return this.size;
-    } // THIS MAY NEED TO BE REMOVED IF NOT USED
-
-    /**
      * This method checks if a database object does or does not have any members in it.
      * @return true if the database has no members, false if it does have members.
      */
     public boolean isEmpty() {
         if (this.size == 0) {
             return true;
-        }
-        return false;
-    }
-
-    /**
-     * This method checks if a member is currently in the array structure representing a Member
-     * Database.
-     * @param member is the member that is being checked for if they are in the array structure.
-     * @return true if the member is in the array, false otherwise.
-     */
-    public boolean isInArray(Member member) {
-        for (int x = 0; x < this.size; x++) {
-            if (this.mlist[x].equals(member)) {
-                return true;
-            }
         }
         return false;
     }

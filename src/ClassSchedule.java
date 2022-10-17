@@ -64,7 +64,7 @@ public class ClassSchedule {
     }
 
     /**
-     * Method to print the class schedule.
+     * This method prints the class schedules.
      */
     public void printClasses() {
         if (numClasses == 0) {

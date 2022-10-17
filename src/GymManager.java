@@ -14,7 +14,7 @@ public class GymManager {
 
     /**
      * Runs the Gym Manager and accepts input from command line.
-     * Only terminates upon typing "Q".
+     * The Gym Manager only terminates upon typing "Q".
      */
     public void run() {
         System.out.println("Gym Manager running...");
@@ -49,8 +49,7 @@ public class GymManager {
     }
 
     /**
-     * Helper method for running the GymManager class and handling command line inputs
-     *
+     * Helper method for running the GymManager class and handling command line inputs.
      * @param commandInputs is the current command line separated into an array of two elements, the command letter and the subsequent information.
      */
     public void run2(String[] commandInputs) {
@@ -250,7 +249,7 @@ public class GymManager {
      * Helper method to check in a guest for a fitness class.
      * Will keep track of guest passes for the member.
      *
-     * @param input
+     * @param input is the information that follows the CG command from the user input, describing the location, class name, instructor, and the member whose guest is checking in.
      */
     private void checkInGuest(String input) {
         String[] split = input.split(" ");
@@ -271,9 +270,9 @@ public class GymManager {
                 System.out.println("Standard membership - guest check-in is not allowed.");
             } else if (storedEntry.getLocation() != Location.valueOf(split[2].toUpperCase())) {
                 System.out.println(split[3] + " " + split[4] + " Guest checking in " + Location.valueOf(split[2].toUpperCase()) + " - guest location restriction.");
-            } else if (storedEntry instanceof Family && !(storedEntry instanceof Premium)) {
+            } else if (!(storedEntry instanceof Premium)) {
                 checkInFamily(storedEntry, checkInClass);
-            } else if (storedEntry instanceof Premium) {
+            } else {
                 checkInPremium(storedEntry, checkInClass);
             }
         }
@@ -311,7 +310,7 @@ public class GymManager {
 
     /**
      * Helper method to check in a guest with a premium guest pass.
-     * Will also print out the participants and guests in the specified class
+     * This method will also print out the participants and guests in the specified class.
      *
      * @param member       the owner of the membership
      * @param checkInClass the desired class to check into
@@ -461,7 +460,7 @@ public class GymManager {
      * Helper method to check out a guest from a fitness class.
      * Will keep track of remaining guest passes.
      *
-     * @param input
+     * @param input is a string following the DG command that contains information such as the class name, location, instructor, and the member whose guest is checking out.
      */
     private void dropGuest(String input) {
         String[] dropMemberInput = input.split(" ");
@@ -474,7 +473,9 @@ public class GymManager {
             System.out.println(dropMemberInput[3] + " " + dropMemberInput[4] + " " + dropMemberInput[5] + " is not in the database.");
         } else {
             FitnessClass checkInClass = findClass(listOfClasses.getClasses(), dropMemberInput[2], dropMemberInput[1], dropMemberInput[0]);
-            checkInClass.removeGuest(storedEntry);
+            if (checkInClass != null) {
+                checkInClass.removeGuest(storedEntry);
+            }
             System.out.println(storedEntry.getFname() + " " + storedEntry.getLname() + " Guest done with the class");
             if (storedEntry instanceof Family && !(storedEntry instanceof Premium)) {
                 ((Family) storedEntry).returnGuestPasses();
@@ -485,7 +486,7 @@ public class GymManager {
     }
 
     /**
-     * Loads the fitness classes from a text file.
+     * This loads the fitness classes from a text file.
      */
     private void loadClasses() {
         try {
@@ -511,7 +512,7 @@ public class GymManager {
     }
 
     /**
-     * Loads the member list from a text file.
+     * This method loads the member list from a text file.
      */
     private void bulkLoad() {
         try {

@@ -25,22 +25,6 @@ public enum Time {
     }
 
     /**
-     * Getter method for hour.
-     * @return the hour of day.
-     */
-    public int getHour() {
-        return hour;
-    }
-
-    /**
-     * Getter method for minute.
-     * @return the minute of the hour.
-     */
-    public int getMinute() {
-        return minute;
-    }
-
-    /**
      * Reformats the current Time object's hours and minutes into a clock format.
      * Format is hh:mm, where h is hours and m is minutes.
      * @return the clock representation.

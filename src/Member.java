@@ -139,7 +139,7 @@ public class Member implements Comparable<Member> {
      * Getter for the QUARTERLY final constant.
      * @return the QUARTERLY final constant variable.
      */
-    public double getQuarterly() {
+    public int getQuarterly() {
         return QUARTERLY;
     }
 
@@ -164,7 +164,7 @@ public class Member implements Comparable<Member> {
         if (this == obj) {
             return true;
         }
-        if (obj == null || (obj instanceof Member) == false) {
+        if (!(obj instanceof Member)) {
             return false;
         }
 
