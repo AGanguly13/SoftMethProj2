@@ -1,4 +1,5 @@
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.Scanner;
 import java.io.File;
 /**
@@ -62,7 +63,7 @@ public class GymManager {
             } else if (commandInputs[0].equals("PF")) {
                 database.printWithMembershipFee();
             } else if (commandInputs[0].equals("S")) {
-                listOfClasses.print();
+                printClasses();
             } else if (commandInputs[0].equals("C")) {
                 checkIn(commandInputs[1]);
             } else if (commandInputs[0].equals("CG")) {
@@ -514,6 +515,41 @@ public class GymManager {
             System.out.println();
         } catch (FileNotFoundException e) {
             System.out.println("memberList.txt file not found");
+        }
+    }
+
+    /**
+     * Helper method to print the class schedule.
+     */
+    private void printClasses() {
+        if (listOfClasses.getSize() == 0) {
+            System.out.println("Fitness class schedule is empty.");
+            System.out.println();
+        }
+        else {
+            System.out.println("- Fitness classes -");
+            for (int i = 0; i < listOfClasses.getSize(); i++) {
+                System.out.println(listOfClasses.getClasses()[i]);
+                ArrayList attendance = listOfClasses.getClasses()[i].getAttendance();
+                if (attendance.size() != 0) {
+                    System.out.println("- Participants -");
+                }
+                for (int j = 0; j < attendance.size(); j++) {
+                    System.out.print("    ");
+                    System.out.println(attendance.get(j));
+                }
+
+                if (listOfClasses.getClasses()[i].getGuests().size() != 0) {
+                    System.out.println("- Guests -");
+                }
+                for (int k = 0; k < listOfClasses.getClasses()[i].getGuests().size(); k++) {
+                    System.out.print("    ");
+                    System.out.println(listOfClasses.getClasses()[i].getGuests().get(k));
+                }
+
+            }
+            System.out.println("-end of class list.");
+            System.out.println();
         }
     }
 }
