@@ -1,8 +1,7 @@
 import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.*;
 
-class DateTest {
+public class DateTest {
 
     @org.junit.jupiter.api.Test
     void valid_month_in_year() {

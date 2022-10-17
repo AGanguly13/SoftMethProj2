@@ -35,42 +35,51 @@ public class GymManager {
             } else if (inputs[0].equals("P")) {
                 if (database.isEmpty()) {
                     database.print();
-                }
-                else {
+                } else {
                     System.out.println("-list of members-");
                     database.print();
                     System.out.println("-end of list-");
                     System.out.println();
                 }
-            } else if (inputs[0].equals("PC")) {
-                database.printByCounty();
-            } else if (inputs[0].equals("PN")) {
-                database.printByName();
-            } else if (inputs[0].equals("PD")) {
-                database.printByExpirationDate();
-            } else if (inputs[0].equals("PF")) {
-                database.printWithMembershipFee();
-            } else if (inputs[0].equals("S")) {
-                listOfClasses.print();
-            } else if (inputs[0].equals("C")) {
-                checkIn(inputs[1]);
-            } else if (inputs[0].equals("CG")) {
-                checkInGuest(inputs[1]);
-            } else if (inputs[0].equals("D")) {
-                dropMember(inputs[1]);
-            } else if (inputs[0].equals("DG")) {
-                dropGuest(inputs[1]);
-            } else if (inputs[0].equals("LS")) {
-                loadClasses();
-            } else if (inputs[0].equals("LM")) {
-                bulkLoad();
-            } else if (inputs[0].equals("")) {
-                System.out.println();
             } else {
-                System.out.println(inputs[0] + " is an invalid command!");
+                run2(inputs);
             }
         }
         System.out.println("Gym Manager Terminated");
+    }
+
+    /**
+     * Helper method for running the GymManager class and handling command line inputs
+     * @param commandInputs is the current command line separated into an array of two elements, the command letter and the subsequent information.
+     */
+    public void run2(String[] commandInputs) {
+            if (commandInputs[0].equals("PC")) {
+                database.printByCounty();
+            } else if (commandInputs[0].equals("PN")) {
+                database.printByName();
+            } else if (commandInputs[0].equals("PD")) {
+                database.printByExpirationDate();
+            } else if (commandInputs[0].equals("PF")) {
+                database.printWithMembershipFee();
+            } else if (commandInputs[0].equals("S")) {
+                listOfClasses.print();
+            } else if (commandInputs[0].equals("C")) {
+                checkIn(commandInputs[1]);
+            } else if (commandInputs[0].equals("CG")) {
+                checkInGuest(commandInputs[1]);
+            } else if (commandInputs[0].equals("D")) {
+                dropMember(commandInputs[1]);
+            } else if (commandInputs[0].equals("DG")) {
+                dropGuest(commandInputs[1]);
+            } else if (commandInputs[0].equals("LS")) {
+                loadClasses();
+            } else if (commandInputs[0].equals("LM")) {
+                bulkLoad();
+            } else if (commandInputs[0].equals("")) {
+                System.out.println();
+            } else {
+                System.out.println(commandInputs[0] + " is an invalid command!");
+            }
     }
 
     /**

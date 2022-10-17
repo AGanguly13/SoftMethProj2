@@ -2,8 +2,9 @@
  * Defines a member object to be a part of a gym.
  * Implements compareTo(), toString(), and equals() methods for comparing and representing members,
  * as well as getter methods for all instance variables.
- * Also includes two constructors, one with all instance variables being initialized, and another
- * constructor with only first and last name as well as Date of Birth being initialized.
+ * Also includes three constructors, one with all instance variables being initialized, one
+ * constructor with only first and last name as well as Date of Birth being initialized, and one
+ * to initialize either a standard, family, or premium member.
  * @author Adwait Ganguly, Kennan Guan
  */
 public class Member implements Comparable<Member> {
@@ -47,11 +48,11 @@ public class Member implements Comparable<Member> {
     }
 
     /**
-     * Constructor for adding a new standard, family, or premium membership member dependent on expiry date.
-     * @param fName
-     * @param lName
-     * @param DOB
-     * @param location
+     * Constructor for adding a new standard, family, or premium membership member dependent on expiration date.
+     * @param fName is the first name of the member.
+     * @param lName is the last name of the member
+     * @param DOB is the date of birth of the member.
+     * @param location is the city location of gym that is associated with the member.
      */
     public Member (String fName, String lName, String DOB, String location, int expirationMonthsLater) {
         this.fname = fName;
@@ -60,6 +61,7 @@ public class Member implements Comparable<Member> {
         this.location = Location.valueOf(location.toUpperCase());
         this.expire = new Date(expirationMonthsLater); //need to implement a new data constructor that sets expiration to x months from today
     }
+
     /**
      * Getter method for Member first name.
      * @return a String representing the first name of the Member.
@@ -118,24 +120,24 @@ public class Member implements Comparable<Member> {
 
     /**
      * This method defines the membership fee for a standard Member.
-     * This includes the one time fee and next statement fee for this quarter.
-     * @return the current membership fee of the member.
+     * This includes the one time fee and next statement fee for the quarter.
+     * @return the current membership fee of the standard member.
      */
     public double membershipFee() {
         return ONETIMEFEE + (QUARTERLY * STANDARDMONTHLYFEE);
     }
 
     /**
-     * Getter for onetimefee constant which will be same as one time fee in Family subclass
-     * @return
+     * Getter method for the ONETIMEFEE final constant.
+     * @return the ONETIMEFEE final constant variable.
      */
     public double getOneTimeFee() {
         return ONETIMEFEE;
     }
 
     /**
-     * Getter for quarterly static constant
-     * @return
+     * Getter for the QUARTERLY final constant.
+     * @return the QUARTERLY final constant variable.
      */
     public double getQuarterly() {
         return QUARTERLY;
