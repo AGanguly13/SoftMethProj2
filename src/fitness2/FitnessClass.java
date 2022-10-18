@@ -2,7 +2,7 @@ package fitness2;
 import java.util.ArrayList;
 /**
  * Defines the fitness classes offered.
- * Each fitness class consists of a =Time enum instance, an instructor String instance variable,
+ * Each fitness class consists of a Time enum instance, an instructor String instance variable,
  * a name String instance variable, and a MemberDatabase instance.
  * Methods that occur in the FitnessClass class include getter methods, a method to check if a fitness
  * class has no participants, and methods to add or remove participants from a fitness class.
