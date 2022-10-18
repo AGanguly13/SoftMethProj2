@@ -1,7 +1,8 @@
+package fitness2;
 import java.util.ArrayList;
 /**
  * Defines the fitness classes offered.
- * Each fitness class consists of a Time enum instance, an instructor String instance variable,
+ * Each fitness class consists of a =Time enum instance, an instructor String instance variable,
  * a name String instance variable, and a MemberDatabase instance.
  * Methods that occur in the FitnessClass class include getter methods, a method to check if a fitness
  * class has no participants, and methods to add or remove participants from a fitness class.
@@ -20,6 +21,7 @@ public class FitnessClass {
      * @param time A Time object which specifies morning or afternoon timeslot.
      * @param instructor The name of the instructor for the class.
      * @param name The type of class being offered.
+     * @param location is the location where the fitness class is being held.
      */
     public FitnessClass(Time time, String instructor, String name, Location location) {
         this.time = time;
@@ -41,6 +43,7 @@ public class FitnessClass {
     /**
      * Adds one guest into this fitness class.
      * @return true if guest was added, false otherwise.
+     * @param member is the member whose guest is being checked in to a fitness class.
      */
     public boolean addGuest(Member member) {
         if (member == null) {
@@ -52,6 +55,7 @@ public class FitnessClass {
     /**
      * Removes one guest from this fitness class.
      * @return true if guest was removed, false otherwise.
+     * @param member is the member whose guest is being checked out from the fitness class.
      */
     public boolean removeGuest(Member member){
         return guests.remove(member);

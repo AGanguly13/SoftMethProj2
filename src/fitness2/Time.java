@@ -1,3 +1,4 @@
+package fitness2;
 import java.text.DecimalFormat;
 /**
  * Defines the times of the set fitness classes as morning and afternoon fitness class sessions.

@@ -1,3 +1,4 @@
+package fitness2;
 /**
  * Defines a Family member to be a part of the gym.
  * This class is a Generalization subclass of the Member class. The additional instance variable

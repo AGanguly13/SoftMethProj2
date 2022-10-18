@@ -1,3 +1,4 @@
+package fitness2;
 /**
  * Defines a schedule of fitness classes.
  * A class schedule is defined by a list of classes on the schedule and a counter to keep track of the classes in the list.
@@ -72,7 +73,7 @@ public class ClassSchedule {
             System.out.println();
         }
         else {
-            System.out.println("- Fitness classes -");
+            System.out.println("-Fitness classes-");
             for (int i = 0; i < numClasses; i++) {
                 System.out.println(classes[i]);
                 Member[] attendance = classes[i].getList();
@@ -80,7 +81,7 @@ public class ClassSchedule {
                     System.out.println("- Participants -");
                 }
                 for (int j = 0; j < attendance.length; j++) {
-                    System.out.print("    ");
+                    System.out.print("   ");
                     System.out.println(attendance[j]);
                 }
 
@@ -88,7 +89,7 @@ public class ClassSchedule {
                     System.out.println("- Guests -");
                 }
                 for (int k = 0; k < classes[i].getGuestList().length; k++) {
-                    System.out.print("    ");
+                    System.out.print("   ");
                     System.out.println(classes[i].getGuestList()[k]);
                 }
 

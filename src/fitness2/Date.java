@@ -1,3 +1,4 @@
+package fitness2;
 import java.util.Calendar;
 /**
  * Defines the date object by splitting a string into three integer values - day, month, and year.
@@ -121,7 +122,7 @@ public class Date implements Comparable<Date> {
     }
 
     /**
-     * Textual representation of the Date object.
+     * Textual representation of the .Date object.
      * @return a string in the format month/day/year.
      */
     @Override

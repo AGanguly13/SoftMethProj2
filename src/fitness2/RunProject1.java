@@ -1,3 +1,4 @@
+package fitness2;
 /**
  * Driver class to run the GymManager class.
  * This class implements a main method that will run the GymManager class and thus initializes

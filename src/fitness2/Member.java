@@ -1,3 +1,4 @@
+package fitness2;
 /**
  * Defines a member object to be a part of a gym.
  * Implements compareTo(), toString(), and equals() methods for comparing and representing members,
@@ -53,6 +54,7 @@ public class Member implements Comparable<Member> {
      * @param lName is the last name of the member
      * @param DOB is the date of birth of the member.
      * @param location is the city location of gym that is associated with the member.
+     * @param expirationMonthsLater is the number of months after today that the membership will expire.
      */
     public Member (String fName, String lName, String DOB, String location, int expirationMonthsLater) {
         this.fname = fName;
@@ -72,7 +74,7 @@ public class Member implements Comparable<Member> {
 
     /**
      * Getter method for Member last name.
-     * @return a String representing the last name of the Member.
+     * @return a String representing the last name of the =Member.
      */
     public String getLname() {
         return this.lname;

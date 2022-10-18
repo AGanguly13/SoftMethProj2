@@ -1,3 +1,4 @@
+package fitness2;
 /**
  * Defines the Member Database for the entire fitness chain.
  * The database is implemented as a resizable array, and the class implements methods to increase

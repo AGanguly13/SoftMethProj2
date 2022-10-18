@@ -1,3 +1,4 @@
+package fitness2;
 /**
  * Defines the five set gym locations.
  * Includes three String instance variables representing city name, zipcode, and county name, respectively.

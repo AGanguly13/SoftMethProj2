@@ -1,3 +1,4 @@
+package fitness2;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 import java.io.File;
@@ -45,7 +46,7 @@ public class GymManager {
                 run2(inputs);
             }
         }
-        System.out.println("Gym Manager Terminated");
+        System.out.println("Gym Manager terminated.");
     }
 
     /**
@@ -112,7 +113,7 @@ public class GymManager {
             if (database.add(newEntry)) {
                 System.out.println(newEntry.getFname() + " " + newEntry.getLname() + " added.");
             } else {
-                System.out.println(newEntry.getFname() + " " + newEntry.getLname() + " is already in database.");
+                System.out.println(newEntry.getFname() + " " + newEntry.getLname() + " is already in the database.");
             }
         }
     }
@@ -147,7 +148,7 @@ public class GymManager {
             if (database.add(newEntry)) {
                 System.out.println(newEntry.getFname() + " " + newEntry.getLname() + " added.");
             } else {
-                System.out.println(newEntry.getFname() + " " + newEntry.getLname() + " is already in database.");
+                System.out.println(newEntry.getFname() + " " + newEntry.getLname() + " is already in the database.");
             }
         }
     }
@@ -182,7 +183,7 @@ public class GymManager {
             if (database.add(newEntry)) {
                 System.out.println(newEntry.getFname() + " " + newEntry.getLname() + " added.");
             } else {
-                System.out.println(newEntry.getFname() + " " + newEntry.getLname() + " is already in database.");
+                System.out.println(newEntry.getFname() + " " + newEntry.getLname() + " is already in the database.");
             }
         }
     }
@@ -229,7 +230,7 @@ public class GymManager {
                 } else if (findConflict(checkInClass.getTime(), storedEntry, split[1])) {
                     System.out.println("Time conflict - " + checkInClass + ", " + checkInClass.getLocation().getStringZip() + ", " + checkInClass.getLocation().getCounty());
                 } else if (Location.valueOf(split[2].toUpperCase()) != storedEntry.getLocation() && !(storedEntry instanceof Family)) {
-                    System.out.println(storedEntry.getFname() + " " + storedEntry.getLname() + " checking in " + checkInClass.getLocation() + " - standard membership restriction.");
+                    System.out.println(storedEntry.getFname() + " " + storedEntry.getLname() + " checking in " + checkInClass.getLocation() + " - standard membership location restriction.");
                 } else if (checkInClass.addMember(storedEntry)) {
                     System.out.println(storedEntry.getFname() + " " + storedEntry.getLname() + " checked in " + checkInClass);
                     System.out.println("- Participants -");
@@ -295,13 +296,13 @@ public class GymManager {
             if (checkInClass.getAttendance().size() != 0) {
                 System.out.println("- Participants -");
                 for (int i = 0; i < checkInClass.getAttendance().size(); i++) {
-                    System.out.print("    ");
+                    System.out.print("   ");
                     System.out.println(checkInClass.getAttendance().get(i));
                 }
             }
             System.out.println("- Guests -");
             for (int i = 0; i < checkInClass.getGuests().size(); i++) {
-                System.out.print("    ");
+                System.out.print("   ");
                 System.out.println(checkInClass.getGuests().get(i));
             }
             System.out.println();
@@ -325,13 +326,13 @@ public class GymManager {
             if (checkInClass.getAttendance().size() != 0) {
                 System.out.println("- Participants -");
                 for (int i = 0; i < checkInClass.getAttendance().size(); i++) {
-                    System.out.print("    ");
+                    System.out.print("   ");
                     System.out.println(checkInClass.getAttendance().get(i));
                 }
             }
             System.out.println("- Guests -");
             for (int i = 0; i < checkInClass.getGuests().size(); i++) {
-                System.out.print("    ");
+                System.out.print("   ");
                 System.out.println(checkInClass.getGuests().get(i));
             }
             System.out.println();
@@ -490,7 +491,7 @@ public class GymManager {
      */
     private void loadClasses() {
         try {
-            Scanner sc = new Scanner(new File("classSchedule.txt"));
+            Scanner sc = new Scanner(new File("src/classSchedule.txt"));
 
             while (sc.hasNextLine()) {
                 String[] inputs = sc.nextLine().split("\\s+");
@@ -516,7 +517,7 @@ public class GymManager {
      */
     private void bulkLoad() {
         try {
-            Scanner readMem = new Scanner(new File("memberList.txt"));
+            Scanner readMem = new Scanner(new File("src/memberList.txt"));
             while (readMem.hasNextLine()) {
                 Member newMem = new Member(readMem.nextLine());
                 database.add(newMem);
